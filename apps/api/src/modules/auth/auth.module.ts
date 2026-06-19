@@ -9,7 +9,8 @@ import { JwtAuthGuard } from './guards/jwt-auth.guard';
     // Configure JWT Module globally across NestJS features
     JwtModule.register({
       global: true,
-      secret: process.env.JWT_SECRET || 'super_secret_jwt_key_for_dev_only_123456789',
+      secret:
+        process.env.JWT_SECRET || 'super_secret_jwt_key_for_dev_only_123456789',
       signOptions: { expiresIn: '24h' }, // Standard session duration for operator logins
     }),
   ],

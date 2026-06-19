@@ -10,7 +10,11 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async login(tenantSlug: string, email: string, passwordHash: string): Promise<any> {
+  async login(
+    tenantSlug: string,
+    email: string,
+    passwordHash: string,
+  ): Promise<any> {
     // 1. Locate tenant by its unique slug
     const tenant = await this.db.client.tenant.findUnique({
       where: { slug: tenantSlug },
@@ -21,16 +25,19 @@ export class AuthService {
     }
 
     // 2. Locate user inside the found tenant scope (using tenantLocalStorage.run to satisfy RLS check)
-    const user = await tenantLocalStorage.run({ tenantId: tenant.id }, async () => {
-      return await this.db.client.user.findUnique({
-        where: {
-          tenantId_email: {
-            tenantId: tenant.id,
-            email,
+    const user = await tenantLocalStorage.run(
+      { tenantId: tenant.id },
+      async () => {
+        return await this.db.client.user.findUnique({
+          where: {
+            tenantId_email: {
+              tenantId: tenant.id,
+              email,
+            },
           },
-        },
-      });
-    });
+        });
+      },
+    );
 
     // 3. Verify password hash matches
     if (!user || user.passwordHash !== passwordHash) {

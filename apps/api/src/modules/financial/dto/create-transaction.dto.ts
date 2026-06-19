@@ -1,4 +1,12 @@
-import { IsDecimal, IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString, IsUUID, Min } from 'class-validator';
+import {
+  IsEnum,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+  IsUUID,
+  Min,
+} from 'class-validator';
 import { TransactionType, TransactionStatus } from '@prisma/client';
 
 export class CreateTransactionDto {
@@ -7,7 +15,10 @@ export class CreateTransactionDto {
   patientId?: string;
 
   @IsNotEmpty()
-  @IsNumber({ maxDecimalPlaces: 2 }, { message: 'O valor deve ser numérico com no máximo 2 casas decimais' })
+  @IsNumber(
+    { maxDecimalPlaces: 2 },
+    { message: 'O valor deve ser numérico com no máximo 2 casas decimais' },
+  )
   @Min(0.01, { message: 'O valor do lançamento deve ser maior que zero' })
   amount: number;
 

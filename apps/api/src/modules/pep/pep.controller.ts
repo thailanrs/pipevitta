@@ -1,4 +1,13 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import { PepService } from './pep.service';
 import { CreatePatientDto } from './dto/create-patient.dto';
 import { UpdatePatientDto } from './dto/update-patient.dto';
@@ -15,25 +24,41 @@ export class PepController {
   constructor(private readonly pepService: PepService) {}
 
   @Post()
-  @Profiles(UserProfile.ADMIN, UserProfile.RECEPCIONISTA, UserProfile.PROFISSIONAL)
+  @Profiles(
+    UserProfile.ADMIN,
+    UserProfile.RECEPCIONISTA,
+    UserProfile.PROFISSIONAL,
+  )
   async create(@Body() createPatientDto: CreatePatientDto): Promise<any> {
     return this.pepService.create(createPatientDto);
   }
 
   @Get()
-  @Profiles(UserProfile.ADMIN, UserProfile.RECEPCIONISTA, UserProfile.PROFISSIONAL)
+  @Profiles(
+    UserProfile.ADMIN,
+    UserProfile.RECEPCIONISTA,
+    UserProfile.PROFISSIONAL,
+  )
   async findAll(): Promise<any[]> {
     return this.pepService.findAll();
   }
 
   @Get(':id')
-  @Profiles(UserProfile.ADMIN, UserProfile.RECEPCIONISTA, UserProfile.PROFISSIONAL)
+  @Profiles(
+    UserProfile.ADMIN,
+    UserProfile.RECEPCIONISTA,
+    UserProfile.PROFISSIONAL,
+  )
   async findOne(@Param('id') id: string): Promise<any> {
     return this.pepService.findOne(id);
   }
 
   @Patch(':id')
-  @Profiles(UserProfile.ADMIN, UserProfile.RECEPCIONISTA, UserProfile.PROFISSIONAL)
+  @Profiles(
+    UserProfile.ADMIN,
+    UserProfile.RECEPCIONISTA,
+    UserProfile.PROFISSIONAL,
+  )
   async update(
     @Param('id') id: string,
     @Body() updatePatientDto: UpdatePatientDto,
@@ -55,6 +80,10 @@ export class PepController {
     @Body() addEvolutionDto: AddEvolutionDto,
     @CurrentUser('name') professionalName: string,
   ): Promise<any> {
-    return this.pepService.addEvolution(id, addEvolutionDto.content, professionalName);
+    return this.pepService.addEvolution(
+      id,
+      addEvolutionDto.content,
+      professionalName,
+    );
   }
 }

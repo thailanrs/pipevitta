@@ -1,4 +1,9 @@
-import { Injectable, NestInterceptor, ExecutionContext, CallHandler } from '@nestjs/common';
+import {
+  Injectable,
+  NestInterceptor,
+  ExecutionContext,
+  CallHandler,
+} from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Request } from 'express';
@@ -31,7 +36,8 @@ export class AuditInterceptor implements NestInterceptor {
     const ipAddress = request.ip || request.socket.remoteAddress;
     const userAgent = request.headers['user-agent'];
     const resource = context.getClass().name.replace('Controller', '');
-    const resourceId = request.params.id || undefined;
+    const resourceId =
+      typeof request.params.id === 'string' ? request.params.id : null;
 
     let action = 'CREATE';
     if (method === 'PUT' || method === 'PATCH') {
@@ -44,27 +50,33 @@ export class AuditInterceptor implements NestInterceptor {
     const beforeState = method !== 'POST' ? request.body : null;
 
     return next.handle().pipe(
-      tap(async (response) => {
-        try {
-          const afterState = method !== 'DELETE' ? response : null;
+      tap((response) => {
+        void (async () => {
+          try {
+            const afterState = method !== 'DELETE' ? response : null;
 
-          // Write audit log entry asynchronously in the background
-          await this.db.client.auditLog.create({
-            data: {
-              tenantId,
-              userId,
-              ipAddress,
-              userAgent,
-              action,
-              resource,
-              resourceId,
-              beforeState: beforeState ? JSON.parse(JSON.stringify(beforeState)) : undefined,
-              afterState: afterState ? JSON.parse(JSON.stringify(afterState)) : undefined,
-            },
-          });
-        } catch (error) {
-          console.error('Error recording audit trail:', error);
-        }
+            // Write audit log entry asynchronously in the background
+            await this.db.client.auditLog.create({
+              data: {
+                tenantId,
+                userId,
+                ipAddress,
+                userAgent,
+                action,
+                resource,
+                resourceId,
+                beforeState: beforeState
+                  ? JSON.parse(JSON.stringify(beforeState))
+                  : undefined,
+                afterState: afterState
+                  ? JSON.parse(JSON.stringify(afterState))
+                  : undefined,
+              },
+            });
+          } catch (error) {
+            console.error('Error recording audit trail:', error);
+          }
+        })();
       }),
     );
   }

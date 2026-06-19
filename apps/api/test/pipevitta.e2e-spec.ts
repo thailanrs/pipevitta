@@ -5,13 +5,14 @@ dotenv.config({ path: path.resolve(__dirname, '../../../.env') });
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import request from 'supertest';
+import { App } from 'supertest/types';
 import { AppModule } from './../src/app.module';
 import { DatabaseService } from '../src/common/database/database.service';
-import { TransactionType, TransactionStatus, tenantLocalStorage } from '@pipevitta/database';
+import { TransactionType, TransactionStatus } from '@pipevitta/database';
 import * as crypto from 'crypto';
 
 describe('PipeVitta API End-to-End Tests', () => {
-  let app: INestApplication;
+  let app: INestApplication<App>;
   let db: DatabaseService;
   let sorrisoToken: string;
   let bellaToken: string;
@@ -20,7 +21,10 @@ describe('PipeVitta API End-to-End Tests', () => {
   let carlosUserId: string;
 
   // Generate the password hash dynamically to match seed encryption
-  const passwordHash = crypto.createHash('sha256').update('pipevitta123').digest('hex');
+  const passwordHash = crypto
+    .createHash('sha256')
+    .update('pipevitta123')
+    .digest('hex');
 
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -39,20 +43,28 @@ describe('PipeVitta API End-to-End Tests', () => {
     db = app.get(DatabaseService);
 
     // Fetch tenant and user details populated by the seed script
-    const sorriso = await db.client.tenant.findUnique({ where: { slug: 'clinica-sorriso' } });
-    const bella = await db.client.tenant.findUnique({ where: { slug: 'clinica-bella' } });
-    
+    const sorriso = await db.client.tenant.findUnique({
+      where: { slug: 'clinica-sorriso' },
+    });
+    const bella = await db.client.tenant.findUnique({
+      where: { slug: 'clinica-bella' },
+    });
+
     if (!sorriso || !bella) {
       throw new Error('Seed data not found. Please run npm run db:seed first.');
     }
-    
+
     sorrisoTenantId = sorriso.id;
     bellaTenantId = bella.id;
 
     // Use transaction-based tenant binding to bypass Jest's AsyncLocalStorage issues in test lifecycle
     const carlos = await db.client.$transaction(async (tx) => {
-      await tx.$executeRawUnsafe(`SET LOCAL app.current_tenant = '${sorrisoTenantId}'`);
-      return tx.user.findFirst({ where: { tenantId: sorrisoTenantId, email: 'carlos@sorriso.com.br' } });
+      await tx.$executeRawUnsafe(
+        `SET LOCAL app.current_tenant = '${sorrisoTenantId}'`,
+      );
+      return tx.user.findFirst({
+        where: { tenantId: sorrisoTenantId, email: 'carlos@sorriso.com.br' },
+      });
     });
     if (!carlos) {
       throw new Error('Seed professional user not found.');
@@ -88,9 +100,7 @@ describe('PipeVitta API End-to-End Tests', () => {
 
   describe('1. Authentication and Scope Validation', () => {
     it('should reject requests without a token', async () => {
-      await request(app.getHttpServer())
-        .get('/patients')
-        .expect(401);
+      await request(app.getHttpServer()).get('/patients').expect(401);
     });
 
     it('should reject requests with an invalid token', async () => {
@@ -129,7 +139,9 @@ describe('PipeVitta API End-to-End Tests', () => {
     it('should prevent cross-tenant details view (returns 404 under RLS)', async () => {
       // Find a patient belonging to Bella Estética
       const bellaPatients = await db.client.$transaction(async (tx) => {
-        await tx.$executeRawUnsafe(`SET LOCAL app.current_tenant = '${bellaTenantId}'`);
+        await tx.$executeRawUnsafe(
+          `SET LOCAL app.current_tenant = '${bellaTenantId}'`,
+        );
         return tx.patient.findMany({ where: { tenantId: bellaTenantId } });
       });
       const targetBellaPatientId = bellaPatients[0].id;
@@ -157,11 +169,11 @@ describe('PipeVitta API End-to-End Tests', () => {
         .set('Authorization', `Bearer ${sorrisoToken}`)
         .send({
           patientId,
-          amount: 200.00,
+          amount: 200.0,
           type: TransactionType.INFLOW,
           status: TransactionStatus.COMPLETED,
           description: 'Restauração Dente 46',
-          commissionAmount: 50.00,
+          commissionAmount: 50.0,
           professionalId: carlosUserId,
         })
         .expect(201);
@@ -173,9 +185,11 @@ describe('PipeVitta API End-to-End Tests', () => {
         .expect(200);
 
       // Initial seed commission for Carlos was R$45.00. Plus our new R$50.00 posting equals R$95.00.
-      const carlosComm = commissionsRes.body.find((c: any) => c.id === carlosUserId);
+      const carlosComm = commissionsRes.body.find(
+        (c: any) => c.id === carlosUserId,
+      );
       expect(carlosComm).toBeDefined();
-      expect(carlosComm.totalCommission).toBe(95.00);
+      expect(carlosComm.totalCommission).toBe(95.0);
     });
   });
 });

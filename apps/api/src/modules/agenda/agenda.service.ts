@@ -1,4 +1,9 @@
-import { BadRequestException, ConflictException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { DatabaseService } from '../../common/database/database.service';
 import { CreateAppointmentDto } from './dto/create-appointment.dto';
 import { UpdateAppointmentDto } from './dto/update-appointment.dto';
@@ -19,7 +24,9 @@ export class AgendaService {
     const buffer = dto.bufferMinutes ?? 0;
 
     if (start >= end) {
-      throw new BadRequestException('A data de início deve ser anterior à data de término');
+      throw new BadRequestException(
+        'A data de início deve ser anterior à data de término',
+      );
     }
 
     // 1. Validate professional exists
@@ -39,7 +46,13 @@ export class AgendaService {
     }
 
     // 3. Check for resource conflicts (Professional / Room + Buffer times)
-    await this.checkResourceConflicts(start, end, buffer, dto.professionalId, dto.room);
+    await this.checkResourceConflicts(
+      start,
+      end,
+      buffer,
+      dto.professionalId,
+      dto.room,
+    );
 
     // 4. Create appointment
     return this.db.client.appointment.create({
@@ -88,7 +101,13 @@ export class AgendaService {
   }
 
   async update(id: string, dto: UpdateAppointmentDto): Promise<any> {
-    const existing = await this.findOne(id);
+    const existing = (await this.findOne(id)) as {
+      startTime: Date;
+      endTime: Date;
+      bufferMinutes: number;
+      professionalId: string;
+      room: string | null;
+    };
 
     const start = dto.startTime ? new Date(dto.startTime) : existing.startTime;
     const end = dto.endTime ? new Date(dto.endTime) : existing.endTime;
@@ -97,7 +116,9 @@ export class AgendaService {
     const room = dto.room !== undefined ? dto.room : existing.room;
 
     if (start >= end) {
-      throw new BadRequestException('A data de início deve ser anterior à data de término');
+      throw new BadRequestException(
+        'A data de início deve ser anterior à data de término',
+      );
     }
 
     // If changing time, professional, or room, check conflicts
@@ -108,7 +129,14 @@ export class AgendaService {
       dto.professionalId ||
       dto.room !== undefined
     ) {
-      await this.checkResourceConflicts(start, end, buffer, professionalId, room, id);
+      await this.checkResourceConflicts(
+        start,
+        end,
+        buffer,
+        professionalId,
+        room ?? undefined,
+        id,
+      );
     }
 
     return this.db.client.appointment.update({
@@ -155,27 +183,33 @@ export class AgendaService {
         id: excludeAppointmentId ? { not: excludeAppointmentId } : undefined,
         status: { not: AppointmentStatus.CANCELLED },
         startTime: { gte: dayStart, lte: dayEnd },
-        OR: [
-          { professionalId },
-          room ? { room } : undefined,
-        ].filter(Boolean) as any,
+        OR: [{ professionalId }, room ? { room } : undefined].filter(
+          Boolean,
+        ) as any,
       },
     });
 
     const newBlockedEnd = end.getTime() + buffer * 60 * 1000;
 
     for (const app of candidates) {
-      const appBlockedEnd = app.endTime.getTime() + app.bufferMinutes * 60 * 1000;
+      const appBlockedEnd =
+        app.endTime.getTime() + app.bufferMinutes * 60 * 1000;
 
       // Overlap formula: Start1 < End2 AND Start2 < End1
-      const overlaps = start.getTime() < appBlockedEnd && app.startTime.getTime() < newBlockedEnd;
+      const overlaps =
+        start.getTime() < appBlockedEnd &&
+        app.startTime.getTime() < newBlockedEnd;
 
       if (overlaps) {
         if (app.professionalId === professionalId) {
-          throw new ConflictException('O profissional já possui um agendamento conflitante neste horário (incluindo tempo de buffer)');
+          throw new ConflictException(
+            'O profissional já possui um agendamento conflitante neste horário (incluindo tempo de buffer)',
+          );
         }
         if (room && app.room === room) {
-          throw new ConflictException('A sala de atendimento já está ocupada neste horário (incluindo tempo de buffer)');
+          throw new ConflictException(
+            'A sala de atendimento já está ocupada neste horário (incluindo tempo de buffer)',
+          );
         }
       }
     }

@@ -1,3 +1,8 @@
+import * as dotenv from 'dotenv';
+import * as path from 'path';
+dotenv.config({ path: path.resolve(process.cwd(), '.env') });
+dotenv.config({ path: path.resolve(process.cwd(), '../../.env') });
+
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
@@ -24,4 +29,4 @@ async function bootstrap(): Promise<void> {
   await app.listen(port);
   console.log(`🚀 API Server is running on http://localhost:${port}/api`);
 }
-bootstrap();
+void bootstrap();

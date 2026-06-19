@@ -1,4 +1,9 @@
-import { BadRequestException, ConflictException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { DatabaseService } from '../../common/database/database.service';
 import { CreatePatientDto } from './dto/create-patient.dto';
 import { UpdatePatientDto } from './dto/update-patient.dto';
@@ -26,7 +31,9 @@ export class PepService {
     });
 
     if (existing) {
-      throw new ConflictException('Já existe um paciente cadastrado com este CPF nesta clínica');
+      throw new ConflictException(
+        'Já existe um paciente cadastrado com este CPF nesta clínica',
+      );
     }
 
     return this.db.client.patient.create({
@@ -92,7 +99,9 @@ export class PepService {
         where: { cpf: dto.cpf, id: { not: id } },
       });
       if (conflict) {
-        throw new ConflictException('Outro paciente já está cadastrado com este CPF nesta clínica');
+        throw new ConflictException(
+          'Outro paciente já está cadastrado com este CPF nesta clínica',
+        );
       }
     }
 
@@ -118,8 +127,14 @@ export class PepService {
   }
 
   // Add a clinical evolution entry to the patient's timeline history
-  async addEvolution(patientId: string, content: string, professionalName: string): Promise<any> {
-    const patient = await this.findOne(patientId);
+  async addEvolution(
+    patientId: string,
+    content: string,
+    professionalName: string,
+  ): Promise<any> {
+    const patient = (await this.findOne(patientId)) as {
+      clinicalHistory: string | null;
+    };
 
     let timeline: ClinicalEvolution[] = [];
     try {

@@ -1,8 +1,16 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { DatabaseService } from '../../common/database/database.service';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
 import { UpdateTransactionDto } from './dto/update-transaction.dto';
-import { TransactionStatus, TransactionType, tenantLocalStorage } from '@pipevitta/database';
+import {
+  TransactionStatus,
+  TransactionType,
+  tenantLocalStorage,
+} from '@pipevitta/database';
 
 @Injectable()
 export class FinancialService {
@@ -30,10 +38,14 @@ export class FinancialService {
         where: { id: dto.professionalId },
       });
       if (!professional) {
-        throw new NotFoundException('Profissional para comissão não encontrado');
+        throw new NotFoundException(
+          'Profissional para comissão não encontrado',
+        );
       }
       if (!dto.commissionAmount || dto.commissionAmount > dto.amount) {
-        throw new BadRequestException('O valor da comissão deve ser menor ou igual ao valor do lançamento');
+        throw new BadRequestException(
+          'O valor da comissão deve ser menor ou igual ao valor do lançamento',
+        );
       }
     }
 
@@ -150,7 +162,14 @@ export class FinancialService {
       },
     });
 
-    const groups: { [id: string]: { id: string; name: string; totalCommission: number; count: number } } = {};
+    const groups: {
+      [id: string]: {
+        id: string;
+        name: string;
+        totalCommission: number;
+        count: number;
+      };
+    } = {};
 
     for (const tx of commissionTransactions) {
       const profId = tx.professionalId!;

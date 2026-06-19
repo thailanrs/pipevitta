@@ -1,4 +1,9 @@
-import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  CanActivate,
+  ExecutionContext,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
 import { tenantLocalStorage } from '@pipevitta/database';
@@ -17,11 +22,13 @@ export class JwtAuthGuard implements CanActivate {
 
     try {
       const payload = await this.jwtService.verifyAsync(token, {
-        secret: process.env.JWT_SECRET || 'super_secret_jwt_key_for_dev_only_123456789',
+        secret:
+          process.env.JWT_SECRET ||
+          'super_secret_jwt_key_for_dev_only_123456789',
       });
 
       // Attach verified user information to the request object
-      request['user'] = payload;
+      (request as unknown as Record<string, unknown>)['user'] = payload;
 
       // Overwrite the request-scope AsyncLocalStorage with the cryptographically verified tenantId and userId
       const store = tenantLocalStorage.getStore();
@@ -30,7 +37,9 @@ export class JwtAuthGuard implements CanActivate {
         store.userId = payload.sub;
       }
     } catch {
-      throw new UnauthorizedException('Invalid or expired authentication token');
+      throw new UnauthorizedException(
+        'Invalid or expired authentication token',
+      );
     }
 
     return true;
