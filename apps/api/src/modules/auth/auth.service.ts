@@ -70,4 +70,16 @@ export class AuthService {
       },
     };
   }
+
+  async getUsers(): Promise<any[]> {
+    return this.db.client.user.findMany({
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        profiles: true,
+      },
+      orderBy: { name: 'asc' },
+    });
+  }
 }

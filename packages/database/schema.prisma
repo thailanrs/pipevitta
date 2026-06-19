@@ -53,6 +53,7 @@ model Tenant {
   appointments Appointment[]
   transactions Transaction[]
   auditLogs    AuditLog[]
+  leads        Lead[]
 
   @@map("tenants")
 }
@@ -74,6 +75,7 @@ model User {
   transactionsCreated  Transaction[] @relation("CreatedTransactions")
   transactionsReceived Transaction[] @relation("ProfessionalCommissions")
   auditLogs            AuditLog[]
+  leads                Lead[]
 
   @@unique([tenantId, email])
   @@map("users")
@@ -160,5 +162,35 @@ model AuditLog {
   createdAt  DateTime @default(now()) @map("created_at")
 
   @@map("audit_logs")
+}
+
+enum LeadStatus {
+  NEW
+  NEGOTIATION
+  SCHEDULED
+  WON
+  LOST
+}
+
+model Lead {
+  id             String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  tenantId       String     @db.Uuid @map("tenant_id")
+  tenant         Tenant     @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  name           String
+  email          String?
+  phone          String?
+  procedure      String?
+  estimatedValue Decimal?   @db.Decimal(12, 2) @map("estimated_value")
+  status         LeadStatus @default(NEW)
+  source         String?
+  probability    Int        @default(0)
+  warningText    String?    @map("warning_text")
+  notes          String?
+  professionalId String?    @db.Uuid @map("professional_id")
+  professional   User?      @relation(fields: [professionalId], references: [id], onDelete: SetNull)
+  createdAt      DateTime   @default(now()) @map("created_at")
+  updatedAt      DateTime   @updatedAt @map("updated_at")
+
+  @@map("leads")
 }
 

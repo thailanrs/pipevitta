@@ -10,6 +10,7 @@ import { AuditInterceptor } from './common/interceptors/audit.interceptor';
 import { AgendaModule } from './modules/agenda/agenda.module';
 import { PepModule } from './modules/pep/pep.module';
 import { FinancialModule } from './modules/financial/financial.module';
+import { CrmModule } from './modules/crm/crm.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { FinancialModule } from './modules/financial/financial.module';
     AgendaModule,
     PepModule,
     FinancialModule,
+    CrmModule,
   ],
   controllers: [AppController],
   providers: [

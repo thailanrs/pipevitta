@@ -1,4 +1,4 @@
-import { PrismaClient, Plan, UserProfile, AppointmentStatus, TransactionType, TransactionStatus } from '@prisma/client';
+import { PrismaClient, Plan, UserProfile, AppointmentStatus, TransactionType, TransactionStatus, LeadStatus } from '@prisma/client';
 import * as crypto from 'crypto';
 import * as dotenv from 'dotenv';
 import * as path from 'path';
@@ -23,6 +23,7 @@ async function main() {
   await prisma.transaction.deleteMany();
   await prisma.appointment.deleteMany();
   await prisma.patient.deleteMany();
+  await prisma.lead.deleteMany();
   await prisma.user.deleteMany();
   await prisma.tenant.deleteMany();
 
@@ -210,7 +211,84 @@ async function main() {
     },
   });
 
+  // 7. Create CRM Leads (Sorriso)
+  await prisma.lead.create({
+    data: {
+      tenantId: tenantSorriso.id,
+      name: 'Juliana Mendes',
+      procedure: 'Harmonização Full Face',
+      estimatedValue: 5200.00,
+      status: LeadStatus.NEW,
+      source: 'Instagram DM',
+      probability: 20,
+    },
+  });
+
+  await prisma.lead.create({
+    data: {
+      tenantId: tenantSorriso.id,
+      name: 'Ricardo Alves',
+      procedure: 'Toxina Botulínica',
+      estimatedValue: 1800.00,
+      status: LeadStatus.NEW,
+      source: 'Meta Ads',
+      probability: 15,
+      warningText: 'Contato pendente há 1 dia',
+    },
+  });
+
+  await prisma.lead.create({
+    data: {
+      tenantId: tenantSorriso.id,
+      name: 'Fernanda Lima',
+      procedure: 'Preenchimento Labial',
+      estimatedValue: 2400.00,
+      status: LeadStatus.NEGOTIATION,
+      source: 'WhatsApp',
+      probability: 60,
+      professionalId: dentistSorriso.id,
+    },
+  });
+
+  await prisma.lead.create({
+    data: {
+      tenantId: tenantSorriso.id,
+      name: 'Carlos Eduardo',
+      procedure: 'Fios de PDO',
+      estimatedValue: 3800.00,
+      status: LeadStatus.SCHEDULED,
+      source: 'Indicação',
+      probability: 80,
+    },
+  });
+
+  await prisma.lead.create({
+    data: {
+      tenantId: tenantSorriso.id,
+      name: 'Ana Beatriz',
+      procedure: 'Bioestimulador',
+      estimatedValue: 4500.00,
+      status: LeadStatus.WON,
+      source: 'WhatsApp',
+      probability: 100,
+    },
+  });
+
+  // Create CRM Leads (Bella)
+  await prisma.lead.create({
+    data: {
+      tenantId: tenantBella.id,
+      name: 'Carla Souza',
+      procedure: 'Peeling Químico',
+      estimatedValue: 1200.00,
+      status: LeadStatus.NEW,
+      source: 'Meta Ads',
+      probability: 30,
+    },
+  });
+
   console.log('💰 Created transactions (financial records).');
+  console.log('📈 Created CRM leads.');
   console.log('✅ Database seeding finished successfully.');
 }
 
