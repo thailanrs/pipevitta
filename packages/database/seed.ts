@@ -32,6 +32,7 @@ async function main() {
   // 2. Create Tenants
   const tenantSorriso = await prisma.tenant.create({
     data: {
+      id: 'ffd10431-56be-4493-a34e-6bb5d782ea23',
       name: 'Clínica Sorriso',
       slug: 'clinica-sorriso',
       plan: Plan.STANDARD,
@@ -40,6 +41,7 @@ async function main() {
 
   const tenantBella = await prisma.tenant.create({
     data: {
+      id: '6de0c61e-339f-4dec-81ca-30257a56a857',
       name: 'Clínica Estética Bella',
       slug: 'clinica-bella',
       plan: Plan.PREMIUM,
