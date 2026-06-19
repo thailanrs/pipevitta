@@ -46,3 +46,8 @@ lerna-debug.log*
 # Temporary files
 tmp/
 temp/
+
+# Support and prototype folders
+/telas/
+/telas portal paciente/
+/scratch/
