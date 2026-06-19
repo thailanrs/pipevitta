@@ -1,0 +1,425 @@
+<!DOCTYPE html><html lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>FooNewOps - Financeiro Convênios</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#964400",
+                        "error-container": "#ffdad6",
+                        "tertiary-container": "#bd5700",
+                        "on-primary-fixed-variant": "#00458d",
+                        "on-error": "#ffffff",
+                        "primary-fixed": "#d6e3ff",
+                        "surface-variant": "#e0e2eb",
+                        "on-tertiary-container": "#fffbff",
+                        "surface-bright": "#f9f9ff",
+                        "tertiary-fixed": "#ffdbc9",
+                        "secondary-fixed": "#d6e3ff",
+                        "outline-variant": "#c1c6d5",
+                        "outline": "#717785",
+                        "tertiary-fixed-dim": "#ffb68c",
+                        "on-tertiary-fixed-variant": "#763400",
+                        "on-secondary-fixed": "#001b3d",
+                        "inverse-on-surface": "#eef0fa",
+                        "surface-container-high": "#e6e8f1",
+                        "primary": "#005ab4",
+                        "on-tertiary": "#ffffff",
+                        "secondary-container": "#b6d0ff",
+                        "on-secondary": "#ffffff",
+                        "surface-container-low": "#f1f3fc",
+                        "on-primary-container": "#fefcff",
+                        "surface-tint": "#005db8",
+                        "surface-dim": "#d7dae3",
+                        "on-secondary-fixed-variant": "#2d476f",
+                        "on-secondary-container": "#3f5881",
+                        "on-primary-fixed": "#001b3e",
+                        "on-error-container": "#93000a",
+                        "on-background": "#181c22",
+                        "primary-container": "#0a73e0",
+                        "surface": "#f9f9ff",
+                        "secondary-fixed-dim": "#aec7f7",
+                        "on-surface": "#181c22",
+                        "surface-container": "#ebedf7",
+                        "background": "#f9f9ff",
+                        "inverse-surface": "#2d3037",
+                        "on-surface-variant": "#414753",
+                        "primary-fixed-dim": "#aac7ff",
+                        "surface-container-lowest": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-tertiary-fixed": "#321200",
+                        "inverse-primary": "#aac7ff",
+                        "surface-container-highest": "#e0e2eb",
+                        "on-primary": "#ffffff",
+                        "secondary": "#465f88"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Inter"],
+                        "display": ["Inter"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body antialiased flex h-screen overflow-hidden">
+<!-- SideNavBar -->
+<nav class="bg-surface-container text-primary font-body-md text-body-md h-screen w-20 flex flex-col items-center py-6 border-r border-outline-variant fixed left-0 top-0 z-50 transition-all duration-200 ease-in-out"><div class="mb-8 flex flex-col items-center justify-center w-full"><div class="w-12 h-12 bg-primary-container text-on-primary-container rounded-full flex items-center justify-center mb-2 shadow-sm font-bold text-lg">FN</div></div><div class="flex flex-col w-full gap-2"><a class="text-on-surface-variant flex flex-col items-center justify-center py-3 w-full border-l-4 border-transparent hover:bg-surface-container-high transition-colors" href="#" title="Dashboard"><span class="material-symbols-outlined mb-1">dashboard</span><span class="text-[10px] font-medium truncate w-full text-center px-1">Dashboard</span></a><a class="text-on-surface-variant flex flex-col items-center justify-center py-3 w-full border-l-4 border-transparent hover:bg-surface-container-high transition-colors" href="#" title="Agenda"><span class="material-symbols-outlined mb-1">calendar_today</span><span class="text-[10px] font-medium truncate w-full text-center px-1">Agenda</span></a><a class="text-on-surface-variant flex flex-col items-center justify-center py-3 w-full border-l-4 border-transparent hover:bg-surface-container-high transition-colors" href="#" title="CRM"><span class="material-symbols-outlined mb-1">groups</span><span class="text-[10px] font-medium truncate w-full text-center px-1">CRM</span></a><a class="text-on-surface-variant flex flex-col items-center justify-center py-3 w-full border-l-4 border-transparent hover:bg-surface-container-high transition-colors" href="#" title="Inbox"><span class="material-symbols-outlined mb-1">inbox</span><span class="text-[10px] font-medium truncate w-full text-center px-1">Inbox</span></a><a class="text-on-surface-variant flex flex-col items-center justify-center py-3 w-full border-l-4 border-transparent hover:bg-surface-container-high transition-colors" href="#" title="Patients"><span class="material-symbols-outlined mb-1">person</span><span class="text-[10px] font-medium truncate w-full text-center px-1">Pacientes</span></a><a class="text-secondary border-l-4 border-secondary bg-secondary-container/10 flex flex-col items-center justify-center py-3 w-full hover:bg-surface-container-high transition-colors" href="#" title="Financial"><span class="material-symbols-outlined mb-1 icon-fill">payments</span><span class="text-[10px] font-medium truncate w-full text-center px-1">Financeiro</span></a><a class="text-on-surface-variant flex flex-col items-center justify-center py-3 w-full border-l-4 border-transparent hover:bg-surface-container-high transition-colors" href="#" title="Inventory"><span class="material-symbols-outlined mb-1">inventory_2</span><span class="text-[10px] font-medium truncate w-full text-center px-1">Estoque</span></a></div><div class="mt-auto w-full"><a class="text-on-surface-variant flex flex-col items-center justify-center py-3 w-full border-l-4 border-transparent hover:bg-surface-container-high transition-colors" href="#" title="Settings"><span class="material-symbols-outlined mb-1">settings</span><span class="text-[10px] font-medium truncate w-full text-center px-1">Settings</span></a></div></nav>
+<!-- Main Content Area -->
+<div class="flex-1 ml-20 flex flex-col h-screen overflow-hidden relative">
+<!-- TopAppBar -->
+<header class="bg-surface/80 backdrop-blur-md border-b border-outline-variant/30 w-full h-16 flex items-center justify-between px-6 sticky top-0 z-40"><div class="flex items-center gap-6 flex-1"><h2 class="text-lg font-bold text-on-surface tracking-tight">Clínica Sorriso Holding</h2><div class="h-6 w-[1px] bg-outline-variant/50 hidden md:block"></div><div class="relative max-w-md w-full hidden md:block"><span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">search</span><input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border border-outline-variant/30 rounded-full text-sm focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all shadow-inner" placeholder="Buscar pacientes, conversas ou agendamentos..." type="text"></div></div><div class="flex items-center gap-3"><button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-all relative group"><span class="material-symbols-outlined text-[24px]">notifications</span><span class="absolute top-2 right-2.5 w-2 h-2 bg-error rounded-full ring-2 ring-surface"></span><div class="absolute top-full mt-2 right-0 bg-surface border border-outline-variant/30 rounded-lg shadow-xl p-2 hidden group-hover:block w-48 text-xs z-50">Nenhuma notificao nova</div></button><button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-all"><span class="material-symbols-outlined text-[24px]">help_outline</span></button><div class="h-8 w-[1px] bg-outline-variant/30 mx-1"></div><button class="flex items-center gap-2 pl-1 pr-3 py-1 rounded-full hover:bg-surface-container-high transition-all"><div class="w-8 h-8 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-xs border border-primary/10 shadow-sm">DS</div><span class="text-sm font-medium text-on-surface">Dr. Santos</span><span class="material-symbols-outlined text-[18px] text-outline">keyboard_arrow_down</span></button></div></header>
+<!-- Main Scrollable Content -->
+<main class="flex-1 overflow-y-auto p-6 md:p-8 relative">
+<div class="max-w-7xl mx-auto space-y-6">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-2">
+<div>
+<h1 class="font-headline text-[32px] font-bold text-on-surface leading-tight">Financeiro - Convênios</h1>
+</div>
+</div>
+<!-- Sub-navigation -->
+<div class="border-b border-outline-variant/30 mb-8">
+<nav class="flex flex-wrap gap-2 py-1">
+<a class="px-4 py-2 text-sm font-medium text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors" href="#">
+      Visão Geral
+    </a>
+<a class="px-4 py-2 text-sm font-medium text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors" href="#">
+      Contas a Receber
+    </a>
+<a class="px-4 py-2 text-sm font-medium text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors" href="#">
+      Contas a Pagar
+    </a>
+<a class="px-4 py-2 text-sm font-medium text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors" href="#">
+      Comissões e Repasses
+    </a>
+<a class="px-4 py-2 text-sm font-bold bg-primary/10 text-primary rounded-full transition-colors" href="#">
+      Convênios (TISS)
+    </a>
+<a class="px-4 py-2 text-sm font-medium text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors" href="#">
+      Relatórios e DRE
+    </a><a class="px-4 py-2 text-sm font-medium text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors" href="#">Régua de Cobrança</a>
+</nav>
+</div>
+<!-- KPIs -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+<div class="bg-surface-container-lowest p-6 rounded-lg border border-outline-variant shadow-sm flex items-center justify-between">
+<div>
+<p class="text-sm text-on-surface-variant mb-1">Total a Receber (Operadoras)</p>
+<p class="text-2xl font-bold text-on-surface">R$ 124.500</p>
+</div>
+<div class="w-12 h-12 rounded-full bg-primary-fixed flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-3xl">account_balance</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-lg border border-outline-variant shadow-sm flex items-center justify-between">
+<div>
+<p class="text-sm text-on-surface-variant mb-1">Glosas no Mês (Perda)</p>
+<p class="text-2xl font-bold text-on-surface">R$ 8.400</p>
+</div>
+<div class="w-12 h-12 rounded-full bg-error-container flex items-center justify-center text-error">
+<span class="material-symbols-outlined text-3xl">trending_down</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-lg border border-outline-variant shadow-sm flex items-center justify-between">
+<div>
+<p class="text-sm text-on-surface-variant mb-1">Taxa de Glosa Média</p>
+<p class="text-2xl font-bold text-on-surface">12%</p>
+</div>
+<div class="w-12 h-12 rounded-full bg-tertiary-fixed flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined text-3xl">warning</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-lg border border-outline-variant shadow-sm flex items-center justify-between">
+<div>
+<p class="text-sm text-on-surface-variant mb-1">Ticket Médio Convênio</p>
+<p class="text-2xl font-bold text-on-surface">R$ 240</p>
+</div>
+<div class="w-12 h-12 rounded-full bg-surface-variant flex items-center justify-center text-outline">
+<span class="material-symbols-outlined text-3xl">receipt_long</span>
+</div>
+</div>
+</div>
+<!-- Charts Section -->
+<div class="grid grid-cols-1 lg:grid-cols-10 gap-6 mb-8">
+<!-- Left Chart -->
+<div class="lg:col-span-6 bg-surface-container-lowest p-6 rounded-lg border border-outline-variant shadow-sm">
+<h3 class="text-lg font-semibold text-on-surface mb-4">Volume por Operadora (Últimos 6 meses)</h3>
+<div class="h-64 flex items-end space-x-2">
+<!-- Placeholder for Chart -->
+<div class="w-full h-full bg-surface-container rounded-md flex items-center justify-center text-on-surface-variant">
+                             [Stacked Bar Chart Visualization]
+                        </div>
+</div>
+</div>
+<!-- Right Chart -->
+<div class="lg:col-span-4 bg-surface-container-lowest p-6 rounded-lg border border-outline-variant shadow-sm">
+<h3 class="text-lg font-semibold text-on-surface mb-4">Aging List (Dias em Aberto)</h3>
+<div class="space-y-4">
+<div>
+<div class="flex justify-between text-sm mb-1"><span class="text-on-surface-variant">A vencer</span><span class="font-medium text-green-700">45%</span></div>
+<div class="w-full bg-surface-variant rounded-full h-2">
+<div class="bg-green-600 h-2 rounded-full" style="width: 45%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-sm mb-1"><span class="text-on-surface-variant">1-15 dias</span><span class="font-medium text-primary">25%</span></div>
+<div class="w-full bg-surface-variant rounded-full h-2">
+<div class="bg-primary h-2 rounded-full" style="width: 25%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-sm mb-1"><span class="text-on-surface-variant">16-30 dias</span><span class="font-medium text-tertiary">15%</span></div>
+<div class="w-full bg-surface-variant rounded-full h-2">
+<div class="bg-tertiary h-2 rounded-full" style="width: 15%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-sm mb-1"><span class="text-on-surface-variant">&gt; 30 dias</span><span class="font-medium text-error">15%</span></div>
+<div class="w-full bg-surface-variant rounded-full h-2">
+<div class="bg-error h-2 rounded-full" style="width: 15%"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Data Table -->
+<div class="bg-surface-container-lowest rounded-lg border border-outline-variant shadow-sm overflow-hidden">
+<div class="p-4 border-b border-outline-variant bg-surface-bright">
+<h3 class="text-lg font-semibold text-on-surface">Aging List (Detalhado)</h3>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left text-sm text-on-surface">
+<thead class="bg-surface-container-low text-on-surface-variant font-medium border-b border-outline-variant">
+<tr>
+<th class="p-4 w-12"><input class="rounded border-outline-variant text-primary focus:ring-primary" type="checkbox"></th>
+<th class="p-4">Operadora</th>
+<th class="p-4">Competência</th>
+<th class="p-4 text-right">Valor Apresentado</th>
+<th class="p-4 text-right">Valor Pago</th>
+<th class="p-4 text-right">Valor Glosado</th>
+<th class="p-4 text-right">% Glosa</th>
+<th class="p-4">Status do Repasse</th>
+<th class="p-4">Ações</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<tr class="hover:bg-surface-container-low cursor-pointer transition-colors bg-error-container/10 js-table-row">
+<td class="p-4"><input class="rounded border-outline-variant text-primary focus:ring-primary" type="checkbox"></td>
+<td class="p-4 flex items-center gap-2 font-medium">
+<div class="w-8 h-8 rounded bg-surface-variant flex items-center justify-center text-xs font-bold text-on-surface-variant">UNI</div>
+                                    Unimed
+                                </td>
+<td class="p-4">Mai/2026</td>
+<td class="p-4 text-right font-medium">R$ 45.000</td>
+<td class="p-4 text-right text-outline">R$ 0,00</td>
+<td class="p-4 text-right text-outline">R$ 0,00</td>
+<td class="p-4 text-right">0%</td>
+<td class="p-4"><span style="color: rgb(186, 26, 26); font-size: 12px; background-color: rgb(255, 218, 214);" class="">&gt; 30 dias (Atrasado)</span></td>
+<td class="p-4">
+<button class="text-on-surface-variant hover:text-primary p-1"><span class="material-symbols-outlined text-lg">more_vert</span></button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low cursor-pointer transition-colors js-table-row">
+<td class="p-4"><input class="rounded border-outline-variant text-primary focus:ring-primary" type="checkbox"></td>
+<td class="p-4 flex items-center gap-2 font-medium">
+<div class="w-8 h-8 rounded bg-surface-variant flex items-center justify-center text-xs font-bold text-on-surface-variant">BRA</div>
+                                    Bradesco Saúde
+                                </td>
+<td class="p-4">Mai/2026</td>
+<td class="p-4 text-right font-medium">R$ 60.000</td>
+<td class="p-4 text-right">R$ 52.000</td>
+<td class="p-4 text-right text-error font-medium">R$ 8.000</td>
+<td class="p-4 text-right text-error font-medium">13%</td>
+<td class="p-4">
+<span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-tertiary-fixed text-tertiary">
+                                        15-30 dias
+                                    </span>
+</td>
+<td class="p-4">
+<button class="text-on-surface-variant hover:text-primary p-1"><span class="material-symbols-outlined text-lg">more_vert</span></button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low cursor-pointer transition-colors js-table-row">
+<td class="p-4"><input class="rounded border-outline-variant text-primary focus:ring-primary" type="checkbox"></td>
+<td class="p-4 flex items-center gap-2 font-medium">
+<div class="w-8 h-8 rounded bg-surface-variant flex items-center justify-center text-xs font-bold text-on-surface-variant">AMI</div>
+                                    Amil
+                                </td>
+<td class="p-4">Abr/2026</td>
+<td class="p-4 text-right font-medium">R$ 30.000</td>
+<td class="p-4 text-right">R$ 29.500</td>
+<td class="p-4 text-right text-outline">R$ 500</td>
+<td class="p-4 text-right text-outline">1.6%</td>
+<td class="p-4">
+<span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                        Pago
+                                    </span>
+</td>
+<td class="p-4">
+<button class="text-on-surface-variant hover:text-primary p-1"><span class="material-symbols-outlined text-lg">more_vert</span></button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</main>
+<!-- Slide-over Drawer (Unimed) -->
+<div class="fixed inset-0 overflow-hidden z-50 pointer-events-none" id="drawerWrapper">
+<div aria-hidden="true" class="absolute inset-0 bg-on-surface/20 backdrop-blur-sm transition-opacity duration-300 opacity-0 pointer-events-none" id="drawerOverlay"></div>
+<div class="fixed inset-y-0 right-0 max-w-md w-full flex pointer-events-auto shadow-2xl transform transition-transform duration-300 translate-x-full" id="drawerPanel">
+<div class="w-full h-full flex flex-col bg-surface-container-lowest border-l border-outline-variant">
+<!-- Drawer Header -->
+<div class="px-6 py-5 border-b border-outline-variant flex justify-between items-center bg-surface-bright">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-surface-variant flex items-center justify-center font-bold text-on-surface-variant">UNI</div>
+<div>
+<h2 class="text-lg font-semibold text-on-surface">Detalhamento Unimed</h2>
+<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-error-container text-error mt-1 border border-error/20">
+                                    Atrasado &gt; 30 dias
+                                </span>
+</div>
+</div>
+<button class="text-on-surface-variant hover:text-on-surface rounded-full p-1 hover:bg-surface-variant transition-colors" id="drawerCloseBtn">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<!-- Drawer Content -->
+<div class="flex-1 overflow-y-auto p-6 space-y-6">
+<!-- Summary Card -->
+<div class="bg-surface-container-low rounded-lg p-5 border border-outline-variant">
+<div class="flex justify-between items-center mb-4 pb-4 border-b border-outline-variant/50">
+<span class="text-on-surface-variant text-sm font-medium">Total em Aberto:</span>
+<span class="text-xl font-bold text-error">R$ 45.000</span>
+</div>
+<div class="flex flex-col gap-2">
+<span class="text-xs text-outline font-medium uppercase tracking-wider">Contato da Operadora</span>
+<div class="flex justify-between items-center">
+<div>
+<p class="font-medium text-on-surface text-sm">Gestor: Carlos</p>
+<p class="text-sm text-on-surface-variant">(11) 9999-9999</p>
+</div>
+<div class="flex gap-2">
+<button class="w-8 h-8 rounded-full bg-green-100 text-green-700 flex items-center justify-center hover:bg-green-200 transition-colors">
+<span class="material-symbols-outlined text-sm">chat</span>
+</button>
+<button class="w-8 h-8 rounded-full bg-primary-fixed text-primary flex items-center justify-center hover:bg-primary-fixed-dim transition-colors">
+<span class="material-symbols-outlined text-sm">call</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Timeline -->
+<div>
+<h3 class="text-sm font-bold text-on-surface uppercase tracking-wider mb-4">Lotes XML (Maio/2026)</h3>
+<div class="relative border-l-2 border-outline-variant ml-3 space-y-8 pb-4">
+<!-- Item 1 -->
+<div class="relative pl-6">
+<div class="absolute w-3 h-3 bg-error rounded-full -left-[7px] top-1.5 ring-4 ring-surface-container-lowest"></div>
+<div class="bg-surface-container-lowest border border-error/30 rounded-lg p-4 shadow-sm">
+<div class="flex justify-between items-start mb-2">
+<div>
+<p class="font-semibold text-on-surface text-sm">XML_001 <span class="text-outline font-normal text-xs ml-1">(01 Mai)</span></p>
+<p class="text-on-surface font-medium mt-1">R$ 15.000</p>
+</div>
+<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-error-container text-error">
+                                                Rejeitado (Erro de Elegibilidade)
+                                            </span>
+</div>
+<button class="mt-3 text-sm font-medium text-primary hover:text-surface-tint flex items-center gap-1 bg-primary-fixed/30 px-3 py-1.5 rounded-md hover:bg-primary-fixed/50 transition-colors w-full justify-center border border-primary/20">
+<span class="material-symbols-outlined" style="font-size: 16px;">edit_document</span> Corrigir e Reenviar
+                                        </button>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="relative pl-6">
+<div class="absolute w-3 h-3 bg-tertiary rounded-full -left-[7px] top-1.5 ring-4 ring-surface-container-lowest"></div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-4 shadow-sm">
+<div class="flex justify-between items-start">
+<div>
+<p class="font-semibold text-on-surface text-sm">XML_002 <span class="text-outline font-normal text-xs ml-1">(10 Mai)</span></p>
+<p class="text-on-surface font-medium mt-1">R$ 30.000</p>
+</div>
+<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-tertiary-fixed text-tertiary">
+                                                Em Processamento
+                                            </span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Drawer Footer Actions -->
+<div class="p-4 border-t border-outline-variant bg-surface-container-low flex flex-col gap-3">
+<button class="w-full py-2.5 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 transition-colors flex items-center justify-center gap-2 shadow-sm">&nbsp;Enviar mensagem</button>
+<button class="w-full py-2.5 bg-surface-container-highest text-on-surface rounded-lg font-medium hover:bg-outline-variant transition-colors flex items-center justify-center gap-2 border border-outline-variant">
+<span class="material-symbols-outlined text-sm">description</span> Gerar Relatório de Cobrança
+                        </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const overlay = document.getElementById('drawerOverlay');
+        const panel = document.getElementById('drawerPanel');
+        const closeBtn = document.getElementById('drawerCloseBtn');
+        const rows = document.querySelectorAll('.js-table-row');
+
+        function openDrawer() {
+            overlay.classList.remove('opacity-0', 'pointer-events-none');
+            overlay.classList.add('opacity-100', 'pointer-events-auto');
+            
+            panel.classList.remove('translate-x-full');
+            panel.classList.add('translate-x-0');
+        }
+
+        function closeDrawer() {
+            overlay.classList.remove('opacity-100', 'pointer-events-auto');
+            overlay.classList.add('opacity-0', 'pointer-events-none');
+            
+            panel.classList.remove('translate-x-0');
+            panel.classList.add('translate-x-full');
+        }
+
+        closeBtn.addEventListener('click', closeDrawer);
+        overlay.addEventListener('click', closeDrawer);
+
+        rows.forEach(row => {
+            row.addEventListener('click', (e) => {
+                // Don't open if clicking on a checkbox or button within the row
+                if (e.target.tagName.toLowerCase() !== 'input' && e.target.tagName.toLowerCase() !== 'button' && !e.target.closest('button')) {
+                    openDrawer();
+                }
+            });
+        });
+    });
+</script>
+
+
+
+
+
+
+</body></html>

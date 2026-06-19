@@ -1,0 +1,342 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>FooNewOps - CRM Pipeline Kanban</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">tailwind.config = {darkMode: "class", theme: {extend: {colors: {"on-error": "#ffffff", "on-primary-fixed": "#001b3e", "inverse-on-surface": "#eef0fa", "primary-fixed": "#d6e3ff", "on-tertiary": "#ffffff", "on-tertiary-fixed": "#321200", "on-error-container": "#93000a", "on-tertiary-fixed-variant": "#763400", "surface-dim": "#d7dae3", "on-secondary-fixed": "#001b3d", "on-primary": "#ffffff", "surface-container-highest": "#e0e2eb", surface: "#f9f9ff", background: "#f9f9ff", "tertiary-fixed": "#ffdbc9", "surface-container-lowest": "#ffffff", "surface-container": "#ebedf7", "on-secondary-container": "#3f5881", "on-primary-fixed-variant": "#00458d", "on-tertiary-container": "#fffbff", outline: "#717785", "tertiary-fixed-dim": "#ffb68c", "on-secondary-fixed-variant": "#2d476f", "on-surface": "#181c22", "secondary-container": "#b6d0ff", "on-primary-container": "#fefcff", "secondary-fixed-dim": "#aec7f7", "on-secondary": "#ffffff", "surface-tint": "#005db8", "surface-container-high": "#e6e8f1", "error-container": "#ffdad6", "tertiary-container": "#bd5700", "surface-variant": "#e0e2eb", "surface-container-low": "#f1f3fc", "primary-container": "#0a73e0", "secondary-fixed": "#d6e3ff", error: "#ba1a1a", secondary: "#465f88", "on-background": "#181c22", tertiary: "#964400", "surface-bright": "#f9f9ff", primary: "#005ab4", "outline-variant": "#c1c6d5", "inverse-primary": "#aac7ff", "primary-fixed-dim": "#aac7ff", "on-surface-variant": "#414753", "inverse-surface": "#2d3037"}, borderRadius: {DEFAULT: "0.5rem", lg: "1rem", xl: "1.5rem", full: "9999px"}, fontFamily: {headline: ["Inter"], display: ["Inter"], body: ["Inter"], label: ["Inter"]}, fontSize: {}}}};</script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .filled-icon { font-variation-settings: 'FILL' 1; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* Custom scrollbar for Kanban board */
+        .kanban-board::-webkit-scrollbar {
+            height: 8px;
+        }
+        .kanban-board::-webkit-scrollbar-track {
+            background: #f1f3fc;
+            border-radius: 4px;
+        }
+        .kanban-board::-webkit-scrollbar-thumb {
+            background: #c1c6d5;
+            border-radius: 4px;
+        }
+        .kanban-board::-webkit-scrollbar-thumb:hover {
+            background: #717785;
+        }
+    </style>
+</head>
+<body class="flex h-screen overflow-hidden antialiased bg-background">
+<!-- SideNavBar -->
+<aside class="bg-surface-container-low dark:bg-surface-container-lowest shadow-sm h-screen w-64 flex-shrink-0 flex flex-col py-6 px-4 hidden md:flex border-r border-outline-variant/30 z-20">
+<div class="flex items-center gap-3 mb-8 px-2">
+<div class="w-8 h-8 rounded-md bg-primary text-on-primary flex items-center justify-center font-bold text-lg">F</div>
+<div>
+<h1 class="text-headline-md font-headline font-bold text-primary dark:text-primary-fixed leading-tight">FooNewOps</h1>
+<p class="text-xs text-on-surface-variant">Healthtech OS</p>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-outline hover:text-primary hover:bg-surface-container-high dark:hover:bg-surface-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-body text-body-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-outline hover:text-primary hover:bg-surface-container-high dark:hover:bg-surface-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+<span class="font-body text-body-md">Agenda</span>
+</a>
+<!-- Active Tab -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-surface-container-high dark:bg-surface-variant text-primary dark:text-primary-fixed font-bold border-l-4 border-primary transition-colors duration-200" href="#">
+<span class="material-symbols-outlined filled-icon">groups</span>
+<span class="font-body text-body-md">CRM</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-outline hover:text-primary hover:bg-surface-container-high dark:hover:bg-surface-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">inbox</span>
+<span class="font-body text-body-md">Inbox</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-outline hover:text-primary hover:bg-surface-container-high dark:hover:bg-surface-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-body text-body-md">Patients</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-outline hover:text-primary hover:bg-surface-container-high dark:hover:bg-surface-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-body text-body-md">Financial</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-outline hover:text-primary hover:bg-surface-container-high dark:hover:bg-surface-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-body text-body-md">Inventory</span>
+</a>
+</nav>
+<div class="mt-auto pt-4 border-t border-outline-variant/30">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-outline hover:text-primary hover:bg-surface-container-high dark:hover:bg-surface-variant transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-body text-body-md">Settings</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col min-w-0 h-screen bg-background">
+<!-- TopAppBar -->
+<header class="bg-surface/80 backdrop-blur-md border-b border-outline-variant/30 w-full h-16 flex items-center justify-between px-6 sticky top-0 z-40">
+<div class="flex items-center gap-6 flex-1">
+<h2 class="text-lg font-bold text-on-surface tracking-tight">Clínica Sorriso Holding</h2>
+<div class="h-6 w-[1px] bg-outline-variant/50 hidden md:block"></div>
+<div class="relative max-w-md w-full hidden md:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border border-outline-variant/30 rounded-full text-sm focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all shadow-inner" placeholder="Buscar pacientes, conversas ou agendamentos..." type="text">
+</div>
+</div>
+<div class="flex items-center gap-3">
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-all relative group">
+<span class="material-symbols-outlined text-[24px]">notifications</span>
+<span class="absolute top-2 right-2.5 w-2 h-2 bg-error rounded-full ring-2 ring-surface"></span>
+<div class="absolute top-full mt-2 right-0 bg-surface border border-outline-variant/30 rounded-lg shadow-xl p-2 hidden group-hover:block w-48 text-xs z-50">Nenhuma notificação nova</div>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-all">
+<span class="material-symbols-outlined text-[24px]">help_outline</span>
+</button>
+<div class="h-8 w-[1px] bg-outline-variant/30 mx-1"></div>
+<button class="flex items-center gap-2 pl-1 pr-3 py-1 rounded-full hover:bg-surface-container-high transition-all">
+<div class="w-8 h-8 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-xs border border-primary/10 shadow-sm">DS</div>
+<span class="text-sm font-medium text-on-surface">Dr. Santos</span>
+<span class="material-symbols-outlined text-[18px] text-outline">keyboard_arrow_down</span>
+</button>
+</div>
+</header>
+<!-- CRM Filter Bar -->
+<div class="bg-surface px-6 py-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-surface-container-high shrink-0 z-10">
+<div class="flex flex-wrap items-center gap-3">
+<!-- Dropdown Filter -->
+<button class="flex items-center gap-2 bg-surface-container-lowest border border-outline-variant text-body-md text-on-surface py-2 px-3 rounded-lg hover:border-primary hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-sm">filter_alt</span>
+<span class="font-medium">Funil de Harmonização Facial</span>
+<span class="material-symbols-outlined text-sm text-outline">arrow_drop_down</span>
+</button>
+<!-- Period Filter -->
+<button class="flex items-center gap-2 bg-surface-container-lowest border border-outline-variant text-body-md text-on-surface py-2 px-3 rounded-lg hover:border-primary hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-sm">calendar_month</span>
+<span class="">Últimos 30 dias</span>
+</button>
+<!-- Search -->
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary text-sm transition-colors">search</span>
+<input class="bg-surface-container-lowest border border-outline-variant text-body-md text-on-surface py-2 pl-9 pr-3 rounded-lg w-48 focus:w-64 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all duration-300" placeholder="Buscar lead..." type="text">
+</div>
+</div>
+<!-- Segmented Control -->
+<div class="flex items-center bg-surface-container-low p-1 rounded-lg">
+<button class="p-1.5 rounded-md text-on-surface-variant hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined block">view_list</span>
+</button>
+<button class="p-1.5 rounded-md bg-surface-container-lowest text-primary shadow-sm transition-colors relative z-10 border border-outline-variant/20">
+<span class="material-symbols-outlined block" style="font-variation-settings: 'FILL' 1;">view_kanban</span>
+</button>
+</div>
+</div>
+<!-- Kanban Board Area -->
+<main class="flex-1 overflow-x-auto overflow-y-hidden bg-background p-6 kanban-board w-full">
+<div class="flex gap-6 h-full pb-4">
+<!-- Column 1: Novos Leads -->
+<div class="flex-1 min-w-[280px] max-w-sm flex flex-col max-h-full bg-surface-container-low/40 p-3 rounded-xl">
+<div class="flex items-center justify-between mb-2 px-1">
+<div class="flex items-center gap-2">
+<div class="w-2.5 h-2.5 rounded-full bg-primary"></div>
+<h3 class="font-headline font-semibold text-on-surface text-sm">Novos Leads (Inbox)</h3>
+<span class="bg-surface-container-high text-on-surface-variant text-xs font-medium px-2 py-0.5 rounded-full">12</span>
+</div>
+<button class="text-outline hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined text-sm">more_horiz</span>
+</button>
+</div>
+<div class="text-xs text-on-surface-variant mb-4 px-1 font-medium">Valor Previsto: R$ 14.500</div>
+<div class="flex-1 overflow-y-auto space-y-3 custom-scrollbar">
+<!-- Card 1 -->
+<div class="bg-surface-container-lowest border border-outline-variant/30 rounded-xl p-4 shadow-[0_2px_4px_rgba(0,0,0,0.02)] hover:shadow-md transition-shadow cursor-grab">
+<div class="flex justify-between items-start mb-2">
+<span class="inline-flex items-center gap-1 bg-purple-100 text-purple-700 text-[10px] font-semibold px-2 py-1 rounded-md">
+<span class="material-symbols-outlined text-[12px]">forum</span>
+                                    Instagram DM
+                                </span>
+<button class="text-outline hover:text-primary"><span class="material-symbols-outlined text-sm">more_vert</span></button>
+</div>
+<h4 class="font-semibold text-on-surface text-body-md mb-1">Juliana Mendes</h4>
+<p class="text-xs text-on-surface-variant mb-3">Harmonização Full Face</p>
+<div class="flex items-center justify-between border-t border-surface-container-highest pt-3 mt-1">
+<div class="flex items-center gap-1.5 text-xs font-medium text-on-surface">
+<img class="w-5 h-5 rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAKT08NHLqDMmAL3R5GSV9kiLeBKstldw6agx1SK4hKPpMq6XPsneq6teNvj3PxXECnB8InHzRdXuFw0u-jEKRdfywtWkqn5bj1Em_x2mGr2qc4Lx93IzOYvDFSGjA3Aoi4QzuiMqrmOZMW8fKxAyiTBgzn9wwKLgq8zWJ8_SN2FbzNIL6-oEX5nXxi3jS5qAa2gseCI5dV8DHn48CmbaYACeesoJhveeVTcc3zSTIFqRYKzdRfpNmQh8iKmAvxPaLywg_7vSZq_-Xp">
+                                    R$ 5.200
+                                </div>
+<span class="text-[10px] text-outline">Há 2h</span>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-lowest border border-outline-variant/30 rounded-xl p-4 shadow-[0_2px_4px_rgba(0,0,0,0.02)] hover:shadow-md transition-shadow cursor-grab relative overflow-hidden">
+<!-- Alert indicator -->
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-tertiary"></div>
+<div class="flex justify-between items-start mb-2">
+<span class="inline-flex items-center gap-1 bg-blue-100 text-blue-700 text-[10px] font-semibold px-2 py-1 rounded-md">
+<span class="material-symbols-outlined text-[12px]">ads_click</span>
+                                    Meta Ads
+                                </span>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-tertiary text-sm" title="IA Insights Available">auto_awesome</span>
+</div>
+</div>
+<h4 class="font-semibold text-on-surface text-body-md mb-1">Ricardo Alves</h4>
+<p class="text-xs text-on-surface-variant mb-3">Toxina Botulínica</p>
+<div class="bg-tertiary-fixed text-on-tertiary-fixed-variant text-[10px] font-medium px-2 py-1 rounded flex items-center gap-1 mb-3">
+<span class="material-symbols-outlined text-[12px]">warning</span>
+                                Contato pendente há 1 dia
+                            </div>
+<div class="flex items-center justify-between border-t border-surface-container-highest pt-3 mt-1">
+<div class="flex items-center gap-1.5 text-xs font-medium text-on-surface">
+<img class="w-5 h-5 rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDwxc3xmEThxAzjUh-tEMvvOWb4sHg8Udz1kodnM-ATV7DZtGJQ5m0J91DG5lpTDO1k1uQrIfsD5SxFF0WOxI2TRboKV14ac0Mof_BkEmnSDBD34otKq6JKtObFDXJLoZ-6xgbfs9rf8PUyaWKjjlbTdGHAXlepT99dUVQtsytzg1uY2EFv9whrWkBNfSkfqKTuHwrhdfYBaFG3x22Nm7Pb0aAYrwqYIMR3Dg8wBPqUnE_XfqYGFXIBRMshPYBM9RopS96_kKwXxVqP">
+                                    R$ 1.800
+                                </div>
+</div>
+</div>
+</div>
+</div>
+<!-- Column 2: Em Negociação -->
+<div class="flex-1 min-w-[280px] max-w-sm flex flex-col max-h-full bg-surface-container-low/40 p-3 rounded-xl">
+<div class="flex items-center justify-between mb-2 px-1">
+<div class="flex items-center gap-2">
+<div class="w-2.5 h-2.5 rounded-full bg-secondary"></div>
+<h3 class="font-headline font-semibold text-on-surface text-sm">Em Negociação / Qual.</h3>
+<span class="bg-surface-container-high text-on-surface-variant text-xs font-medium px-2 py-0.5 rounded-full">8</span>
+</div>
+<button class="text-outline hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined text-sm">more_horiz</span>
+</button>
+</div>
+<div class="text-xs text-on-surface-variant mb-4 px-1 font-medium">Valor Previsto: R$ 22.000</div>
+<div class="flex-1 overflow-y-auto space-y-3 custom-scrollbar">
+<!-- Card 3 -->
+<div class="bg-surface-container-lowest border border-outline-variant/30 rounded-xl p-4 shadow-[0_2px_4px_rgba(0,0,0,0.02)] hover:shadow-md transition-shadow cursor-grab">
+<div class="flex justify-between items-start mb-2">
+<span class="inline-flex items-center gap-1 bg-green-100 text-green-700 text-[10px] font-semibold px-2 py-1 rounded-md">
+<span class="material-symbols-outlined text-[12px]">chat</span>
+                                    WhatsApp
+                                </span>
+</div>
+<h4 class="font-semibold text-on-surface text-body-md mb-1">Fernanda Lima</h4>
+<p class="text-xs text-on-surface-variant mb-3">Preenchimento Labial</p>
+<div class="mb-3">
+<div class="flex justify-between text-[10px] text-on-surface-variant mb-1">
+<span class="">Probabilidade de Fechamento</span>
+<span class="font-semibold text-primary">60%</span>
+</div>
+<div class="w-full bg-surface-container-highest rounded-full h-1.5">
+<div class="bg-primary h-1.5 rounded-full" style="width: 60%"></div>
+</div>
+</div>
+<div class="flex items-center justify-between border-t border-surface-container-highest pt-3 mt-1">
+<div class="flex items-center gap-1.5 text-xs font-medium text-on-surface">
+<img class="w-5 h-5 rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNCejWmDmuoWWcVreXUOeU8pN_Fx7L0DodV-oA5dofdvMpkheKfFUdIfNnJsqzdHGRizX0eG0oAPbI6dcah1HctYIIhyg2cm268Ns7dz4w6KnbSvDG1sNT8Vj-Ym8JIVVKdoEt6aZ5uKEV-P31R8Q2ikUz020ahbqlEqteB67nFxWH_3GdwroVqfNDw6ZcTUnpZFd0ZfgMIT5bgR6D7FfdXvNFsN-EwcqjquhaM8kre8u9PIDlzj9y2RWpfsAdbCsmd9gvis_UThDo">
+                                    R$ 2.400
+                                </div>
+<div class="flex items-center gap-1 text-[10px] text-on-surface-variant">
+<span class="material-symbols-outlined text-[14px]">chat_bubble</span>
+                                    2
+                                </div>
+</div>
+</div>
+</div>
+</div>
+<!-- Column 3: Agendamento -->
+<div class="flex-1 min-w-[280px] max-w-sm flex flex-col max-h-full bg-surface-container-low/40 p-3 rounded-xl">
+<div class="flex items-center justify-between mb-2 px-1">
+<div class="flex items-center gap-2">
+<div class="w-2.5 h-2.5 rounded-full bg-tertiary"></div>
+<h3 class="font-headline font-semibold text-on-surface text-sm">Agendamento Conf.</h3>
+<span class="bg-surface-container-high text-on-surface-variant text-xs font-medium px-2 py-0.5 rounded-full">5</span>
+</div>
+<button class="text-outline hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined text-sm">more_horiz</span>
+</button>
+</div>
+<div class="text-xs text-on-surface-variant mb-4 px-1 font-medium">Valor Previsto: R$ 18.500</div>
+<div class="flex-1 overflow-y-auto space-y-3 custom-scrollbar">
+<!-- Card 4 -->
+<div class="bg-surface-container-lowest border border-outline-variant/30 rounded-xl p-4 shadow-[0_2px_4px_rgba(0,0,0,0.02)] hover:shadow-md transition-shadow cursor-grab border-l-4 border-l-tertiary">
+<div class="flex justify-between items-start mb-2">
+<span class="inline-flex items-center gap-1 bg-surface-container text-on-surface-variant text-[10px] font-semibold px-2 py-1 rounded-md">
+<span class="material-symbols-outlined text-[12px]">group_add</span>
+                                    Indicação
+                                </span>
+</div>
+<h4 class="font-semibold text-on-surface text-body-md mb-1">Carlos Eduardo</h4>
+<p class="text-xs text-on-surface-variant mb-3">Fios de PDO</p>
+<div class="flex items-center gap-2 bg-surface-container-low text-on-surface text-xs px-2 py-1.5 rounded-md mb-3 border border-outline-variant/30">
+<span class="material-symbols-outlined text-sm text-tertiary">event</span>
+<span class="font-medium">Amanhã, 14:30</span>
+</div>
+<div class="flex items-center justify-between border-t border-surface-container-highest pt-3 mt-1">
+<div class="flex items-center gap-1.5 text-xs font-medium text-on-surface">
+<img class="w-5 h-5 rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCW5iUBsq7vLl5ZBHqrDO1jI2RFCL-94708NRQ75s1LjlcMwxxNNT5YlYVmCTL2uQ2-gxK9KLFhFs8WrC2FO8Mgdra87Dr3N5oroAwWTawMoIa1tav_sdeU0CSRm1sdnOmhgASrSmR02ZI0-z0FQ-zXdWFOd8H3Yo1iralqgCdJvCoex_kNn8WXhptG82Mab1A-bcTrwuS8yGHYufHqUwEo7yCGylXdi2Sj0po9v5_ZX9wvQWpKdg00MONE1GS_8FvjBg7bwdknL7nW">
+                                    R$ 3.800
+                                </div>
+</div>
+</div>
+</div>
+</div>
+<!-- Column 4: Fechado -->
+<div class="flex-1 min-w-[280px] max-w-sm flex flex-col max-h-full bg-surface-container-low/40 p-3 rounded-xl">
+<div class="flex items-center justify-between mb-2 px-1">
+<div class="flex items-center gap-2">
+<div class="w-2.5 h-2.5 rounded-full bg-emerald-600"></div>
+<h3 class="font-headline font-semibold text-on-surface text-sm">Fechado / Ganho (Pac.)</h3>
+<span class="bg-surface-container-high text-on-surface-variant text-xs font-medium px-2 py-0.5 rounded-full">3</span>
+</div>
+<button class="text-outline hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined text-sm">more_horiz</span>
+</button>
+</div>
+<div class="text-xs text-emerald-700 mb-4 px-1 font-medium">Valor Fechado: R$ 9.200</div>
+<div class="flex-1 overflow-y-auto space-y-3 custom-scrollbar">
+<!-- Card 5 -->
+<div class="bg-surface-container-lowest border border-emerald-200 rounded-xl p-4 shadow-[0_2px_4px_rgba(0,0,0,0.02)] hover:shadow-md transition-shadow cursor-grab bg-gradient-to-br from-white to-emerald-50/30">
+<div class="flex justify-between items-start mb-2">
+<span class="inline-flex items-center gap-1 bg-emerald-100 text-emerald-700 text-[10px] font-semibold px-2 py-1 rounded-md">
+<span class="material-symbols-outlined text-[12px]">verified</span>
+                                    Fechado
+                                </span>
+<span class="material-symbols-outlined text-emerald-600" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<h4 class="font-semibold text-on-surface text-body-md mb-1">Ana Beatriz</h4>
+<p class="text-xs text-on-surface-variant mb-3">Bioestimulador</p>
+<div class="flex items-center justify-between border-t border-emerald-100 pt-3 mt-1">
+<div class="flex items-center gap-1.5 text-xs font-medium text-emerald-800">
+<img class="w-5 h-5 rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKfZhWLl_2nidWUReszfGXLkuDTGIlKdE7BqwU-NJ1irrMICGbsCyfeL3O7KIpMqGmQs8gQ-Tck8qB1YD_8qI_mep5PJYyuMu906lqDKN0KSfuVKiXU7WTCeIZSFQjljZsyGIDnlVdAOWPwxciICs6vYUqNjvFXEWtSTXOpPPL3DllVvPrkUYF35_MyZSykUZvemZ-z8GUCCNOW1xuiltanQJHOdC_YX6GSq8Hpp2CLdGda_yFy4WlHX-r_AMkAhjC1_yLuTEvKfeq">
+                                    R$ 4.500
+                                </div>
+<span class="text-[10px] text-emerald-600 font-medium">Recebido</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Add Column Button -->
+<div class="w-12 flex-shrink-0 flex justify-center py-8">
+<button class="w-10 h-10 rounded-full bg-surface-container border border-dashed border-outline-variant text-outline hover:text-primary hover:border-primary hover:bg-surface-container-lowest transition-all flex items-center justify-center">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+</main>
+<!-- FAB (Floating Action Button) -->
+<button class="fixed bottom-8 right-8 w-14 h-14 bg-primary text-on-primary rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-200 flex items-center justify-center z-50 focus:outline-none focus:ring-4 focus:ring-primary/30">
+<span class="material-symbols-outlined text-3xl">add</span>
+</button>
+</div>
+</body></html>

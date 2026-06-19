@@ -1,0 +1,279 @@
+<!DOCTYPE html><html class="light" lang="pt-BR"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Agenda - Visão Mensal | FooNewOps</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">tailwind.config = {darkMode: "class", theme: {extend: {colors: {"surface-bright": "#f9f9ff", "secondary-fixed": "#d6e3ff", "primary-fixed-dim": "#aac7ff", "on-error": "#ffffff", "surface-container": "#ebedf7", "on-tertiary-container": "#fffbff", "surface-container-highest": "#e0e2eb", surface: "#f9f9ff", "on-background": "#181c22", "on-surface": "#181c22", "surface-container-low": "#f1f3fc", "error-container": "#ffdad6", "secondary-container": "#b6d0ff", "surface-tint": "#005db8", "primary-fixed": "#d6e3ff", "on-primary": "#ffffff", "on-secondary-fixed": "#001b3d", "secondary-fixed-dim": "#aec7f7", outline: "#717785", "inverse-on-surface": "#eef0fa", "surface-container-lowest": "#ffffff", "on-tertiary-fixed-variant": "#763400", "on-tertiary-fixed": "#321200", background: "#f9f9ff", "surface-container-high": "#e6e8f1", "on-tertiary": "#ffffff", "tertiary-fixed-dim": "#ffb68c", "on-secondary-fixed-variant": "#2d476f", "surface-variant": "#e0e2eb", "surface-dim": "#d7dae3", "on-primary-container": "#fefcff", error: "#ba1a1a", "tertiary-container": "#bd5700", "on-primary-fixed-variant": "#00458d", "tertiary-fixed": "#ffdbc9", "on-secondary-container": "#3f5881", secondary: "#465f88", primary: "#005ab4", "on-error-container": "#93000a", "inverse-surface": "#2d3037", "on-surface-variant": "#414753", "on-secondary": "#ffffff", tertiary: "#964400", "outline-variant": "#c1c6d5", "primary-container": "#0a73e0", "inverse-primary": "#aac7ff", "on-primary-fixed": "#001b3e"}, borderRadius: {DEFAULT: "0.5rem", lg: "1rem", xl: "1.5rem", full: "9999px"}, fontFamily: {headline: ["Inter"], display: ["Inter"], body: ["Inter"], label: ["Inter"]}, fontSize: {}}}};</script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex font-body">
+<!-- SideNavBar Component -->
+<aside class="bg-surface-container-low dark:bg-surface-container-lowest shadow-sm h-screen w-64 flex-shrink-0 flex flex-col py-6 px-4 hidden md:flex border-r border-outline-variant/30 fixed left-0 top-0 z-20"><div class="flex items-center gap-3 mb-8 px-2"><div class="w-8 h-8 rounded-md bg-primary text-on-primary flex items-center justify-center font-bold text-lg"><span class=""> F </span></div><div><h1 class="text-headline-md font-headline font-bold text-primary dark:text-primary-fixed leading-tight"> FooNewOps </h1><p class="text-xs text-on-surface-variant"> Healthtech OS </p></div></div><nav class="flex-1 space-y-1"><a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-outline hover:text-primary hover:bg-surface-container-high dark:hover:bg-surface-variant transition-colors duration-200" href="#"><span class="material-symbols-outlined"> dashboard </span><span class="font-body text-body-md"> Dashboard </span></a><a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-surface-container-high dark:bg-surface-variant text-primary dark:text-primary-fixed font-bold border-l-4 border-primary transition-colors duration-200" href="#"><span class="material-symbols-outlined filled-icon"> calendar_today </span><span class="font-body text-body-md"> Agenda </span></a><a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-outline hover:text-primary hover:bg-surface-container-high dark:hover:bg-surface-variant transition-colors duration-200" href="#"><span class="material-symbols-outlined"> groups </span><span class="font-body text-body-md"> CRM </span></a><a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-outline hover:text-primary hover:bg-surface-container-high dark:hover:bg-surface-variant transition-colors duration-200" href="#"><span class="material-symbols-outlined"> inbox </span><span class="font-body text-body-md"> Inbox </span></a><a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-outline hover:text-primary hover:bg-surface-container-high dark:hover:bg-surface-variant transition-colors duration-200" href="#"><span class="material-symbols-outlined"> person </span><span class="font-body text-body-md"> Patients </span></a><a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-outline hover:text-primary hover:bg-surface-container-high dark:hover:bg-surface-variant transition-colors duration-200" href="#"><span class="material-symbols-outlined"> payments </span><span class="font-body text-body-md"> Financial </span></a><a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-outline hover:text-primary hover:bg-surface-container-high dark:hover:bg-surface-variant transition-colors duration-200" href="#"><span class="material-symbols-outlined"> inventory_2 </span><span class="font-body text-body-md"> Inventory </span></a></nav><div class="mt-auto pt-4 border-t border-outline-variant/30"><a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant dark:text-outline hover:text-primary hover:bg-surface-container-high dark:hover:bg-surface-variant transition-colors duration-200" href="#"><span class="material-symbols-outlined"> settings </span><span class="font-body text-body-md"> Settings </span></a></div></aside>
+<!-- Main Content Canvas -->
+<div class="flex-1 ml-64 flex flex-col min-h-screen">
+<!-- TopNavBar Component -->
+<header class="bg-surface/80 backdrop-blur-md border-b border-outline-variant/30 w-full h-16 flex items-center justify-between px-6 sticky top-0 z-40">
+<div class="flex items-center gap-6 flex-1">
+<h2 class="text-lg font-bold text-on-surface tracking-tight">Clnica Sorriso Holding</h2>
+<div class="h-6 w-[1px] bg-outline-variant/50 hidden md:block"></div>
+<div class="relative max-w-md w-full hidden md:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border border-outline-variant/30 rounded-full text-sm focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all shadow-inner" placeholder="Buscar pacientes, conversas ou agendamentos..." type="text">
+</div>
+</div>
+<div class="flex items-center gap-3">
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-all relative group">
+<span class="material-symbols-outlined text-[24px]">notifications</span>
+<span class="absolute top-2 right-2.5 w-2 h-2 bg-error rounded-full ring-2 ring-surface"></span>
+<div class="absolute top-full mt-2 right-0 bg-surface border border-outline-variant/30 rounded-lg shadow-xl p-2 hidden group-hover:block w-48 text-xs z-50">Nenhuma notificao nova</div>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-all">
+<span class="material-symbols-outlined text-[24px]">help_outline</span>
+</button>
+<div class="h-8 w-[1px] bg-outline-variant/30 mx-1"></div>
+<button class="flex items-center gap-2 pl-1 pr-3 py-1 rounded-full hover:bg-surface-container-high transition-all">
+<div class="w-8 h-8 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-xs border border-primary/10 shadow-sm">DS</div>
+<span class="text-sm font-medium text-on-surface">Dr. Santos</span>
+<span class="material-symbols-outlined text-[18px] text-outline">keyboard_arrow_down</span>
+</button>
+</div>
+</header>
+<!-- Main Workspace -->
+<main class="flex-1 p-6 flex flex-col bg-surface-bright overflow-hidden">
+<!-- Filters & Controls Bar -->
+<div class="px-6 py-4 bg-surface flex flex-col sm:flex-row justify-between items-center gap-4 border-b border-outline-variant/50 shrink-0 z-30 mb-2">
+<div class="flex items-center">
+<div class="flex items-center gap-4">
+<button class="w-8 h-8 flex items-center justify-center text-on-surface-variant hover:bg-surface-container rounded-full transition-colors">
+<span class="material-symbols-outlined text-xl">chevron_left</span>
+</button>
+<h2 class="text-body-md font-medium text-on-surface">Maio 2026</h2>
+<button class="w-8 h-8 flex items-center justify-center text-on-surface-variant hover:bg-surface-container rounded-full transition-colors">
+<span class="material-symbols-outlined text-xl">chevron_right</span>
+</button>
+</div>
+</div>
+<div class="flex flex-wrap items-center">
+<div class="flex items-center gap-3">
+<button class="flex items-center gap-2 px-4 py-2 bg-surface-container-lowest border border-outline-variant rounded-lg text-sm font-medium text-on-surface hover:bg-surface-container-low transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">group</span>
+        Todos os Profissionais
+        <span class="material-symbols-outlined text-[18px] text-on-surface-variant">arrow_drop_down</span>
+</button>
+<button class="flex items-center gap-2 px-4 py-2 bg-surface-container-lowest border border-outline-variant rounded-lg text-sm font-medium text-on-surface hover:bg-surface-container-low transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">meeting_room</span>
+        Todas as Salas
+        <span class="material-symbols-outlined text-[18px] text-on-surface-variant">arrow_drop_down</span>
+</button>
+</div>
+<div class="flex items-center bg-surface-container-low rounded-lg p-1">
+<button class="px-4 py-1.5 text-body-md font-medium text-on-surface-variant hover:bg-surface-variant rounded-md transition-colors">Dia</button>
+<button class="px-4 py-1.5 text-body-md font-medium text-on-surface-variant hover:bg-surface-variant rounded-md transition-colors">Semana</button>
+<button class="px-4 py-1.5 text-body-md font-medium bg-primary text-on-primary rounded-md shadow-sm transition-colors">Mês</button>
+<button class="px-4 py-1.5 text-body-md font-medium text-on-surface-variant hover:bg-surface-variant rounded-md transition-colors">Lista</button>
+</div>
+</div>
+</div>
+<!-- Calendar Grid -->
+<div class="flex-1 bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm flex flex-col overflow-hidden">
+<!-- Days Header -->
+<div class="grid grid-cols-7 border-b border-outline-variant bg-surface-container-low">
+<div class="py-3 text-center font-label text-label-md text-on-surface-variant font-semibold">SEG</div>
+<div class="py-3 text-center font-label text-label-md text-on-surface-variant font-semibold">TER</div>
+<div class="py-3 text-center font-label text-label-md text-on-surface-variant font-semibold">QUA</div>
+<div class="py-3 text-center font-label text-label-md text-on-surface-variant font-semibold">QUI</div>
+<div class="py-3 text-center font-label text-label-md text-on-surface-variant font-semibold">SEX</div>
+<div class="py-3 text-center font-label text-label-md text-outline font-semibold">SÁB</div>
+<div class="py-3 text-center font-label text-label-md text-outline font-semibold">DOM</div>
+</div>
+<!-- Grid Cells -->
+<div class="grid grid-cols-7 grid-rows-5 flex-1 bg-outline-variant gap-px">
+<!-- Row 1 -->
+<div class="bg-surface-container-lowest p-2 flex flex-col min-h-[100px] hover:bg-surface-container-low transition-colors cursor-pointer text-outline">
+<span class="text-right font-body text-body-md">27</span>
+</div>
+<div class="bg-surface-container-lowest p-2 flex flex-col min-h-[100px] hover:bg-surface-container-low transition-colors cursor-pointer text-outline">
+<span class="text-right font-body text-body-md">28</span>
+</div>
+<div class="bg-surface-container-lowest p-2 flex flex-col min-h-[100px] hover:bg-surface-container-low transition-colors cursor-pointer text-outline">
+<span class="text-right font-body text-body-md">29</span>
+</div>
+<div class="bg-surface-container-lowest p-2 flex flex-col min-h-[100px] hover:bg-surface-container-low transition-colors cursor-pointer text-outline">
+<span class="text-right font-body text-body-md">30</span>
+</div>
+<div class="bg-surface-container-lowest p-2 flex flex-col min-h-[100px] hover:bg-surface-container-low transition-colors cursor-pointer text-on-surface">
+<span class="text-right font-body text-body-md font-medium">1</span>
+</div>
+<div class="bg-surface-container-low p-2 flex flex-col min-h-[100px] text-outline">
+<span class="text-right font-body text-body-md">2</span>
+<div class="mt-auto text-center font-label text-[10px] uppercase tracking-wider text-outline">Fechado</div>
+</div>
+<div class="bg-surface-container-low p-2 flex flex-col min-h-[100px] text-outline">
+<span class="text-right font-body text-body-md">3</span>
+<div class="mt-auto text-center font-label text-[10px] uppercase tracking-wider text-outline">Fechado</div>
+</div>
+<!-- Row 2 -->
+<!-- Simulating a standard day -->
+<div class="bg-surface-container-lowest p-2 flex flex-col min-h-[100px] hover:bg-surface-container-low transition-colors cursor-pointer text-on-surface">
+<span class="text-right font-body text-body-md font-medium">4</span>
+<div class="mt-auto space-y-1">
+<div class="h-1.5 w-full bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-primary" style="width: 60%"></div>
+</div>
+<p class="font-label text-[10px] text-on-surface-variant truncate">12 agend. • R$ 5.2k prev.</p>
+</div>
+</div>
+<!-- ... omitting repetitive standard days for brevity, showing key days ... -->
+<div class="bg-surface-container-lowest p-2 flex flex-col min-h-[100px] hover:bg-surface-container-low transition-colors cursor-pointer text-on-surface">
+<span class="text-right font-body text-body-md font-medium">5</span>
+</div>
+<div class="bg-surface-container-lowest p-2 flex flex-col min-h-[100px] hover:bg-surface-container-low transition-colors cursor-pointer text-on-surface">
+<span class="text-right font-body text-body-md font-medium">6</span>
+</div>
+<div class="bg-surface-container-lowest p-2 flex flex-col min-h-[100px] hover:bg-surface-container-low transition-colors cursor-pointer text-on-surface">
+<span class="text-right font-body text-body-md font-medium">7</span>
+</div>
+<div class="bg-surface-container-lowest p-2 flex flex-col min-h-[100px] hover:bg-surface-container-low transition-colors cursor-pointer text-on-surface">
+<span class="text-right font-body text-body-md font-medium">8</span>
+</div>
+<div class="bg-surface-container-low p-2 flex flex-col min-h-[100px] text-outline">
+<span class="text-right font-body text-body-md">9</span>
+<div class="mt-auto text-center font-label text-[10px] uppercase tracking-wider text-outline">Fechado</div>
+</div>
+<div class="bg-surface-container-low p-2 flex flex-col min-h-[100px] text-outline">
+<span class="text-right font-body text-body-md">10</span>
+<div class="mt-auto text-center font-label text-[10px] uppercase tracking-wider text-outline">Fechado</div>
+</div>
+<!-- Row 3 - Highlighted Day 15 -->
+<div class="bg-surface-container-lowest p-2 flex flex-col min-h-[100px] hover:bg-surface-container-low transition-colors cursor-pointer text-on-surface">
+<span class="text-right font-body text-body-md font-medium">11</span>
+</div>
+<div class="bg-surface-container-lowest p-2 flex flex-col min-h-[100px] hover:bg-surface-container-low transition-colors cursor-pointer text-on-surface">
+<span class="text-right font-body text-body-md font-medium">12</span>
+</div>
+<div class="bg-surface-container-lowest p-2 flex flex-col min-h-[100px] hover:bg-surface-container-low transition-colors cursor-pointer text-on-surface">
+<span class="text-right font-body text-body-md font-medium">13</span>
+</div>
+<div class="bg-surface-container-lowest p-2 flex flex-col min-h-[100px] hover:bg-surface-container-low transition-colors cursor-pointer text-on-surface">
+<span class="text-right font-body text-body-md font-medium">14</span>
+</div>
+<!-- Day 15 (Cheio) -->
+<div class="bg-surface-container-lowest p-2 flex flex-col min-h-[100px] hover:bg-surface-container-low transition-colors cursor-pointer text-on-surface border-2 border-transparent hover:border-outline-variant">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-[16px] text-outline" data-icon="check_circle">check_circle</span>
+<span class="text-right font-body text-body-md font-medium">15</span>
+</div>
+<div class="mt-auto space-y-1">
+<div class="h-1.5 w-full bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-[#10B981]" style="width: 90%"></div>
+</div>
+<p class="font-label text-[10px] text-on-surface-variant leading-tight">18 agend. • R$ 8.4k previstos</p>
+</div>
+</div>
+<div class="bg-surface-container-low p-2 flex flex-col min-h-[100px] text-outline">
+<span class="text-right font-body text-body-md">16</span>
+<div class="mt-auto text-center font-label text-[10px] uppercase tracking-wider text-outline">Fechado</div>
+</div>
+<div class="bg-surface-container-low p-2 flex flex-col min-h-[100px] text-outline">
+<span class="text-right font-body text-body-md">17</span>
+<div class="mt-auto text-center font-label text-[10px] uppercase tracking-wider text-outline">Fechado</div>
+</div>
+<!-- Row 4 - Current Day 22 -->
+<div class="bg-surface-container-lowest p-2 flex flex-col min-h-[100px] hover:bg-surface-container-low transition-colors cursor-pointer text-on-surface">
+<span class="text-right font-body text-body-md font-medium">18</span>
+</div>
+<div class="bg-surface-container-lowest p-2 flex flex-col min-h-[100px] hover:bg-surface-container-low transition-colors cursor-pointer text-on-surface">
+<span class="text-right font-body text-body-md font-medium">19</span>
+</div>
+<div class="bg-surface-container-lowest p-2 flex flex-col min-h-[100px] hover:bg-surface-container-low transition-colors cursor-pointer text-on-surface">
+<span class="text-right font-body text-body-md font-medium">20</span>
+</div>
+<div class="bg-surface-container-lowest p-2 flex flex-col min-h-[100px] hover:bg-surface-container-low transition-colors cursor-pointer text-on-surface">
+<span class="text-right font-body text-body-md font-medium">21</span>
+</div>
+<!-- Day 22 Current & Idle -->
+<div class="bg-surface-container-lowest p-2 flex flex-col min-h-[100px] hover:bg-surface-container-low transition-colors cursor-pointer relative group bg-primary-fixed-dim/10">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-[16px] text-tertiary-container animate-pulse" data-icon="campaign">campaign</span>
+<span class="w-7 h-7 bg-primary text-on-primary rounded-full flex items-center justify-center font-body text-body-md font-bold shadow-md ml-auto">22</span>
+</div>
+<!-- AI Tooltip (Hover state) -->
+<div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-64 bg-inverse-surface text-inverse-on-surface p-3 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50">
+<div class="flex items-start gap-2">
+<span class="material-symbols-outlined text-inverse-primary text-sm mt-0.5" data-icon="lightbulb">lightbulb</span>
+<p class="font-label text-xs leading-snug">Dica da IA: Envie uma mensagem para os 45 pacientes que não retornam há 6 meses para preencher a agenda de sexta-feira.</p>
+</div>
+<!-- Tooltip Arrow -->
+<div class="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-inverse-surface rotate-45"></div>
+</div>
+<div class="mt-auto space-y-1">
+<div class="h-1.5 w-full bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-tertiary" style="width: 20%"></div>
+</div>
+<p class="font-label text-[10px] text-tertiary-container font-medium leading-tight">4 agend. • Baixa ocupação</p>
+</div>
+</div>
+<div class="bg-surface-container-low p-2 flex flex-col min-h-[100px] text-outline">
+<span class="text-right font-body text-body-md">23</span>
+<div class="mt-auto text-center font-label text-[10px] uppercase tracking-wider text-outline">Fechado</div>
+</div>
+<div class="bg-surface-container-low p-2 flex flex-col min-h-[100px] text-outline">
+<span class="text-right font-body text-body-md">24</span>
+<div class="mt-auto text-center font-label text-[10px] uppercase tracking-wider text-outline">Fechado</div>
+</div>
+<!-- Row 5 -->
+<div class="bg-surface-container-lowest p-2 flex flex-col min-h-[100px] hover:bg-surface-container-low transition-colors cursor-pointer text-on-surface">
+<span class="text-right font-body text-body-md font-medium">25</span>
+</div>
+<div class="bg-surface-container-lowest p-2 flex flex-col min-h-[100px] hover:bg-surface-container-low transition-colors cursor-pointer text-on-surface">
+<span class="text-right font-body text-body-md font-medium">26</span>
+</div>
+<div class="bg-surface-container-lowest p-2 flex flex-col min-h-[100px] hover:bg-surface-container-low transition-colors cursor-pointer text-on-surface">
+<span class="text-right font-body text-body-md font-medium">27</span>
+</div>
+<div class="bg-surface-container-lowest p-2 flex flex-col min-h-[100px] hover:bg-surface-container-low transition-colors cursor-pointer text-on-surface">
+<span class="text-right font-body text-body-md font-medium">28</span>
+</div>
+<div class="bg-surface-container-lowest p-2 flex flex-col min-h-[100px] hover:bg-surface-container-low transition-colors cursor-pointer text-on-surface">
+<span class="text-right font-body text-body-md font-medium">29</span>
+</div>
+<div class="bg-surface-container-low p-2 flex flex-col min-h-[100px] text-outline">
+<span class="text-right font-body text-body-md">30</span>
+<div class="mt-auto text-center font-label text-[10px] uppercase tracking-wider text-outline">Fechado</div>
+</div>
+<div class="bg-surface-container-low p-2 flex flex-col min-h-[100px] text-outline">
+<span class="text-right font-body text-body-md">31</span>
+<div class="mt-auto text-center font-label text-[10px] uppercase tracking-wider text-outline">Fechado</div>
+</div>
+</div>
+</div>
+<!-- Legend / Quick Stats footer -->
+<div class="mt-4 flex items-center justify-between text-label-md text-on-surface-variant px-2">
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-[#10B981]"></div>
+<span class="">Alta Ocupação (&gt;80%)</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-primary"></div>
+<span class="">Ocupação Ideal (50-80%)</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-tertiary"></div>
+<span class="">Baixa Ocupação (&lt;50%)</span>
+</div>
+</div>
+<div class="font-medium text-on-surface">
+                    Total Mensal Previsto: R$ 142.500
+                </div>
+</div>
+<button class="fixed bottom-8 right-8 w-14 h-14 bg-primary text-on-primary rounded-2xl shadow-lg hover:shadow-xl hover:bg-primary/90 hover:-translate-y-1 transition-all duration-200 flex items-center justify-center z-50">
+<span class="material-symbols-outlined text-3xl">add</span>
+</button></main>
+</div>
+</body></html>

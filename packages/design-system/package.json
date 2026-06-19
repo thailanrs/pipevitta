@@ -1,0 +1,13 @@
+{
+  "name": "@pipevitta/design-system",
+  "version": "1.0.0",
+  "private": true,
+  "main": "index.js",
+  "files": [
+    "tailwind.config.js",
+    "index.css"
+  ],
+  "dependencies": {
+    "tailwindcss": "^3.4.3"
+  }
+}

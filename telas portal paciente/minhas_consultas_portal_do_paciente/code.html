@@ -1,0 +1,287 @@
+<!DOCTYPE html><html class="light" lang="pt-BR" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Minhas Consultas - FooNewOps</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-container": "#005ab4",
+                    "outline": "#727783",
+                    "on-surface": "#161c26",
+                    "on-secondary-container": "#00714d",
+                    "error-container": "#ffdad6",
+                    "on-secondary-fixed-variant": "#005236",
+                    "surface": "#f9f9ff",
+                    "on-secondary": "#ffffff",
+                    "on-primary-fixed-variant": "#00458d",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-fixed-dim": "#aac7ff",
+                    "secondary": "#006c49",
+                    "tertiary-fixed-dim": "#ffb68c",
+                    "on-error": "#ffffff",
+                    "on-tertiary-fixed": "#321200",
+                    "surface-container": "#e8eefd",
+                    "tertiary-fixed": "#ffdbc9",
+                    "surface-container-low": "#f0f3ff",
+                    "surface-bright": "#f9f9ff",
+                    "on-error-container": "#93000a",
+                    "on-primary-fixed": "#001b3e",
+                    "surface-tint": "#095db7",
+                    "inverse-surface": "#2b313c",
+                    "on-surface-variant": "#424752",
+                    "surface-container-highest": "#dde2f1",
+                    "on-background": "#161c26",
+                    "on-tertiary-fixed-variant": "#763400",
+                    "surface-dim": "#d4dae9",
+                    "secondary-container": "#6cf8bb",
+                    "primary-fixed": "#d6e3ff",
+                    "inverse-primary": "#aac7ff",
+                    "tertiary-container": "#964400",
+                    "secondary-fixed-dim": "#4edea3",
+                    "outline-variant": "#c2c6d4",
+                    "surface-variant": "#dde2f1",
+                    "primary": "#004389",
+                    "on-primary-container": "#c0d5ff",
+                    "on-tertiary": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "on-tertiary-container": "#ffc9ac",
+                    "on-secondary-fixed": "#002113",
+                    "surface-container-high": "#e3e8f7",
+                    "background": "#f9f9ff",
+                    "inverse-on-surface": "#ecf1ff",
+                    "tertiary": "#723200",
+                    "error": "#ba1a1a",
+                    "secondary-fixed": "#6ffbbe"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-sm": "12px",
+                    "base": "8px",
+                    "stack-lg": "40px",
+                    "gutter": "16px",
+                    "touch-target-min": "48px",
+                    "stack-md": "24px",
+                    "margin-mobile": "20px"
+            },
+            "fontFamily": {
+                    "headline-md": [
+                            "Inter"
+                    ],
+                    "headline-sm": [
+                            "Inter"
+                    ],
+                    "label-md": [
+                            "Inter"
+                    ],
+                    "headline-lg": [
+                            "Inter"
+                    ],
+                    "body-lg": [
+                            "Inter"
+                    ],
+                    "body-md": [
+                            "Inter"
+                    ],
+                    "label-lg": [
+                            "Inter"
+                    ]
+            },
+            "fontSize": {
+                    "headline-md": [
+                            "22px",
+                            {
+                                    "lineHeight": "28px",
+                                    "letterSpacing": "-0.01em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "headline-sm": [
+                            "18px",
+                            {
+                                    "lineHeight": "24px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "label-md": [
+                            "12px",
+                            {
+                                    "lineHeight": "16px",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "headline-lg": [
+                            "28px",
+                            {
+                                    "lineHeight": "34px",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "body-lg": [
+                            "16px",
+                            {
+                                    "lineHeight": "24px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "body-md": [
+                            "14px",
+                            {
+                                    "lineHeight": "20px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "label-lg": [
+                            "14px",
+                            {
+                                    "lineHeight": "20px",
+                                    "fontWeight": "600"
+                            }
+                    ]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        body {
+            background-color: #f9f9ff;
+            -webkit-tap-highlight-color: transparent;
+        }
+        /* Hide scrollbar for clean mobile look */
+        ::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+<body class="font-body-md text-on-surface pb-[96px] pt-[72px]">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full bg-surface dark:bg-background z-50 flex items-center justify-between px-margin-mobile h-touch-target-min transition-colors duration-200 shadow-[0_2px_4px_rgba(0,0,0,0.02)]">
+<button aria-label="Voltar" class="h-touch-target-min w-touch-target-min flex items-center justify-start text-primary dark:text-primary-fixed-dim hover:bg-surface-container-low dark:hover:bg-surface-container-highest rounded-full transition-colors active:scale-95">
+<span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 0;">arrow_back</span>
+</button>
+<h1 class="font-headline-md text-headline-md text-on-surface">Minhas Consultas</h1>
+<button aria-label="Filtrar" class="h-touch-target-min w-touch-target-min flex items-center justify-end text-primary dark:text-primary-fixed-dim hover:bg-surface-container-low dark:hover:bg-surface-container-highest rounded-full transition-colors active:scale-95">
+<span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 0;">tune</span>
+</button>
+</header>
+<main class="px-margin-mobile space-y-6 mt-4">
+<!-- Header Subtitle -->
+<div>
+<p class="font-body-md text-body-md text-on-surface-variant">Gerencie sua agenda e agende novos retornos.</p>
+</div>
+<!-- Hero CTA -->
+<button aria-label="Agendar Nova Consulta" class="w-full bg-primary-container text-on-primary rounded-xl p-6 text-left relative overflow-hidden active:scale-95 transition-transform duration-200 shadow-sm">
+<!-- Subtle Gradient Overlay -->
+<div class="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent pointer-events-none"></div>
+<div class="relative z-10 flex items-start gap-4">
+<div class="bg-white/20 p-3 rounded-full flex-shrink-0">
+<span class="material-symbols-outlined text-white" style="font-variation-settings: &quot;FILL&quot; 1;">calendar_add_on</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-white mb-1">Agendar Nova Consulta</h2>
+<p class="font-body-md text-body-md text-white/80">Veja horários disponíveis com sua equipe médica</p>
+</div>
+</div>
+</button>
+<!-- Próximas Section -->
+<section class="space-y-4">
+<div class="flex items-center gap-2 text-on-surface-variant uppercase font-label-md text-label-md tracking-wider">
+<span class="material-symbols-outlined text-[18px]">event_upcoming</span>
+<h3 class="">Próximas</h3>
+</div>
+<!-- Card 1: Imminent -->
+<div class="bg-surface-container-lowest rounded-xl shadow-[0_4px_12px_rgba(0,0,0,0.04)] border-l-4 border-[#10B981] p-4 space-y-4 relative"><div class="flex justify-between items-start gap-4 mb-1">
+  <p class="font-headline-sm text-headline-sm text-primary">Amanhã, 24 Mai • 14:00</p>
+  <div class="inline-flex items-center gap-1 bg-[#10B981]/10 text-[#00714d] px-2 py-1 rounded-md font-label-md text-label-md shrink-0">
+    <span class="text-xs">✅</span>
+    <span class="">Confirmado</span>
+  </div>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">Harmonização Facial | Dra. Ana Souza | Sala 2</p>
+<div class="grid grid-cols-2 gap-3 pt-2">
+  <button class="h-touch-target-min flex items-center justify-center gap-2 border border-outline-variant text-primary rounded-lg font-label-lg text-label-lg active:scale-95 transition-transform">
+    <span class="material-symbols-outlined text-[18px]">edit_calendar</span>
+    Reagendar
+  </button>
+  <button class="h-touch-target-min flex items-center justify-center gap-2 bg-primary text-on-primary rounded-lg font-label-lg text-label-lg active:scale-95 transition-transform shadow-sm">
+    Ver Detalhes
+  </button>
+</div></div>
+<!-- Card 2: Future/Pending -->
+<div class="bg-surface-container-lowest rounded-xl shadow-[0_4px_12px_rgba(0,0,0,0.04)] border-l-4 border-[#c55b00] p-4 space-y-4 relative"><div class="flex justify-between items-start gap-4 mb-1">
+  <p class="font-headline-sm text-headline-sm text-on-surface">12 Jun • 09:30</p>
+  <div class="inline-flex items-center gap-1 bg-[#c55b00]/10 text-[#964400] px-2 py-1 rounded-md font-label-md text-label-md shrink-0">
+    <span class="text-xs">⌛</span>
+    <span class="">Pendente de Confirmação</span>
+  </div>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">Retorno e Avaliação | Dr. Carlos Mendes</p>
+<div class="pt-2">
+  <button class="w-full h-touch-target-min flex items-center justify-center gap-2 bg-[#ffdbc9] text-[#763400] rounded-lg font-label-lg text-label-lg active:scale-95 transition-transform">
+    <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: &quot;FILL&quot; 1;">check_circle</span>
+    Confirmar Presença
+  </button>
+</div></div>
+</section>
+<!-- Histórico Recente Section -->
+<section class="space-y-4 pt-2">
+<div class="flex items-center gap-2 text-on-surface-variant uppercase font-label-md text-label-md tracking-wider">
+<span class="material-symbols-outlined text-[18px]">history</span>
+<h3 class="">Histórico Recente</h3>
+</div>
+<!-- Item 1: Minimalist card -->
+<div class="bg-[#f1f3fc] rounded-xl p-4 flex flex-col gap-3">
+<div class="flex justify-between items-start">
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant mb-1">14 Mai 2026</p>
+<p class="font-body-md text-body-md text-on-surface font-medium">Consulta de Avaliação Dermatológica</p>
+</div>
+</div>
+<div class="flex items-center gap-4 pt-1">
+<button class="flex items-center gap-1.5 text-primary hover:opacity-80 transition-opacity font-label-md text-label-md min-h-[32px]">
+<span class="material-symbols-outlined text-[18px]">description</span>
+                        Ver Receitas
+                    </button>
+<button class="flex items-center gap-1.5 text-primary hover:opacity-80 transition-opacity font-label-md text-label-md min-h-[32px]">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+                        Ver Exames
+                    </button>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 bg-surface shadow-[0_-4px_12px_rgba(0,0,0,0.04)] flex justify-around items-center px-2 py-base h-[72px] md:hidden">
+  <button class="flex flex-col items-center justify-center rounded-xl px-4 py-1 active:scale-90 duration-200 w-full text-on-surface-variant hover:bg-surface-container-high transition-all group">
+    <span class="material-symbols-outlined mb-1 group-hover:text-primary transition-colors" style="font-variation-settings: &quot;FILL&quot; 0;">home</span>
+    <span class="font-label-md text-label-md group-hover:text-primary transition-colors">Início</span>
+  </button>
+  <button class="flex flex-col items-center justify-center px-4 py-1 transition-all active:scale-90 duration-200 rounded-xl group w-full text-primary bg-primary-container/10">
+    <span class="material-symbols-outlined mb-1 group-hover:text-primary transition-colors" style="font-variation-settings: &quot;FILL&quot; 1;">calendar_today</span>
+    <span class="font-label-md text-label-md group-hover:text-primary transition-colors">Consultas</span>
+  </button>
+  <button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-container-high transition-all active:scale-90 duration-200 rounded-xl group w-full">
+    <span class="material-symbols-outlined mb-1 group-hover:text-primary transition-colors" style="font-variation-settings: &quot;FILL&quot; 0;">chat</span>
+    <span class="font-label-md text-label-md group-hover:text-primary transition-colors">Mensagens</span>
+  </button>
+  <button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-container-high transition-all active:scale-90 duration-200 rounded-xl group w-full">
+    <span class="material-symbols-outlined mb-1 group-hover:text-primary transition-colors" style="font-variation-settings: &quot;FILL&quot; 0;">person</span>
+    <span class="font-label-md text-label-md group-hover:text-primary transition-colors">Perfil</span>
+  </button>
+</nav>
+
+
+</body></html>

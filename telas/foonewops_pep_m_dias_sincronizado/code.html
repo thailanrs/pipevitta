@@ -1,0 +1,592 @@
+<!DOCTYPE html><html class="light" lang="pt-BR" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>FooNewOps - Mídias do Paciente</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet">
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #f9f9ff; color: #181c22; }
+        
+        /* Entrance Animations */
+        @media (prefers-reduced-motion: no-preference) {
+            .animate-fade-up {
+                opacity: 0;
+                transform: translateY(20px);
+                animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            }
+            
+            .delay-100 { animation-delay: 100ms; }
+            .delay-200 { animation-delay: 200ms; }
+            .delay-300 { animation-delay: 300ms; }
+            .delay-400 { animation-delay: 400ms; }
+            .delay-500 { animation-delay: 500ms; }
+            .delay-600 { animation-delay: 600ms; }
+
+            @keyframes fadeUp {
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            /* Shimmer */
+            @keyframes shimmer {
+                100% { transform: translateX(100%); }
+            }
+            .animate-shimmer {
+                animation: shimmer 2s infinite;
+            }
+            
+            /* AI Sparkle Pulse */
+            @keyframes ai-pulse {
+                0%, 100% { opacity: 1; transform: scale(1); }
+                50% { opacity: 0.8; transform: scale(1.05); }
+            }
+            .animate-ai-pulse {
+                animation: ai-pulse 3s infinite ease-in-out;
+            }
+        }
+        
+        /* Slider */
+        .slider-handle-container {
+            cursor: ew-resize;
+        }
+        .slider-handle-container:hover .slider-line {
+            background-color: #005ab4;
+            box-shadow: 0 0 8px rgba(0,90,180,0.6);
+            width: 4px;
+        }
+        .slider-handle-container:hover .slider-btn {
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        .slider-line { transition: all 0.2s ease; }
+        .slider-btn { transition: all 0.2s ease; }
+
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "inverse-primary": "#aac7ff",
+                      "on-tertiary": "#ffffff",
+                      "inverse-surface": "#2d3037",
+                      "surface-tint": "#005db8",
+                      "tertiary-container": "#bd5700",
+                      "on-primary-container": "#fefcff",
+                      "secondary": "#465f88",
+                      "outline-variant": "#c1c6d5",
+                      "on-error-container": "#93000a",
+                      "surface": "#f9f9ff",
+                      "on-secondary": "#ffffff",
+                      "surface-container-lowest": "#ffffff",
+                      "primary-container": "#0a73e0",
+                      "secondary-container": "#b6d0ff",
+                      "on-secondary-container": "#3f5881",
+                      "surface-variant": "#e0e2eb",
+                      "surface-container-high": "#e6e8f1",
+                      "on-tertiary-fixed": "#321200",
+                      "on-error": "#ffffff",
+                      "surface-container-low": "#f1f3fc",
+                      "outline": "#717785",
+                      "error": "#ba1a1a",
+                      "surface-bright": "#f9f9ff",
+                      "on-tertiary-container": "#fffbff",
+                      "inverse-on-surface": "#eef0fa",
+                      "on-tertiary-fixed-variant": "#763400",
+                      "on-secondary-fixed-variant": "#2d476f",
+                      "surface-container-highest": "#e0e2eb",
+                      "secondary-fixed-dim": "#aec7f7",
+                      "on-primary": "#ffffff",
+                      "secondary-fixed": "#d6e3ff",
+                      "tertiary-fixed": "#ffdbc9",
+                      "on-background": "#181c22",
+                      "on-secondary-fixed": "#001b3d",
+                      "on-primary-fixed": "#001b3e",
+                      "surface-dim": "#d7dae3",
+                      "on-surface-variant": "#414753",
+                      "on-surface": "#181c22",
+                      "background": "#f9f9ff",
+                      "surface-container": "#ebedf7",
+                      "primary": "#005ab4",
+                      "primary-fixed-dim": "#aac7ff",
+                      "on-primary-fixed-variant": "#00458d",
+                      "error-container": "#ffdad6",
+                      "primary-fixed": "#d6e3ff",
+                      "tertiary": "#964400",
+                      "tertiary-fixed-dim": "#ffb68c"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.5rem",
+                      "lg": "1rem",
+                      "xl": "1.5rem",
+                      "full": "9999px"
+              },
+              "spacing": {},
+              "fontFamily": {
+                      "headline": ["Inter"],
+                      "display": ["Inter"],
+                      "body": ["Inter"],
+                      "label": ["Inter"]
+              },
+              "fontSize": {
+                  "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                  "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                  "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                  "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                  "label-md": ["12px", {"lineHeight": "16px", "fontWeight": "500", "letterSpacing": "0.5px"}]
+              }
+      },
+          },
+        }
+      </script>
+</head>
+<body class="flex bg-background h-screen overflow-hidden text-on-surface">
+<nav class="bg-surface-container text-primary h-screen w-20 flex flex-col items-center py-6 border-r border-outline-variant shrink-0 transition-all duration-200 ease-in-out">
+<div class="mb-8 flex flex-col items-center justify-center w-full">
+<div class="w-12 h-12 bg-primary-container text-on-primary-container rounded-full flex items-center justify-center mb-2 shadow-sm font-bold text-lg">
+                FN
+            </div>
+</div>
+<div class="flex flex-col w-full gap-2">
+<a class="text-on-surface-variant flex flex-col items-center justify-center py-3 w-full border-l-4 border-transparent hover:bg-surface-container-high transition-colors" href="#" title="Dashboard">
+<span class="material-symbols-outlined mb-1">dashboard</span>
+<span class="text-[10px] font-medium truncate w-full text-center px-1">Dashboard</span>
+</a>
+<a class="text-on-surface-variant flex flex-col items-center justify-center py-3 w-full border-l-4 border-transparent hover:bg-surface-container-high transition-colors" href="#" title="Agenda">
+<span class="material-symbols-outlined mb-1">calendar_today</span>
+<span class="text-[10px] font-medium truncate w-full text-center px-1">Agenda</span>
+</a>
+<a class="text-on-surface-variant flex flex-col items-center justify-center py-3 w-full border-l-4 border-transparent hover:bg-surface-container-high transition-colors" href="#" title="CRM">
+<span class="material-symbols-outlined mb-1">groups</span>
+<span class="text-[10px] font-medium truncate w-full text-center px-1">CRM</span>
+</a>
+<a class="text-on-surface-variant flex flex-col items-center justify-center py-3 w-full border-l-4 border-transparent hover:bg-surface-container-high transition-colors" href="#" title="Inbox">
+<span class="material-symbols-outlined mb-1">inbox</span>
+<span class="text-[10px] font-medium truncate w-full text-center px-1">Inbox</span>
+</a>
+<a class="text-secondary border-l-4 border-secondary bg-secondary-container/10 flex flex-col items-center justify-center py-3 w-full hover:bg-surface-container-high transition-colors" href="#" title="Patients">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: &quot;FILL&quot; 1;">person</span>
+<span class="text-[10px] font-medium truncate w-full text-center px-1">Patients</span>
+</a>
+<a class="text-on-surface-variant flex flex-col items-center justify-center py-3 w-full border-l-4 border-transparent hover:bg-surface-container-high transition-colors" href="#" title="Financial">
+<span class="material-symbols-outlined mb-1">payments</span>
+<span class="text-[10px] font-medium truncate w-full text-center px-1">Financial</span>
+</a>
+<a class="text-on-surface-variant flex flex-col items-center justify-center py-3 w-full border-l-4 border-transparent hover:bg-surface-container-high transition-colors" href="#" title="Inventory">
+<span class="material-symbols-outlined mb-1">inventory_2</span>
+<span class="text-[10px] font-medium truncate w-full text-center px-1">Inventory</span>
+</a>
+</div>
+<div class="mt-auto w-full">
+<a class="text-on-surface-variant flex flex-col items-center justify-center py-3 w-full border-l-4 border-transparent hover:bg-surface-container-high transition-colors" href="#" title="Settings">
+<span class="material-symbols-outlined mb-1">settings</span>
+<span class="text-[10px] font-medium truncate w-full text-center px-1">Settings</span>
+</a>
+</div>
+</nav>
+<main class="flex-1 flex flex-col h-screen overflow-hidden bg-background relative">
+<header class="flex items-center justify-between border-b border-outline-variant px-8 py-5 bg-surface-container-lowest shrink-0 z-10">
+<div class="flex items-center gap-6">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-2xl size-14 shadow-sm" data-alt="A portrait of a 32-year-old woman with a neutral, pleasant expression, lit with soft, natural lighting. The background is subtle and bright, giving a clean and approachable professional appearance." style="background-image: url(&quot;https://lh3.googleusercontent.com/aida-public/AB6AXuDNnoEsfuAyX7IU2eXzf11DScZRrEhUkP_aiehF4m_7lUtJTd2Z6zMKkGP2bqHdUuk6TWnklVq3apase605_wr27Ae3DyZuLqHaNdolHNkH8Q8UHGHH-bX8gV4e5SN_-KmMSl3VPO3jz1xQFiXmsZ9rMdPu34zdBPDZqB3k9hc7sDX2DsS9Nfhpfy2k2Y67aeBtSrwj5waYuxk2slyttU5OVy4EYs8xnhTxUVNKhs2v0Z5U6pOQ2E9UijMXp1za5QdmXk865gSTZWnr&quot;);"></div>
+<div>
+<div class="flex items-center gap-3">
+<h1 class="text-on-surface text-2xl font-bold font-headline leading-tight tracking-tight">Maria Oliveira, 32 anos</h1>
+<span class="bg-error text-on-error text-[10px] uppercase font-bold px-2.5 py-1 rounded-md flex items-center gap-1 font-label tracking-wider shadow-sm">
+<span class="material-symbols-outlined text-[14px]">warning</span>
+                            Alergia: Dipirona e Látex
+                        </span>
+</div>
+<div class="flex items-center gap-4 mt-1 text-sm font-medium font-body text-on-surface-variant">
+<span class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px]">health_and_safety</span> Bradesco Saúde</span>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<span class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px]">badge</span> 987654321</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="flex items-center justify-center rounded-xl h-11 px-5 bg-surface hover:bg-surface-container-high transition-colors text-on-surface font-semibold text-sm border border-outline-variant shadow-sm">
+<span class="material-symbols-outlined mr-2" style="font-size: 18px;">calendar_view_day</span>
+                    Agenda do Dia
+                </button>
+<div class="flex items-center rounded-xl h-11 px-5 bg-emerald-50 border border-emerald-200 text-emerald-800 text-sm font-bold font-body shadow-sm">
+<span class="relative flex h-3 w-3 mr-3">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+<span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+</span>
+                    Em Atendimento (14:15)
+                </div>
+</div>
+</header>
+<div class="flex items-center px-8 bg-surface-container-lowest border-b border-outline-variant shrink-0 z-10 overflow-x-auto scrollbar-hide">
+<div class="flex items-center h-14">
+<a class="h-full px-5 flex items-center text-sm font-medium text-on-surface-variant hover:text-primary transition-colors border-b-2 border-transparent" href="#">Visão Geral</a>
+<a class="h-full px-5 flex items-center text-sm font-medium text-on-surface-variant hover:text-primary transition-colors border-b-2 border-transparent" href="#">Evolução</a>
+<a class="h-full px-5 flex items-center text-sm font-medium text-on-surface-variant hover:text-primary transition-colors border-b-2 border-transparent" href="#">Mapa Visual</a>
+<a class="h-full px-5 flex items-center text-sm font-medium text-on-surface-variant hover:text-primary transition-colors border-b-2 border-transparent" href="#">Orçamentos</a>
+<a class="h-full px-5 flex items-center text-sm font-medium text-on-surface-variant hover:text-primary transition-colors border-b-2 border-transparent" href="#">Financeiro</a>
+<a class="h-full px-5 flex items-center text-sm font-bold text-primary relative bg-primary/10 rounded-lg my-2" href="#">Mídias</a>
+<a class="h-full px-5 flex items-center text-sm font-medium text-on-surface-variant hover:text-primary transition-colors border-b-2 border-transparent" href="#">Convênios</a>
+<a class="h-full px-5 flex items-center text-sm font-medium text-on-surface-variant hover:text-primary transition-colors border-b-2 border-transparent" href="#">Jornada</a>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto p-6 relative">
+<div class="max-w-7xl mx-auto space-y-6">
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-surface-container-lowest p-3 rounded-lg border border-outline-variant/40 shadow-sm animate-fade-up">
+<div class="flex flex-wrap items-center gap-3 w-full sm:w-auto">
+<div class="relative">
+<select class="appearance-none bg-surface-container-low border border-outline-variant/50 text-on-surface text-body-md rounded-md pl-3 pr-8 py-2 focus:ring-2 focus:ring-primary focus:border-primary outline-none cursor-pointer transition-colors hover:border-outline">
+<option>Todas as Mídias</option>
+<option>Fotos</option>
+<option>Vídeos</option>
+<option>Documentos</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none text-[20px]">expand_more</span>
+</div>
+<div class="relative">
+<select class="appearance-none bg-surface-container-low border border-outline-variant/50 text-on-surface text-body-md rounded-md pl-3 pr-8 py-2 focus:ring-2 focus:ring-primary focus:border-primary outline-none cursor-pointer transition-colors hover:border-outline">
+<option>Harmonização Facial</option>
+<option>Corporal</option>
+<option>Odontológico</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none text-[20px]">expand_more</span>
+</div>
+<div class="relative flex-1 sm:w-64">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">search</span>
+<input class="w-full bg-surface-container-lowest border border-outline-variant/50 text-on-surface text-body-md rounded-md pl-10 pr-3 py-2 focus:ring-2 focus:ring-primary focus:border-primary outline-none placeholder:text-outline transition-colors hover:border-outline" placeholder="Buscar por data ou tag..." type="text">
+</div>
+</div>
+<div class="flex items-center gap-3 w-full sm:w-auto">
+<button class="flex items-center justify-center gap-2 px-4 py-2 border border-primary text-primary hover:bg-primary/5 rounded-md text-label-md font-medium transition-all w-full sm:w-auto active:scale-95">
+<span class="material-symbols-outlined text-[18px]">body_system</span>
+                        Ver Mapa Visual (Body Map)
+                    </button>
+<button class="flex items-center justify-center gap-2 px-4 py-2 bg-primary text-on-primary hover:bg-primary/90 rounded-md text-label-md font-medium transition-all shadow-sm w-full sm:w-auto active:scale-95">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                        Upload de Mídia
+                    </button>
+</div>
+</div>
+<section class="bg-surface-container-low rounded-lg p-5 border border-outline-variant/30 shadow-sm relative overflow-hidden animate-fade-up delay-100">
+<div class="flex justify-between items-center mb-4">
+<div class="flex items-center gap-3">
+<h2 class="text-headline-md font-semibold text-on-surface">Evolução: Harmonização de Lábio</h2>
+<span class="inline-flex items-center bg-secondary-container/50 text-on-secondary-container px-2.5 py-1 rounded-sm text-label-md font-medium border border-secondary-container/50">
+                            Procedimento: 15 Mai 2026
+                        </span>
+</div>
+</div>
+<div class="relative h-[400px] w-full rounded-md overflow-hidden bg-surface-container-highest group border border-outline-variant/50 shadow-inner" id="comparator-container">
+<div class="absolute inset-0 bg-cover bg-center w-1/2 overflow-hidden border-r-2 border-primary z-10 before-img-wrapper" id="before-image" style="background-image: url(&quot;https://lh3.googleusercontent.com/aida-public/AB6AXuCg_Zs-cS6_oJKvT1DouU8t9pTQn6rFk1Y9WnTbxoEBBBd-9bgBrJc7-vGlUlL8INwqKuexeturqeXvAFyDg2DUfx0xDAZQDcf_4BokBdRT3oBDygzXXjT_8soxcpLWUkU5brsJwe-2Av6cocFgBu5TRcUnkK2OeDfuUGXX_eLFaz2O892D1y4wm_3wD5T5lx5eKimGzzeea1SOHwF9W3JnLkjmey7Zo5tmhmuzF3BJfF-Yf1DOGnz4Cwy-7fehbUlQjj5LJwbp699G&quot;);">
+<div class="absolute top-4 left-4 bg-surface-container-lowest/80 backdrop-blur-md px-3 py-1.5 rounded text-label-md font-bold text-on-surface shadow-sm border border-outline-variant/30 transition-transform hover:scale-105">ANTES (10 Mai 2026)</div>
+</div>
+<div class="absolute inset-0 bg-cover bg-center" style="background-image: url(&quot;https://lh3.googleusercontent.com/aida-public/AB6AXuC2KD41SQKdTSjClQMYpBuwFMQ3GuutSMjklTX445LOYsp4Xoit8TgtwoechqQ-xBI0FZF8s5EWmCtz2nurjJFa0gef4yz8ppZvSXb1kiK0oVphIs1iR5r0D8xf7qbCPfFiapl4qFY-6EWQzEDiJqfBT3keqszhdRZgPnwDo_PIO5QubekBsXgNSGPQxvx_9EQnx9dza4-CBjjEImr-S3AQlLIW7bPb5E9mTDrr9ww1s4I8P8VTYMXcY8g5zHt5CgQTY91gqcg3IeHH&quot;); filter: contrast(1.1) brightness(1.05);">
+<div class="absolute top-4 right-4 bg-surface-container-lowest/80 backdrop-blur-md px-3 py-1.5 rounded text-label-md font-bold text-on-surface shadow-sm border border-outline-variant/30 transition-transform hover:scale-105">DEPOIS (25 Mai 2026)</div>
+</div>
+<div class="absolute top-0 bottom-0 left-1/2 z-20 flex items-center justify-center transform -translate-x-1/2 slider-handle-container" id="slider-handle">
+<div class="w-0.5 h-full bg-primary shadow-[0_0_10px_rgba(0,90,180,0.5)] slider-line"></div>
+<div class="absolute w-8 h-8 bg-surface-container-lowest border-2 border-primary rounded-full flex items-center justify-center shadow-md slider-btn">
+<span class="material-symbols-outlined text-[16px] text-primary font-bold">swap_horiz</span>
+</div>
+</div>
+</div>
+<div class="flex gap-3 mt-4">
+<button class="flex items-center gap-2 px-3 py-1.5 bg-surface-container-lowest border border-outline-variant/60 rounded text-label-md text-on-surface hover:bg-surface-container-low transition-all shadow-sm active:scale-95">
+<span class="material-symbols-outlined text-[18px]">movie</span> Gerar Vídeo Timelapse
+                    </button>
+<button class="flex items-center gap-2 px-3 py-1.5 bg-surface-container-lowest border border-[#9b51e0]/40 rounded text-label-md text-on-surface hover:bg-[#9b51e0]/10 transition-all shadow-sm relative overflow-hidden group active:scale-95">
+<span class="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-[#9b51e0]/10 to-transparent -translate-x-full group-hover:animate-shimmer"></span>
+<span class="text-[#9b51e0] animate-ai-pulse">✨</span> Anonimizar com IA
+                    </button>
+<button class="flex items-center gap-2 px-3 py-1.5 bg-surface-container-lowest border border-outline-variant/60 rounded text-label-md text-on-surface hover:bg-surface-container-low transition-all shadow-sm ml-auto active:scale-95">
+<span class="material-symbols-outlined text-[18px]">share</span> Compartilhar no Instagram
+                    </button>
+</div>
+</section>
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4" id="media-gallery">
+<div class="bg-surface-container-lowest rounded-lg border border-outline-variant/40 shadow-sm overflow-hidden group cursor-pointer hover:border-primary/50 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 animate-fade-up delay-200" onclick="openSidebar()">
+<div class="relative h-40 bg-surface-container-highest">
+<img alt="Face photo thumbnail" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCg0WIBBhh1soCOfUdniMmB4vrMTZbAmVWFmh_6DWje3rtEd3Tsvce77N3e0kwEfEScTH48pWgv7EDYqW2TgQSzH1HcnT_y0ZZGXhOBczIhwE6oEMOtGvCvH6L-bGK3j6FrP1PyjKzBbqJCr981tBv43NkaTnetgveRPtrLFwvYKutOZKLiYc5mFTKJdWvqOfdFpQMcxnJvoyFQwDXIxywGpcu6hqs1q01nDrDZGApHnYxttMuT4zc9lhaif5WGVGBdTPvyZzFesVhN">
+<div class="absolute top-2 left-2 bg-surface-container-lowest/90 backdrop-blur-sm px-2 py-0.5 rounded text-[11px] font-semibold text-on-surface flex items-center gap-1 shadow-sm">
+                            📸 Foto
+                        </div>
+<div class="absolute bottom-2 right-2 bg-surface-container-lowest/90 backdrop-blur-sm px-2 py-0.5 rounded text-[11px] text-on-surface-variant font-medium shadow-sm">
+                            20 Mai
+                        </div>
+</div>
+<div class="p-3 border-t border-outline-variant/20">
+<div class="flex items-start justify-between">
+<p class="text-label-md font-medium text-on-surface truncate pr-2 group-hover:text-primary transition-colors">Frontal Repouso</p>
+<span class="material-symbols-outlined text-[16px] text-[#0f9d58]" title="Consentimento LGPD Aprovado">verified_user</span>
+</div>
+<p class="text-[11px] text-on-surface-variant mt-1">Alta Resolução • 4.2MB</p>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-lg border border-outline-variant/40 shadow-sm overflow-hidden group cursor-pointer hover:border-primary/50 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 animate-fade-up delay-300" onclick="openSidebar()">
+<div class="relative h-40 bg-inverse-surface">
+<img alt="X-ray thumbnail" class="w-full h-full object-contain opacity-80 mix-blend-screen transition-opacity duration-300 group-hover:opacity-100 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAOlK3pb_pZC2Zit0qHJlMwSxJYszGXdNDa_209_PzOmq4zArgMzxDUytEeOeqExcu9V9gkEv-DFTMXfmueZB7Q0upvpZCJARQFccrjBElD1VEVtrPNE2kcneGvfU-yPxKAN8Y5hEKoSfA-ZPnyD-GRfUJ2A4fxeUYjOUZj3xQCMxJcZh0YviEgS-8wFNuX-vpJx3wJda-uGr7tt6GlSI-E_5kaIgVFDdoW7K_jdFOhVQBh4b6W01mpSImXz0sT2K8M3nxpuG-mOg5G">
+<div class="absolute top-2 left-2 bg-surface-container-lowest/90 backdrop-blur-sm px-2 py-0.5 rounded text-[11px] font-semibold text-on-surface flex items-center gap-1 shadow-sm">
+                            ☢️ Raio-X Panorâmico
+                        </div>
+<div class="absolute bottom-2 right-2 bg-surface-container-lowest/90 backdrop-blur-sm px-2 py-0.5 rounded text-[11px] text-on-surface-variant font-medium shadow-sm">
+                            18 Mai
+                        </div>
+</div>
+<div class="p-3 border-t border-outline-variant/20">
+<div class="flex items-start justify-between">
+<p class="text-label-md font-medium text-on-surface truncate pr-2 group-hover:text-primary transition-colors">Panorâmica Inicial</p>
+</div>
+<p class="text-[11px] text-on-surface-variant mt-1">DICOM • 12MB</p>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-lg border border-outline-variant/40 shadow-sm overflow-hidden group cursor-pointer hover:border-primary/50 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 animate-fade-up delay-400" onclick="openSidebar()">
+<div class="relative h-40 bg-surface-container-highest flex items-center justify-center">
+<div class="absolute inset-0 bg-cover bg-center opacity-60 transition-transform duration-500 group-hover:scale-105" style="background-image: url(&quot;https://lh3.googleusercontent.com/aida-public/AB6AXuCV_lcgA_X8XnhU_b6SuDv3pHwoeln3Jug1ie6YH0Gr6ySbNynIpOibUqyCdGmSkk5b625djVNkozMKo5dwlfWO7RRqu07ByKWMhYJoVyY5jK81jSZ2qCcAMbrulYiA145ZQ-B-h3xhMSbLungiE0nQTL6zskeGP9J2kcDNgiB8PqiBUwws1qaV0l0t9Mz65ZOTbV3vpvaDCgW5_rla_78T24oVjPc_bJGOB8BauuGu-s-_5b76ALfcFaZToI1d7O_avGcmwkVcVVAh&quot;);"></div>
+<div class="w-10 h-10 bg-primary/90 text-on-primary rounded-full flex items-center justify-center shadow-lg z-10 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[24px]">play_arrow</span>
+</div>
+<div class="absolute top-2 left-2 bg-surface-container-lowest/90 backdrop-blur-sm px-2 py-0.5 rounded text-[11px] font-semibold text-on-surface flex items-center gap-1 shadow-sm z-10">
+                            🎥 Vídeo da Sessão
+                        </div>
+<div class="absolute bottom-2 right-2 bg-surface-container-lowest/90 backdrop-blur-sm px-2 py-0.5 rounded text-[11px] text-on-surface-variant font-medium shadow-sm z-10">
+                            0:45 • 15 Mai
+                        </div>
+</div>
+<div class="p-3 border-t border-outline-variant/20">
+<div class="flex items-start justify-between">
+<p class="text-label-md font-medium text-on-surface truncate pr-2 group-hover:text-primary transition-colors">Registro de Mobilidade</p>
+<span class="material-symbols-outlined text-[16px] text-[#0f9d58]" title="Consentimento LGPD Aprovado">verified_user</span>
+</div>
+<p class="text-[11px] text-on-surface-variant mt-1">MP4 • 28MB</p>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-lg border border-outline-variant/40 shadow-sm overflow-hidden group cursor-pointer hover:border-primary/50 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-col animate-fade-up delay-500" onclick="openSidebar()">
+<div class="relative h-40 bg-surface-container-low flex flex-col items-center justify-center p-4">
+<span class="material-symbols-outlined text-5xl text-secondary mb-2 transition-transform group-hover:-translate-y-1">picture_as_pdf</span>
+<span class="text-label-md text-on-surface font-medium text-center line-clamp-2">Termo_Consentimento_Harmonizacao.pdf</span>
+<div class="absolute top-2 left-2 bg-surface-container-lowest/90 backdrop-blur-sm px-2 py-0.5 rounded text-[11px] font-semibold text-on-surface flex items-center gap-1 shadow-sm border border-outline-variant/20">
+                            📄 Documento
+                        </div>
+<div class="absolute bottom-2 right-2 bg-surface-container-lowest/90 backdrop-blur-sm px-2 py-0.5 rounded text-[11px] text-on-surface-variant font-medium shadow-sm border border-outline-variant/20">
+                            14 Mai
+                        </div>
+</div>
+<div class="p-3 border-t border-outline-variant/20 mt-auto bg-surface-container-lowest">
+<div class="flex items-start justify-between">
+<p class="text-label-md font-medium text-on-surface truncate pr-2 group-hover:text-primary transition-colors">Termo Assinado</p>
+<span class="material-symbols-outlined text-[16px] text-primary" title="Assinatura Digital">draw</span>
+</div>
+<p class="text-[11px] text-on-surface-variant mt-1">PDF • 1.2MB</p>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-lg border border-[#9b51e0]/30 shadow-sm overflow-hidden group cursor-pointer hover:border-[#9b51e0]/60 hover:shadow-[0_4px_12px_rgba(155,81,224,0.15)] transition-all duration-300 hover:-translate-y-1 ring-1 ring-[#9b51e0]/10 animate-fade-up delay-600" onclick="openSidebar()">
+<div class="relative h-40 bg-surface-container-highest overflow-hidden">
+<img alt="Blurred face thumbnail" class="w-full h-full object-cover blur-md scale-110 transition-transform duration-700 group-hover:scale-125" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKr8in9i0AD3SomG2Q0Ty-Szq4NymUpGPsGcLFqTg483SsM9YdvL9VYHkm0wnnaSvt0yw0V8qxqcGj26zy91gQu7l6Ez6LSKYx0E1LYOAbaDw0Fj76CFswCbnuA-V5eTFN05aAuYMlHgx-6G7YVXgVTD8lHEhkEL7f1PJL-RZSNR8mANdRTIkeQvbkMWsJu7ubz1T5Aj9DmqcWo9vN_gvu34fG3Mi7tkAE057IsHKIrL3c1xMZ4JxNLr1MBpcUnPq5wG1KFVLkO_gu">
+<div class="absolute inset-0 bg-[#9b51e0]/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-4xl text-surface-container-lowest drop-shadow-md animate-ai-pulse">visibility_off</span>
+</div>
+<div class="absolute top-2 left-2 bg-[#f3e8fd] border border-[#d2a8f9] px-2 py-0.5 rounded text-[11px] font-bold text-[#6b21a8] flex items-center gap-1 shadow-sm">
+<span class="animate-ai-pulse">🤖</span> Anonimizada por IA
+                        </div>
+<div class="absolute bottom-2 right-2 bg-surface-container-lowest/90 backdrop-blur-sm px-2 py-0.5 rounded text-[11px] text-on-surface-variant font-medium shadow-sm">
+                            10 Mai
+                        </div>
+</div>
+<div class="p-3 border-t border-outline-variant/20">
+<div class="flex items-start justify-between">
+<p class="text-label-md font-medium text-on-surface truncate pr-2 group-hover:text-[#9b51e0] transition-colors">Foto Prévia (Pública)</p>
+</div>
+<p class="text-[11px] text-on-surface-variant mt-1">Processada • 3.1MB</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Backdrop -->
+<div class="fixed inset-0 bg-on-background/20 z-20 hidden opacity-0 transition-opacity duration-300" id="sidebar-backdrop" onclick="closeSidebar()"></div>
+</div>
+<aside class="w-[400px] bg-surface-container-lowest border-l border-outline-variant/40 shadow-xl h-screen flex flex-col shrink-0 z-30 fixed right-0 top-0 transform transition-transform duration-300 ease-in-out translate-x-full" id="media-detail-sidebar">
+<div class="p-4 border-b border-outline-variant/30 flex justify-between items-center bg-surface sticky top-0 z-10">
+<h3 class="text-headline-md text-base font-semibold text-on-surface">Detalhes da Mídia</h3>
+<button class="p-1.5 text-on-surface-variant hover:text-on-surface hover:bg-surface-container rounded-md transition-colors active:scale-90" onclick="closeSidebar()">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<div class="flex-1 overflow-y-auto p-5 space-y-6">
+<div class="rounded-lg overflow-hidden border border-outline-variant/30 bg-surface-container-highest aspect-[4/3] relative">
+<img alt="Detail preview" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFmYQsyUODb_BlGtZ-GELq-y2LJqhyNiuvFOQczFLldECw4XNl1WMvo4o5Pc6XyxICt7QQ9or346MEYc5BBlC6c6-vmcNLmkbdMX-Q_YzO4WMNY8n_PXoWvvZzi8fUtKcbg8RO8BRvywUUajuoMqtwCnJ8ai9DY0os4urNwhEOaUTexGaoLg7RSlDrHjSf-DplazK_ifiHag6C0o0gn2tDKA8mL4HzBpAfCWBiWCEmHRQ92EjGmg4kfchVjSjxdQImbWh9HibDlYgT">
+</div>
+<section class="space-y-3">
+<h4 class="text-label-md font-bold text-on-surface uppercase tracking-wider flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-secondary">info</span> Metadados</h4>
+<div class="bg-surface-container-low rounded-md p-3 border border-outline-variant/20 text-body-md text-on-surface-variant space-y-2 hover:border-outline-variant/50 transition-colors">
+<div class="flex justify-between">
+<span class="font-medium text-on-surface">Captura:</span>
+<span class="">20/05/2026 às 14:32</span>
+</div>
+<div class="flex justify-between">
+<span class="font-medium text-on-surface">Dispositivo:</span>
+<span class="">iPhone 16 Pro Max (Lente 3x)</span>
+</div>
+<div class="flex justify-between">
+<span class="font-medium text-on-surface">Localização:</span>
+<span class="text-primary hover:underline cursor-pointer flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">pin_drop</span> Clínica Matriz
+                    </span>
+</div>
+<div class="pt-2 mt-2 border-t border-outline-variant/30">
+<span class="font-medium text-on-surface block mb-1">Hash SHA-256 (Integridade):</span>
+<code class="text-[10px] bg-surface-container-highest p-1.5 rounded block break-all text-on-surface-variant border border-outline-variant/30 font-mono">
+                        e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+                    </code>
+</div>
+</div>
+</section>
+<section class="space-y-3">
+<h4 class="text-label-md font-bold text-on-surface uppercase tracking-wider flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-[#0f9d58]">gavel</span> Consentimento LGPD
+            </h4>
+<div class="bg-[#e6f4ea] border border-[#ceead6] rounded-md p-4 transition-shadow hover:shadow-sm">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-[#0f9d58] mt-0.5">verified_user</span>
+<div>
+<p class="text-label-md font-bold text-[#0d652d]">Autorização Assinada</p>
+<p class="text-body-md text-[#137333] text-sm mt-1">O paciente autorizou o uso desta imagem para os seguintes fins:</p>
+<div class="flex flex-wrap gap-2 mt-3">
+<span class="bg-[#ceead6] text-[#0d652d] px-2 py-1 rounded-sm text-[11px] font-medium border border-[#a8dab5]">Prontuário Interno</span>
+<span class="bg-[#ceead6] text-[#0d652d] px-2 py-1 rounded-sm text-[11px] font-medium border border-[#a8dab5]">Instagram Clínico</span>
+<span class="bg-[#ceead6] text-[#0d652d] px-2 py-1 rounded-sm text-[11px] font-medium border border-[#a8dab5]">Aulas/Palestras</span>
+</div>
+</div>
+</div>
+<div class="mt-4 pt-3 border-t border-[#ceead6] flex justify-end">
+<button class="text-error hover:bg-error/10 px-3 py-1.5 rounded text-label-md font-medium transition-colors active:scale-95">Revogar Permissões</button>
+</div>
+</div>
+</section>
+<section class="space-y-3 pb-8">
+<h4 class="text-label-md font-bold text-on-surface uppercase tracking-wider flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-[#9b51e0] animate-ai-pulse">smart_toy</span> IA e Privacidade
+            </h4>
+<div class="bg-surface-container-low rounded-md p-4 border border-outline-variant/20 flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<div>
+<p class="text-body-md font-medium text-on-surface">Anonimização Facial</p>
+<p class="text-[12px] text-on-surface-variant">Borrar rosto automaticamente para exportação.</p>
+</div>
+<button aria-checked="false" class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 bg-surface-container-highest" onclick="toggleSwitch(this)" role="switch" type="button">
+<span class="pointer-events-none inline-block h-5 w-5 transform rounded-full shadow ring-0 transition duration-200 ease-in-out translate-x-0 bg-outline-variant"></span>
+</button>
+</div>
+<div class="flex items-center justify-between pt-3 border-t border-outline-variant/30">
+<div>
+<p class="text-body-md font-medium text-on-surface">Remover Metadados</p>
+<p class="text-[12px] text-on-surface-variant">Limpar GPS e dados de câmera (EXIF).</p>
+</div>
+<button aria-checked="true" class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 bg-primary" onclick="toggleSwitch(this)" role="switch" type="button">
+<span class="pointer-events-none inline-block h-5 w-5 transform rounded-full shadow ring-0 transition duration-200 ease-in-out translate-x-5 bg-surface-container-lowest"></span>
+</button>
+</div>
+<button class="w-full mt-2 flex items-center justify-center gap-2 px-4 py-2 border border-outline-variant text-on-surface hover:bg-surface-container rounded-md text-label-md font-medium transition-all bg-surface-container-lowest shadow-sm active:scale-95">
+<span class="material-symbols-outlined text-[18px]">download</span>
+                    Baixar Versão Tratada
+                </button>
+</div>
+</section>
+</div>
+</aside>
+</main>
+<script>
+    // Before/After Slider Logic
+    const container = document.getElementById('comparator-container');
+    const beforeImage = document.getElementById('before-image');
+    const sliderHandle = document.getElementById('slider-handle');
+
+    let isSliding = false;
+
+    const startSlide = () => { isSliding = true; };
+    const stopSlide = () => { isSliding = false; };
+
+    const slide = (e) => {
+        if (!isSliding) return;
+        
+        let clientX = e.clientX;
+        if (e.type.includes('touch')) {
+            clientX = e.touches[0].clientX;
+        }
+
+        const rect = container.getBoundingClientRect();
+        let x = clientX - rect.left;
+        
+        // Boundaries
+        if (x < 0) x = 0;
+        if (x > rect.width) x = rect.width;
+        
+        const percentage = (x / rect.width) * 100;
+        
+        beforeImage.style.width = `${percentage}%`;
+        sliderHandle.style.left = `${percentage}%`;
+    };
+
+    container.addEventListener('mousedown', startSlide);
+    container.addEventListener('touchstart', startSlide);
+
+    window.addEventListener('mouseup', stopSlide);
+    window.addEventListener('touchend', stopSlide);
+
+    window.addEventListener('mousemove', slide);
+    window.addEventListener('touchmove', slide);
+
+    // Sidebar Slide-over Logic
+    const sidebar = document.getElementById('media-detail-sidebar');
+    const backdrop = document.getElementById('sidebar-backdrop');
+
+    function openSidebar() {
+        backdrop.classList.remove('hidden');
+        // Trigger reflow to ensure the transition runs
+        void backdrop.offsetWidth;
+        
+        backdrop.classList.remove('opacity-0');
+        backdrop.classList.add('opacity-100');
+        
+        sidebar.classList.remove('translate-x-full');
+        sidebar.classList.add('translate-x-0');
+    }
+
+    function closeSidebar() {
+        backdrop.classList.remove('opacity-100');
+        backdrop.classList.add('opacity-0');
+        
+        sidebar.classList.remove('translate-x-0');
+        sidebar.classList.add('translate-x-full');
+        
+        // Wait for the transition to finish before hiding the backdrop
+        setTimeout(() => {
+            backdrop.classList.add('hidden');
+        }, 300);
+    }
+    
+    // Toggle switch logic
+    function toggleSwitch(btn) {
+        const isChecked = btn.getAttribute('aria-checked') === 'true';
+        const span = btn.querySelector('span');
+        
+        if (isChecked) {
+            btn.setAttribute('aria-checked', 'false');
+            btn.classList.remove('bg-primary');
+            btn.classList.add('bg-surface-container-highest');
+            span.classList.remove('translate-x-5', 'bg-surface-container-lowest');
+            span.classList.add('translate-x-0', 'bg-outline-variant');
+        } else {
+            btn.setAttribute('aria-checked', 'true');
+            btn.classList.remove('bg-surface-container-highest');
+            btn.classList.add('bg-primary');
+            span.classList.remove('translate-x-0', 'bg-outline-variant');
+            span.classList.add('translate-x-5', 'bg-surface-container-lowest');
+        }
+    }
+
+</script>
+</body></html>

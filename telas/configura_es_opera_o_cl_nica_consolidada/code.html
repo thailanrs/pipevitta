@@ -1,0 +1,312 @@
+<!DOCTYPE html><html lang="pt-BR" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Configurações - Operação Clínica | FooNewOps</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-container": "#ebedf7",
+                      "primary-fixed": "#d6e3ff",
+                      "on-primary-container": "#fefcff",
+                      "surface-tint": "#005db8",
+                      "on-secondary-fixed": "#001b3d",
+                      "on-tertiary-fixed-variant": "#763400",
+                      "surface-container-high": "#e6e8f1",
+                      "primary-fixed-dim": "#aac7ff",
+                      "on-secondary": "#ffffff",
+                      "on-error-container": "#93000a",
+                      "on-tertiary": "#ffffff",
+                      "tertiary-fixed": "#ffdbc9",
+                      "tertiary": "#964400",
+                      "on-tertiary-fixed": "#321200",
+                      "primary-container": "#0a73e0",
+                      "tertiary-container": "#bd5700",
+                      "secondary-fixed-dim": "#aec7f7",
+                      "outline-variant": "#c1c6d5",
+                      "outline": "#717785",
+                      "error-container": "#ffdad6",
+                      "on-surface": "#181c22",
+                      "background": "#f9f9ff",
+                      "primary": "#005ab4",
+                      "surface-bright": "#f9f9ff",
+                      "secondary-fixed": "#d6e3ff",
+                      "on-background": "#181c22",
+                      "surface-variant": "#e0e2eb",
+                      "secondary": "#465f88",
+                      "surface-dim": "#d7dae3",
+                      "on-secondary-fixed-variant": "#2d476f",
+                      "secondary-container": "#b6d0ff",
+                      "surface-container-highest": "#e0e2eb",
+                      "surface-container-low": "#f1f3fc",
+                      "surface": "#f9f9ff",
+                      "on-primary": "#ffffff",
+                      "inverse-primary": "#aac7ff",
+                      "inverse-on-surface": "#eef0fa",
+                      "inverse-surface": "#2d3037",
+                      "on-surface-variant": "#414753",
+                      "on-tertiary-container": "#fffbff",
+                      "surface-container-lowest": "#ffffff",
+                      "on-error": "#ffffff",
+                      "on-primary-fixed-variant": "#00458d",
+                      "on-primary-fixed": "#001b3e",
+                      "tertiary-fixed-dim": "#ffb68c",
+                      "on-secondary-container": "#3f5881",
+                      "error": "#ba1a1a"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {},
+              "fontFamily": {
+                      "headline": ["Inter"],
+                      "display": ["Inter"],
+                      "body": ["Inter"],
+                      "label": ["Inter"]
+              },
+              "fontSize": {}
+      },
+          },
+        }
+      </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: theme('colors.background'); color: theme('colors.on-background'); }
+        .material-symbols-outlined { font-family: 'Material Symbols Outlined'; font-weight: normal; font-style: normal; font-size: 24px; line-height: 1; letter-spacing: normal; text-transform: none; display: inline-block; white-space: nowrap; word-wrap: normal; direction: ltr; -webkit-font-feature-settings: 'liga'; -webkit-font-smoothing: antialiased; }
+      </style>
+</head>
+<body class="flex h-screen overflow-hidden text-body-md">
+<!-- SideNavBar -->
+<nav class="bg-surface-container text-primary font-body-md text-body-md h-screen w-20 flex flex-col items-center py-6 border-r border-outline-variant fixed left-0 top-0 z-50 transition-all duration-200 ease-in-out"><div class="mb-8 flex flex-col items-center justify-center w-full"><div class="w-12 h-12 bg-primary-container text-on-primary-container rounded-full flex items-center justify-center mb-2 shadow-sm font-bold text-lg">FN</div></div><div class="flex flex-col w-full gap-2"><a class="text-on-surface-variant flex flex-col items-center justify-center py-3 w-full border-l-4 border-transparent hover:bg-surface-container-high transition-colors" href="#" title="Dashboard"><span class="material-symbols-outlined mb-1">dashboard</span><span class="text-[10px] font-medium truncate w-full text-center px-1">Dashboard</span></a><a class="text-on-surface-variant flex flex-col items-center justify-center py-3 w-full border-l-4 border-transparent hover:bg-surface-container-high transition-colors" href="#" title="Agenda"><span class="material-symbols-outlined mb-1">calendar_today</span><span class="text-[10px] font-medium truncate w-full text-center px-1">Agenda</span></a><a class="text-on-surface-variant flex flex-col items-center justify-center py-3 w-full border-l-4 border-transparent hover:bg-surface-container-high transition-colors" href="#" title="CRM"><span class="material-symbols-outlined mb-1">groups</span><span class="text-[10px] font-medium truncate w-full text-center px-1">CRM</span></a><a class="text-on-surface-variant flex flex-col items-center justify-center py-3 w-full border-l-4 border-transparent hover:bg-surface-container-high transition-colors" href="#" title="Inbox"><span class="material-symbols-outlined mb-1">inbox</span><span class="text-[10px] font-medium truncate w-full text-center px-1">Inbox</span></a><a class="text-on-surface-variant flex flex-col items-center justify-center py-3 w-full border-l-4 border-transparent hover:bg-surface-container-high transition-colors" href="#" title="Patients"><span class="material-symbols-outlined mb-1">person</span><span class="text-[10px] font-medium truncate w-full text-center px-1">Pacientes</span></a><a class="text-on-surface-variant flex flex-col items-center justify-center py-3 w-full border-l-4 border-transparent hover:bg-surface-container-high transition-colors" href="#" title="Financial"><span class="material-symbols-outlined mb-1">payments</span><span class="text-[10px] font-medium truncate w-full text-center px-1">Financeiro</span></a><a class="text-on-surface-variant flex flex-col items-center justify-center py-3 w-full border-l-4 border-transparent hover:bg-surface-container-high transition-colors" href="#" title="Inventory"><span class="material-symbols-outlined mb-1">inventory_2</span><span class="text-[10px] font-medium truncate w-full text-center px-1">Estoque</span></a></div><div class="mt-auto w-full"><a class="text-secondary border-l-4 border-secondary bg-secondary-container/10 flex flex-col items-center justify-center py-3 w-full hover:bg-surface-container-high transition-colors" href="#" title="Settings"><span class="material-symbols-outlined mb-1 icon-fill">settings</span><span class="text-[10px] font-medium truncate w-full text-center px-1">Settings</span></a></div></nav>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col ml-0 h-full relative ml-20">
+<!-- TopAppBar -->
+<header class="flex flex-col w-full bg-surface border-b border-outline-variant shrink-0 z-10 sticky top-0"><div class="flex justify-between items-center px-8 py-4"><div class="flex flex-col gap-1"><a class="text-on-surface-variant hover:text-primary text-sm flex items-center gap-1 transition-colors" href="#"><span class="material-symbols-outlined text-[16px]">arrow_back</span>Voltar ao Painel de Controle</a><div class="flex items-center gap-2"></div></div><div class="flex items-center gap-3"><button class="px-4 py-2 rounded-lg border border-outline-variant text-on-surface-variant font-medium text-body-md hover:bg-surface-container-low transition-colors">Cancelar</button><button class="px-5 py-2 rounded-lg bg-primary text-on-primary font-medium text-body-md shadow-sm hover:bg-primary-container transition-colors flex items-center gap-2"><span class="material-symbols-outlined text-[20px]">save</span>Salvar Alterações</button></div></div><div class="px-8 flex items-end gap-6 overflow-x-auto border-t border-outline-variant/50 pt-2"><button class="flex items-center gap-2 pb-3 border-b-2 border-transparent text-on-surface-variant hover:text-on-surface hover:border-outline-variant transition-colors font-medium text-body-md whitespace-nowrap">🏢 Clínica e Identidade</button><button class="flex items-center gap-2 pb-3 border-b-2 border-primary text-primary font-semibold text-body-md whitespace-nowrap">⚕️ Operação Clínica</button><button class="flex items-center gap-2 pb-3 border-b-2 border-transparent text-on-surface-variant hover:text-on-surface hover:border-outline-variant transition-colors font-medium text-body-md whitespace-nowrap">👥 Equipe e Permissões</button><button class="flex items-center gap-2 pb-3 border-b-2 border-transparent text-on-surface-variant hover:text-on-surface hover:border-outline-variant transition-colors font-medium text-body-md whitespace-nowrap">📅 Agenda</button><button class="flex items-center gap-2 pb-3 border-b-2 border-transparent text-on-surface-variant hover:text-on-surface hover:border-outline-variant transition-colors font-medium text-body-md whitespace-nowrap">💰 Financeiro</button><button class="flex items-center gap-2 pb-3 border-b-2 border-transparent text-on-surface-variant hover:text-on-surface hover:border-outline-variant transition-colors font-medium text-body-md whitespace-nowrap">🔌 Integrações</button><button class="flex items-center gap-2 pb-3 border-b-2 border-transparent text-on-surface-variant hover:text-on-surface hover:border-outline-variant transition-colors font-medium text-body-md whitespace-nowrap">🔒 Segurança e Sistema</button></div></header>
+<!-- Scrollable Canvas -->
+<main class="flex-1 overflow-y-auto p-8 bg-background">
+<div class="max-w-6xl mx-auto space-y-8">
+<!-- 1. Procedimentos e Serviços -->
+<section class="bg-surface-container-lowest rounded-2xl shadow-sm border border-surface-variant overflow-hidden">
+<div class="px-6 py-5 border-b border-surface-variant flex justify-between items-center bg-surface-bright">
+<div class="flex items-center space-x-3">
+<div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">medical_services</span>
+</div>
+<h2 class="text-headline-md font-semibold text-on-surface">Procedimentos e Serviços</h2>
+</div>
+<button class="flex items-center space-x-2 text-primary hover:text-primary-container border border-outline-variant hover:border-primary px-4 py-2 rounded-lg text-label-md font-medium transition-all duration-200">
+<span class="material-symbols-outlined text-sm">add</span>
+<span class="">Novo Serviço</span>
+</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-lowest text-on-surface-variant text-label-md border-b border-surface-variant uppercase tracking-wider">
+<th class="px-6 py-4 font-medium">Serviço</th>
+<th class="px-6 py-4 font-medium">Categoria</th>
+<th class="px-6 py-4 font-medium">Valor</th>
+<th class="px-6 py-4 font-medium">Duração</th>
+<th class="px-6 py-4 font-medium">Comissão</th>
+<th class="px-6 py-4 font-medium text-right">Materiais</th>
+</tr>
+</thead>
+<tbody class="text-body-md text-on-surface divide-y divide-surface-variant">
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="px-6 py-4 font-medium">Preenchimento Labial</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#f3e8ff] text-[#7e22ce]">
+                                            Harmonização
+                                        </span>
+</td>
+<td class="px-6 py-4">R$ 1.800</td>
+<td class="px-6 py-4 text-on-surface-variant">45 min</td>
+<td class="px-6 py-4">35%</td>
+<td class="px-6 py-4 text-right">
+<div class="flex items-center justify-end space-x-1 text-outline">
+<span class="material-symbols-outlined text-sm">inventory</span>
+<span class="text-xs">2 itens</span>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="px-6 py-4 font-medium">Consulta Inicial</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary-fixed text-on-primary-fixed">
+                                            Consulta
+                                        </span>
+</td>
+<td class="px-6 py-4">R$ 350</td>
+<td class="px-6 py-4 text-on-surface-variant">30 min</td>
+<td class="px-6 py-4">40%</td>
+<td class="px-6 py-4 text-right text-outline">-</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- 2. Recursos Físicos -->
+<section class="bg-surface-container-lowest rounded-2xl shadow-sm border border-surface-variant overflow-hidden">
+<div class="px-6 py-5 border-b border-surface-variant flex justify-between items-center bg-surface-bright">
+<div class="flex items-center space-x-3">
+<div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">meeting_room</span>
+</div>
+<h2 class="text-headline-md font-semibold text-on-surface">Recursos Físicos</h2>
+</div>
+<button class="flex items-center space-x-2 text-secondary hover:text-secondary-container border border-outline-variant hover:border-secondary px-4 py-2 rounded-lg text-label-md font-medium transition-all duration-200">
+<span class="material-symbols-outlined text-sm">add</span>
+<span class="">Adicionar Sala</span>
+</button>
+</div>
+<div class="p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Card 1 -->
+<div class="bg-surface-container-low rounded-xl p-5 border border-outline-variant/50 relative overflow-hidden group hover:shadow-md transition-shadow">
+<div class="absolute top-0 right-0 p-4">
+<span class="w-2.5 h-2.5 rounded-full bg-green-500 inline-block shadow-[0_0_8px_rgba(34,197,94,0.6)]"></span>
+</div>
+<div class="flex items-center space-x-3 mb-4">
+<span class="material-symbols-outlined text-outline text-2xl">chair</span>
+<h3 class="font-semibold text-on-surface text-body-lg">Sala 1 - Odontologia</h3>
+</div>
+<div class="text-label-md text-on-surface-variant space-y-1">
+<p class="">• Cadeira Odonto. XP-200</p>
+<p class="">• Raio-X Portátil</p>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-low rounded-xl p-5 border border-outline-variant/50 relative overflow-hidden group hover:shadow-md transition-shadow">
+<div class="absolute top-0 right-0 p-4">
+<span class="w-2.5 h-2.5 rounded-full bg-green-500 inline-block shadow-[0_0_8px_rgba(34,197,94,0.6)]"></span>
+</div>
+<div class="flex items-center space-x-3 mb-4">
+<span class="material-symbols-outlined text-outline text-2xl">spa</span>
+<h3 class="font-semibold text-on-surface text-body-lg">Sala 2 - Estética</h3>
+</div>
+<div class="text-label-md text-on-surface-variant space-y-1">
+<p class="">• Maca Hidráulica</p>
+<p class="">• Laser Depilação</p>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-variant/30 rounded-xl p-5 border border-outline-variant border-dashed relative overflow-hidden opacity-75">
+<div class="absolute top-0 right-0 p-4 flex items-center space-x-1">
+<span class="material-symbols-outlined text-tertiary text-sm">build</span>
+<span class="text-[10px] text-tertiary font-medium uppercase tracking-wider">Manutenção</span>
+</div>
+<div class="flex items-center space-x-3 mb-4 opacity-50">
+<span class="material-symbols-outlined text-outline text-2xl">bed</span>
+<h3 class="font-semibold text-on-surface text-body-lg">Sala 3 - Cirurgia</h3>
+</div>
+<div class="text-label-md text-on-surface-variant space-y-1 opacity-50">
+<p class="">Indisponível até 15/10</p>
+</div>
+</div>
+</div>
+</section><!-- 3. Fármacos e Bulas -->
+<section class="bg-surface-container-lowest rounded-xl shadow-sm border border-surface-variant overflow-hidden">
+    <div class="px-6 py-5 border-b border-surface-variant flex justify-between items-center bg-surface-bright">
+        <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-secondary">
+                <span class="material-symbols-outlined">medication</span>
+            </div>
+            <h2 class="text-headline-md font-semibold text-on-surface">Fármacos e Bulas</h2>
+        </div>
+        <button class="flex items-center space-x-2 text-secondary hover:text-secondary-container border border-outline-variant hover:border-secondary px-4 py-2 rounded-lg text-label-md font-medium transition-all duration-200">
+            <span class="material-symbols-outlined text-sm">add</span>
+            <span class="">Adicionar</span>
+        </button>
+    </div>
+    <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse">
+            <thead>
+                <tr class="bg-surface-container-lowest text-on-surface-variant text-label-md border-b border-surface-variant uppercase tracking-wider">
+                    <th class="px-6 py-4 font-medium">Nome do Princípio Ativo</th>
+                    <th class="px-6 py-4 font-medium">Dosagem Padrão</th>
+                    <th class="px-6 py-4 font-medium">Categoria</th>
+                    <th class="px-6 py-4 font-medium">Exigência de Receita</th>
+                </tr>
+            </thead>
+            <tbody class="text-body-md text-on-surface divide-y divide-surface-variant">
+                <tr class="hover:bg-surface-container-low/50 transition-colors">
+                    <td class="px-6 py-4 font-medium">Amoxicilina</td>
+                    <td class="px-6 py-4">500mg</td>
+                    <td class="px-6 py-4">Antibiótico</td>
+                    <td class="px-6 py-4">Sim</td>
+                </tr>
+                <tr class="hover:bg-surface-container-low/50 transition-colors">
+                    <td class="px-6 py-4 font-medium">Dipirona</td>
+                    <td class="px-6 py-4">500mg</td>
+                    <td class="px-6 py-4">Analgésico</td>
+                    <td class="px-6 py-4">Não</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<!-- 4. Templates Clínicos e Legais -->
+<section class="bg-surface-container-lowest rounded-xl shadow-sm border border-surface-variant overflow-hidden">
+    <div class="px-6 py-5 border-b border-surface-variant flex justify-between items-center bg-surface-bright">
+        <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-secondary">
+                <span class="material-symbols-outlined">description</span>
+            </div>
+            <h2 class="text-headline-md font-semibold text-on-surface">Templates Clínicos e Legais</h2>
+        </div>
+        <button class="flex items-center space-x-2 text-secondary hover:text-secondary-container border border-outline-variant hover:border-secondary px-4 py-2 rounded-lg text-label-md font-medium transition-all duration-200">
+            <span class="material-symbols-outlined text-sm">add</span>
+            <span class="">Criar Modelo</span>
+        </button>
+    </div>
+    <div class="p-6 flex flex-wrap gap-3">
+        <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-primary-fixed text-on-primary-fixed border border-primary/20">
+            Termo de Consentimento (LGPD)
+        </span>
+        <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-green-500/10 text-green-500 border border-green-500/20">
+            Anamnese Odontológica Padrão
+        </span>
+        <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-tertiary-fixed text-on-tertiary-fixed border border-tertiary/20">
+            Contrato de Honorários Médicos
+        </span>
+        <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-[#f3e8ff] text-[#7e22ce] border border-[#ddd6fe]">
+            Receituário Simples (Memed)
+        </span>
+    </div>
+</section>
+<!-- Footer Banner -->
+<div class="mt-12 rounded-2xl bg-gradient-to-r from-[#f5f3ff] to-[#ede9fe] border border-[#ddd6fe] p-6 flex flex-col md:flex-row items-start md:items-center justify-between shadow-sm relative overflow-hidden">
+<div class="absolute -right-10 -top-10 w-40 h-40 bg-purple-200 rounded-full blur-3xl opacity-50"></div>
+<div class="flex items-start space-x-4 relative z-10">
+<div class="mt-1 bg-white p-2 rounded-lg shadow-sm text-purple-600">
+<span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 1;">lightbulb</span>
+</div>
+<div>
+<h3 class="text-headline-md font-bold text-[#4c1d95] mb-1">Análise de Competitividade</h3>
+<p class="text-body-md text-[#5b21b6]">A IA comparou seu Catálogo com a média regional. Você possui 3 serviços 15% abaixo do valor de mercado.</p>
+</div>
+</div>
+<div class="mt-4 md:mt-0 flex space-x-3 relative z-10 shrink-0">
+<button class="px-4 py-2 text-label-md font-medium text-[#6d28d9] hover:bg-purple-100 rounded-lg transition-colors">
+                            Ignorar
+                        </button>
+<button class="px-4 py-2 bg-[#7c3aed] text-white text-label-md font-medium rounded-lg hover:bg-[#6d28d9] transition-colors shadow-sm">
+                            Ver Sugestões
+                        </button>
+</div>
+</div>
+</div>
+<div class="h-12"></div> <!-- Bottom padding -->
+</main>
+</div>
+
+
+</body></html>

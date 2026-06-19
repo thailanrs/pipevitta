@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+
+<html class="light" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Marketing - Social Listening e Automação | FooNewOps</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                            "background": "#f9f9ff",
+                            "inverse-on-surface": "#eef0fa",
+                            "on-surface-variant": "#414753",
+                            "surface-container-lowest": "#ffffff",
+                            "on-tertiary-fixed": "#321200",
+                            "tertiary-fixed-dim": "#ffb68c",
+                            "on-primary": "#ffffff",
+                            "on-background": "#181c22",
+                            "surface-dim": "#d7dae3",
+                            "error": "#ba1a1a",
+                            "on-secondary-container": "#3f5881",
+                            "on-primary-fixed": "#001b3e",
+                            "inverse-primary": "#aac7ff",
+                            "surface": "#f9f9ff",
+                            "secondary-fixed-dim": "#aec7f7",
+                            "surface-container-high": "#e6e8f1",
+                            "error-container": "#ffdad6",
+                            "on-error-container": "#93000a",
+                            "surface-variant": "#e0e2eb",
+                            "on-tertiary-container": "#fffbff",
+                            "primary": "#005ab4",
+                            "secondary-container": "#b6d0ff",
+                            "secondary-fixed": "#d6e3ff",
+                            "tertiary-fixed": "#ffdbc9",
+                            "on-primary-container": "#fefcff",
+                            "surface-bright": "#f9f9ff",
+                            "on-secondary-fixed-variant": "#2d476f",
+                            "on-tertiary-fixed-variant": "#763400",
+                            "surface-container-low": "#f1f3fc",
+                            "on-surface": "#181c22",
+                            "on-tertiary": "#ffffff",
+                            "surface-tint": "#005db8",
+                            "surface-container": "#ebedf7",
+                            "on-error": "#ffffff",
+                            "primary-fixed": "#d6e3ff",
+                            "outline-variant": "#c1c6d5",
+                            "secondary": "#465f88",
+                            "on-primary-fixed-variant": "#00458d",
+                            "inverse-surface": "#2d3037",
+                            "tertiary": "#964400",
+                            "primary-container": "#0a73e0",
+                            "tertiary-container": "#bd5700",
+                            "surface-container-highest": "#e0e2eb",
+                            "on-secondary-fixed": "#001b3d",
+                            "on-secondary": "#ffffff",
+                            "outline": "#717785",
+                            "primary-fixed-dim": "#aac7ff"
+                    },
+                    "borderRadius": {
+                            "DEFAULT": "0.5rem",
+                            "sm": "0.25rem",
+                            "md": "0.75rem",
+                            "lg": "1rem",
+                            "xl": "1.5rem",
+                            "full": "9999px"
+                    },
+                    "spacing": {},
+                    "fontFamily": {
+                            "headline": [
+                                    "Inter"
+                            ],
+                            "display": [
+                                    "Inter"
+                            ],
+                            "body": [
+                                    "Inter"
+                            ],
+                            "label": [
+                                    "Inter"
+                            ]
+                    },
+                    "fontSize": {}
+            },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar for timeline */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background-color: #c1c6d5; /* outline-variant */
+            border-radius: 9999px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body antialiased flex h-screen overflow-hidden">
+<!-- SideNavBar -->
+<nav class="bg-surface-container text-primary font-body-md text-body-md h-screen w-20 flex flex-col items-center py-6 border-r border-outline-variant fixed left-0 top-0 z-50 transition-all duration-200 ease-in-out"><div class="mb-8 flex flex-col items-center justify-center w-full"><div class="w-12 h-12 bg-primary-container text-on-primary-container rounded-full flex items-center justify-center mb-2 shadow-sm font-bold text-lg">FN</div></div><div class="flex flex-col w-full gap-2"><a class="text-on-surface-variant flex flex-col items-center justify-center py-3 w-full border-l-4 border-transparent hover:bg-surface-container-high transition-colors" href="#" title="Dashboard"><span class="material-symbols-outlined mb-1">dashboard</span><span class="text-[10px] font-medium truncate w-full text-center px-1">Dashboard</span></a><a class="text-on-surface-variant flex flex-col items-center justify-center py-3 w-full border-l-4 border-transparent hover:bg-surface-container-high transition-colors" href="#" title="Agenda"><span class="material-symbols-outlined mb-1">calendar_today</span><span class="text-[10px] font-medium truncate w-full text-center px-1">Agenda</span></a><a class="text-on-surface-variant flex flex-col items-center justify-center py-3 w-full border-l-4 border-transparent hover:bg-surface-container-high transition-colors" href="#" title="CRM"><span class="material-symbols-outlined mb-1">groups</span><span class="text-[10px] font-medium truncate w-full text-center px-1">CRM</span></a><a class="text-on-surface-variant flex flex-col items-center justify-center py-3 w-full border-l-4 border-transparent hover:bg-surface-container-high transition-colors" href="#" title="Inbox"><span class="material-symbols-outlined mb-1">inbox</span><span class="text-[10px] font-medium truncate w-full text-center px-1">Inbox</span></a><a class="text-on-surface-variant flex flex-col items-center justify-center py-3 w-full border-l-4 border-transparent hover:bg-surface-container-high transition-colors" href="#" title="Patients"><span class="material-symbols-outlined mb-1">person</span><span class="text-[10px] font-medium truncate w-full text-center px-1">Pacientes</span></a><a class="text-secondary border-l-4 border-secondary bg-secondary-container/10 flex flex-col items-center justify-center py-3 w-full hover:bg-surface-container-high transition-colors" href="#" title="Marketing"><span class="material-symbols-outlined mb-1 icon-fill">campaign</span><span class="text-[10px] font-medium truncate w-full text-center px-1">Marketing</span></a><a class="text-on-surface-variant flex flex-col items-center justify-center py-3 w-full border-l-4 border-transparent hover:bg-surface-container-high transition-colors" href="#" title="Inventory"><span class="material-symbols-outlined mb-1">inventory_2</span><span class="text-[10px] font-medium truncate w-full text-center px-1">Estoque</span></a></div><div class="mt-auto w-full"><a class="text-on-surface-variant flex flex-col items-center justify-center py-3 w-full border-l-4 border-transparent hover:bg-surface-container-high transition-colors" href="#" title="Settings"><span class="material-symbols-outlined mb-1">settings</span><span class="text-[10px] font-medium truncate w-full text-center px-1">Settings</span></a></div></nav>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col h-full overflow-hidden ml-20">
+<!-- TopNavBar (Simulated Topbar & Sub-nav) -->
+<header class="bg-surface/80 backdrop-blur-md border-b border-outline-variant/30 w-full h-16 flex items-center justify-between px-6 sticky top-0 z-40"><div class="flex items-center gap-6 flex-1"><h2 class="text-lg font-bold text-on-surface tracking-tight">Clínica Sorriso Holding</h2><div class="h-6 w-[1px] bg-outline-variant/50 hidden md:block"></div><div class="relative max-w-md w-full hidden md:block"><span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">search</span><input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border border-outline-variant/30 rounded-full text-sm focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all shadow-inner" placeholder="Buscar pacientes, conversas ou agendamentos..." type="text"/></div></div><div class="flex items-center gap-3"><button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-all relative group"><span class="material-symbols-outlined text-[24px]">notifications</span><span class="absolute top-2 right-2.5 w-2 h-2 bg-error rounded-full ring-2 ring-surface"></span><div class="absolute top-full mt-2 right-0 bg-surface border border-outline-variant/30 rounded-lg shadow-xl p-2 hidden group-hover:block w-48 text-xs z-50">Nenhuma notificao nova</div></button><button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-all"><span class="material-symbols-outlined text-[24px]">help_outline</span></button><div class="h-8 w-[1px] bg-outline-variant/30 mx-1"></div><button class="flex items-center gap-2 pl-1 pr-3 py-1 rounded-full hover:bg-surface-container-high transition-all"><div class="w-8 h-8 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-xs border border-primary/10 shadow-sm">DS</div><span class="text-sm font-medium text-on-surface">Dr. Santos</span><span class="material-symbols-outlined text-[18px] text-outline">keyboard_arrow_down</span></button></div></header><div class="px-6 flex items-center gap-6 overflow-x-auto no-scrollbar border-b border-surface-variant bg-surface-container-lowest"><a class="py-3 text-sm font-medium text-on-surface-variant hover:text-primary transition-colors whitespace-nowrap" href="#">Dashboard</a><a class="py-3 text-sm font-medium text-on-surface-variant hover:text-primary transition-colors whitespace-nowrap" href="#">Campanhas</a><a class="py-3 text-sm font-medium text-on-surface-variant hover:text-primary transition-colors whitespace-nowrap" href="#">Analytics</a><a class="py-3 text-sm font-semibold text-primary border-b-2 border-primary relative -bottom-[1px] whitespace-nowrap" href="#">Social Listening</a><a class="py-3 text-sm font-medium text-on-surface-variant hover:text-primary transition-colors whitespace-nowrap" href="#">Configurações</a></div>
+<!-- Main Canvas -->
+<main class="flex-1 overflow-y-auto p-6 bg-background custom-scrollbar">
+<div class="max-w-7xl mx-auto flex flex-col gap-6 h-full">
+<!-- Grid Container -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 flex-1 min-h-0">
+<!-- Left Column: Automações de Captura (60%) -->
+<div class="lg:col-span-7 flex flex-col gap-4">
+<div class="flex items-center justify-between mb-2">
+<h3 class="text-lg font-headline font-semibold text-on-surface">Automações de Captura</h3>
+<button class="flex items-center gap-2 px-4 py-2 bg-primary text-on-primary rounded-lg text-sm font-medium hover:bg-primary-container transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                                Criar Nova Regra
+                            </button>
+</div>
+<!-- Card 1: Captura de Leads -->
+<div class="bg-surface-container-lowest border-l-4 border-l-[emerald-500] border border-outline-variant/30 rounded-xl p-5 shadow-sm hover:shadow-md transition-shadow">
+<div class="flex items-start justify-between mb-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-[#E1306C]/10 flex items-center justify-center text-[#E1306C]">
+<svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewbox="0 0 24 24"><path clip-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" fill-rule="evenodd"></path></svg>
+</div>
+<div>
+<h4 class="text-base font-semibold text-on-surface">Captura de Leads - Campanha Botox</h4>
+<p class="text-sm text-on-surface-variant">Instagram • Automação de Comentários</p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-sm font-medium text-outline">Ativo</span>
+<div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+<input checked="" class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 border-primary appearance-none cursor-pointer translate-x-5 transition-transform" id="toggle1" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-5 rounded-full bg-primary cursor-pointer" for="toggle1"></label>
+</div>
+<button class="text-outline hover:text-on-surface-variant transition-colors"><span class="material-symbols-outlined">more_vert</span></button>
+</div>
+</div>
+<!-- Visual Flow -->
+<div class="bg-surface-container-low rounded-lg p-4 mb-4 overflow-x-auto">
+<div class="flex items-center min-w-max">
+<!-- Node 1 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-3 w-48 shadow-sm relative z-10">
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-[16px] text-tertiary">chat_bubble</span>
+<span class="text-xs font-semibold text-on-surface">Gatilho</span>
+</div>
+<p class="text-xs text-on-surface-variant">Comentário <strong>'PREÇO'</strong> no Post 'Botox sem Dor'</p>
+</div>
+<!-- Arrow -->
+<div class="w-8 h-px bg-outline-variant relative">
+<div class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 w-2 h-2 border-t border-r border-outline-variant rotate-45"></div>
+</div>
+<!-- Node 2 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-3 w-48 shadow-sm relative z-10">
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-[16px] text-primary">send</span>
+<span class="text-xs font-semibold text-on-surface">Ação</span>
+</div>
+<p class="text-xs text-on-surface-variant">Enviar DM automática (Script de Qualificação)</p>
+</div>
+<!-- Arrow -->
+<div class="w-8 h-px bg-outline-variant relative">
+<div class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 w-2 h-2 border-t border-r border-outline-variant rotate-45"></div>
+</div>
+<!-- Node 3 -->
+<div class="bg-primary/5 border border-primary/20 rounded-lg p-3 w-56 shadow-sm relative z-10">
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-[16px] text-primary">person_add</span>
+<span class="text-xs font-semibold text-primary">Diferencial</span>
+</div>
+<p class="text-xs text-on-surface-variant">Criar Lead no CRM e Atribuir para SDR via WhatsApp</p>
+</div>
+</div>
+</div>
+<!-- Metrics -->
+<div class="grid grid-cols-3 gap-4 border-t border-surface-variant pt-4">
+<div>
+<p class="text-xs text-outline font-medium mb-1">Respondidos</p>
+<p class="text-lg font-bold text-on-surface">142</p>
+</div>
+<div>
+<p class="text-xs text-outline font-medium mb-1">Leads Gerados</p>
+<p class="text-lg font-bold text-on-surface">85</p>
+</div>
+<div>
+<p class="text-xs text-outline font-medium mb-1">Conv. WhatsApp</p>
+<p class="text-lg font-bold text-[emerald-600]">68%</p>
+</div>
+</div>
+</div>
+<!-- Card 2: Resgate de Menções -->
+<div class="bg-surface-container-lowest border-l-4 border-l-[purple-500] border border-outline-variant/30 rounded-xl p-5 shadow-sm hover:shadow-md transition-shadow">
+<div class="flex items-start justify-between mb-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">smart_toy</span>
+</div>
+<div>
+<h4 class="text-base font-semibold text-on-surface">Resgate de Menções em Stories (IA)</h4>
+<p class="text-sm text-on-surface-variant">Monitora menções e oferece voucher 5% em DM.</p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-sm font-medium text-outline">Ativo</span>
+<div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+<input checked="" class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 border-primary appearance-none cursor-pointer translate-x-5 transition-transform" id="toggle2" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-5 rounded-full bg-primary cursor-pointer" for="toggle2"></label>
+</div>
+<button class="text-outline hover:text-on-surface-variant transition-colors"><span class="material-symbols-outlined">more_vert</span></button>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-4 border-t border-surface-variant pt-4">
+<div>
+<p class="text-xs text-outline font-medium mb-1">Menções Detectadas</p>
+<p class="text-lg font-bold text-on-surface">47</p>
+</div>
+<div>
+<p class="text-xs text-outline font-medium mb-1">Resgatadas (Voucher)</p>
+<p class="text-lg font-bold text-[purple-600]">24</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Interações Recentes (40%) -->
+<div class="lg:col-span-5 flex flex-col h-full overflow-hidden bg-surface-container-lowest rounded-xl border border-outline-variant/30 shadow-sm">
+<div class="p-4 border-b border-surface-variant flex items-center justify-between bg-surface-container-lowest z-10 sticky top-0">
+<div>
+<h3 class="text-base font-headline font-semibold text-on-surface">Interações Recentes</h3>
+<p class="text-xs text-on-surface-variant">Social Inbox em Tempo Real</p>
+</div>
+<div class="flex gap-2">
+<button class="p-1.5 text-on-surface-variant hover:bg-surface-container rounded-md transition-colors"><span class="material-symbols-outlined text-[20px]">filter_list</span></button>
+</div>
+</div>
+<!-- Timeline List -->
+<div class="flex-1 overflow-y-auto p-4 custom-scrollbar flex flex-col gap-3">
+<!-- Item 1 -->
+<div class="bg-surface border border-outline-variant/20 rounded-lg p-3 hover:bg-surface-container-low transition-colors cursor-pointer group relative">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary rounded-l-lg opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="flex justify-between items-start mb-2">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-[#E1306C]/10 flex items-center justify-center text-[#E1306C]">
+<svg aria-hidden="true" class="w-3 h-3" fill="currentColor" viewbox="0 0 24 24"><path clip-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" fill-rule="evenodd"></path></svg>
+</div>
+<span class="text-sm font-semibold text-on-surface">@carolina_m</span>
+<span class="text-xs text-outline">em Comentário</span>
+</div>
+<span class="text-xs text-outline">Há 2 min</span>
+</div>
+<p class="text-sm text-on-surface-variant mb-3">"Quanto custa?"</p>
+<div class="flex items-center gap-2 flex-wrap">
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded bg-primary-fixed text-on-primary-fixed text-[10px] font-medium border border-primary-fixed-dim">
+<span class="material-symbols-outlined text-[12px]">done_all</span> DM Enviada
+                                    </span>
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded bg-surface-container-high text-on-surface-variant text-[10px] font-medium border border-outline-variant/50">
+<span class="material-symbols-outlined text-[12px]">person_add</span> Lead Criado no CRM
+                                    </span>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="bg-surface border border-outline-variant/20 rounded-lg p-3 hover:bg-surface-container-low transition-colors group relative border-l-2 border-l-tertiary">
+<div class="flex justify-between items-start mb-2">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-black/10 flex items-center justify-center text-black dark:text-white">
+<svg class="w-3 h-3" fill="currentColor" viewbox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"></path></svg>
+</div>
+<span class="text-sm font-semibold text-on-surface">@ju.hestetica</span>
+<span class="text-xs text-outline">em DM</span>
+</div>
+<span class="text-xs text-outline">Há 15 min</span>
+</div>
+<p class="text-sm text-on-surface-variant mb-3">"Atendem convênio?"</p>
+<div class="flex items-center justify-between mt-2">
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded bg-tertiary-fixed text-on-tertiary-fixed-variant text-[10px] font-medium border border-tertiary-fixed-dim">
+<span class="material-symbols-outlined text-[12px]">warning</span> Fugiu do padrão IA
+                                    </span>
+<button class="text-xs font-medium text-primary hover:text-primary-container transition-colors">Responder Manualmente</button>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="bg-surface border border-outline-variant/20 rounded-lg p-3 opacity-60">
+<div class="flex justify-between items-start mb-2">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-surface-container flex items-center justify-center text-outline">
+<span class="material-symbols-outlined text-[14px]">public</span>
+</div>
+<span class="text-sm font-semibold text-on-surface">@bot_spam22</span>
+</div>
+<span class="text-xs text-outline">Há 45 min</span>
+</div>
+<p class="text-sm text-on-surface-variant line-clamp-1 italic">"Ganhe seguidores gratis acesse o link..."</p>
+<div class="mt-2">
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded bg-surface-container-highest text-on-surface-variant text-[10px] font-medium border border-outline-variant/50">
+<span class="material-symbols-outlined text-[12px]">block</span> Spam Ignorado (IA)
+                                    </span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer: AI Banner -->
+<div class="mt-auto bg-gradient-to-r from-primary-fixed to-inverse-primary rounded-xl p-5 border border-primary-fixed-dim shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+<div class="flex items-start sm:items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-surface-container-lowest shadow-sm flex items-center justify-center flex-shrink-0 text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+</div>
+<div>
+<h4 class="text-base font-semibold text-on-primary-fixed mb-1">Oportunidade de Conteúdo Detectada pela IA</h4>
+<p class="text-sm text-on-primary-fixed-variant">Aumento súbito de <strong>300%</strong> em menções sobre 'Preenchimento Labial' na sua região nas últimas 24h.</p>
+</div>
+</div>
+<div class="flex items-center gap-3 flex-shrink-0">
+<button class="px-4 py-2 bg-surface-container-lowest text-primary rounded-lg text-sm font-medium hover:bg-surface transition-colors border border-outline-variant/20 shadow-sm whitespace-nowrap">
+                            Gerar Rascunho com IA
+                        </button>
+<button class="px-4 py-2 bg-primary text-on-primary rounded-lg text-sm font-medium hover:bg-primary-container transition-colors shadow-sm whitespace-nowrap">
+                            Criar Campanha Ads
+                        </button>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+
+<html class="light" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Configurações - FooNewOps</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-on-surface": "#eef0fa",
+                    "surface-tint": "#005db8",
+                    "tertiary-fixed-dim": "#ffb68c",
+                    "outline": "#717785",
+                    "on-secondary-fixed": "#001b3d",
+                    "on-primary-fixed": "#001b3e",
+                    "surface-variant": "#e0e2eb",
+                    "background": "#f9f9ff",
+                    "secondary-fixed": "#d6e3ff",
+                    "primary-container": "#0a73e0",
+                    "on-surface-variant": "#414753",
+                    "on-tertiary-fixed": "#321200",
+                    "on-primary-fixed-variant": "#00458d",
+                    "tertiary-fixed": "#ffdbc9",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-highest": "#e0e2eb",
+                    "on-secondary-container": "#3f5881",
+                    "primary-fixed-dim": "#aac7ff",
+                    "surface-bright": "#f9f9ff",
+                    "inverse-surface": "#2d3037",
+                    "on-primary-container": "#fefcff",
+                    "primary-fixed": "#d6e3ff",
+                    "on-error-container": "#93000a",
+                    "on-tertiary-container": "#fffbff",
+                    "tertiary": "#964400",
+                    "surface-container-low": "#f1f3fc",
+                    "surface-dim": "#d7dae3",
+                    "on-background": "#181c22",
+                    "on-tertiary-fixed-variant": "#763400",
+                    "surface": "#f9f9ff",
+                    "on-surface": "#181c22",
+                    "on-secondary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "error": "#ba1a1a",
+                    "on-secondary-fixed-variant": "#2d476f",
+                    "outline-variant": "#c1c6d5",
+                    "secondary-container": "#b6d0ff",
+                    "tertiary-container": "#bd5700",
+                    "secondary-fixed-dim": "#aec7f7",
+                    "inverse-primary": "#aac7ff",
+                    "surface-container": "#ebedf7",
+                    "primary": "#005ab4",
+                    "on-error": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary": "#465f88",
+                    "on-primary": "#ffffff",
+                    "surface-container-high": "#e6e8f1"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.5rem",
+                    "sm": "0.25rem",
+                    "md": "0.75rem",
+                    "lg": "1rem",
+                    "xl": "1.5rem",
+                    "full": "9999px"
+            },
+            "spacing": {},
+            "fontFamily": {
+                    "headline": [
+                            "Inter"
+                    ],
+                    "display": [
+                            "Inter"
+                    ],
+                    "body": [
+                            "Inter"
+                    ],
+                    "label": [
+                            "Inter"
+                    ]
+            },
+            "fontSize": {
+                "headline-lg": ["32px", { lineHeight: "40px", fontWeight: "700" }],
+                "headline-md": ["24px", { lineHeight: "32px", fontWeight: "600" }],
+                "body-lg": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+                "body-md": ["14px", { lineHeight: "20px", fontWeight: "400" }],
+                "label-md": ["12px", { lineHeight: "16px", fontWeight: "500", letterSpacing: "0.5px" }]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-on-background antialiased overflow-hidden h-screen">
+<!-- SideNavBar (from JSON logic, intent: Settings mapped to Settings tab) -->
+<nav class="bg-surface-container text-primary font-body-md text-body-md h-screen w-20 flex flex-col items-center py-6 border-r border-outline-variant fixed left-0 top-0 z-50 transition-all duration-200 ease-in-out"><div class="mb-8 flex flex-col items-center justify-center w-full"><div class="w-12 h-12 bg-primary-container text-on-primary-container rounded-full flex items-center justify-center mb-2 shadow-sm font-bold text-lg">FN</div></div><div class="flex flex-col w-full gap-2"><a class="text-on-surface-variant flex flex-col items-center justify-center py-3 w-full border-l-4 border-transparent hover:bg-surface-container-high transition-colors" href="#" title="Dashboard"><span class="material-symbols-outlined mb-1">dashboard</span><span class="text-[10px] font-medium truncate w-full text-center px-1">Dashboard</span></a><a class="text-on-surface-variant flex flex-col items-center justify-center py-3 w-full border-l-4 border-transparent hover:bg-surface-container-high transition-colors" href="#" title="Agenda"><span class="material-symbols-outlined mb-1">calendar_today</span><span class="text-[10px] font-medium truncate w-full text-center px-1">Agenda</span></a><a class="text-on-surface-variant flex flex-col items-center justify-center py-3 w-full border-l-4 border-transparent hover:bg-surface-container-high transition-colors" href="#" title="CRM"><span class="material-symbols-outlined mb-1">groups</span><span class="text-[10px] font-medium truncate w-full text-center px-1">CRM</span></a><a class="text-on-surface-variant flex flex-col items-center justify-center py-3 w-full border-l-4 border-transparent hover:bg-surface-container-high transition-colors" href="#" title="Inbox"><span class="material-symbols-outlined mb-1">inbox</span><span class="text-[10px] font-medium truncate w-full text-center px-1">Inbox</span></a><a class="text-on-surface-variant flex flex-col items-center justify-center py-3 w-full border-l-4 border-transparent hover:bg-surface-container-high transition-colors" href="#" title="Patients"><span class="material-symbols-outlined mb-1">person</span><span class="text-[10px] font-medium truncate w-full text-center px-1">Pacientes</span></a><a class="text-on-surface-variant flex flex-col items-center justify-center py-3 w-full border-l-4 border-transparent hover:bg-surface-container-high transition-colors" href="#" title="Marketing"><span class="material-symbols-outlined mb-1">campaign</span><span class="text-[10px] font-medium truncate w-full text-center px-1">Marketing</span></a><a class="text-on-surface-variant flex flex-col items-center justify-center py-3 w-full border-l-4 border-transparent hover:bg-surface-container-high transition-colors" href="#" title="Inventory"><span class="material-symbols-outlined mb-1">inventory_2</span><span class="text-[10px] font-medium truncate w-full text-center px-1">Estoque</span></a></div><div class="mt-auto w-full"><a class="text-secondary border-l-4 border-secondary bg-secondary-container/10 flex flex-col items-center justify-center py-3 w-full hover:bg-surface-container-high transition-colors" href="#" title="Settings"><span class="material-symbols-outlined mb-1 icon-fill">settings</span><span class="text-[10px] font-medium truncate w-full text-center px-1">Settings</span></a></div></nav>
+<!-- TopAppBar -->
+<header class="bg-surface/80 backdrop-blur-md border-b border-outline-variant/30 w-[calc(100%-5rem)] h-16 flex items-center justify-between px-6 fixed top-0 right-0 z-40"><div class="flex items-center gap-6 flex-1"><h2 class="text-lg font-bold text-on-surface tracking-tight">Clínica Sorriso Holding</h2><div class="h-6 w-[1px] bg-outline-variant/50 hidden md:block"></div><div class="relative max-w-md w-full hidden md:block"><span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">search</span><input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border border-outline-variant/30 rounded-full text-sm focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all shadow-inner" placeholder="Buscar pacientes, conversas ou agendamentos..." type="text"/></div></div><div class="flex items-center gap-3"><button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-all relative group"><span class="material-symbols-outlined text-[24px]">notifications</span><span class="absolute top-2 right-2.5 w-2 h-2 bg-error rounded-full ring-2 ring-surface"></span><div class="absolute top-full mt-2 right-0 bg-surface border border-outline-variant/30 rounded-lg shadow-xl p-2 hidden group-hover:block w-48 text-xs z-50">Nenhuma notificação nova</div></button><button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-all"><span class="material-symbols-outlined text-[24px]">help_outline</span></button><div class="h-8 w-[1px] bg-outline-variant/30 mx-1"></div><button class="flex items-center gap-2 pl-1 pr-3 py-1 rounded-full hover:bg-surface-container-high transition-all"><div class="w-8 h-8 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-xs border border-primary/10 shadow-sm">DS</div><span class="text-sm font-medium text-on-surface">Dr. Santos</span><span class="material-symbols-outlined text-[18px] text-outline">keyboard_arrow_down</span></button></div></header>
+<!-- Main Content Canvas -->
+<main class="ml-20 mt-16 h-[calc(100vh-4rem)] overflow-y-auto bg-surface px-4 md:px-8 py-8 scroll-smooth">
+<div class="max-w-6xl mx-auto space-y-8">
+<!-- 1. Header -->
+<div class="flex flex-col lg:flex-row lg:items-start justify-between gap-6">
+<div>
+<h1 class="text-headline-lg text-on-surface mb-2">Configurações do Sistema</h1>
+<p class="text-body-lg text-on-surface-variant max-w-2xl">Personalize as regras de negócio, a identidade da sua clínica e gerencie integrações.</p>
+</div>
+<div class="flex flex-wrap items-center gap-3 shrink-0">
+<button class="px-5 py-2.5 rounded-lg border border-outline-variant text-on-surface hover:bg-surface-container transition-colors font-medium text-body-md flex items-center gap-2 active:scale-95 shadow-sm">
+<span class="material-symbols-outlined text-[18px]">upload</span>
+                        Importar Configurações (JSON)
+                    </button>
+<button class="px-5 py-2.5 rounded-lg bg-primary text-on-primary hover:bg-primary-container transition-colors font-medium text-body-md flex items-center gap-2 active:scale-95 shadow-sm">
+<span class="material-symbols-outlined text-[18px]">person_add</span>
+                        Convidar Novo Admin
+                    </button>
+</div>
+</div>
+<!-- 2. Setup Wizard Banner -->
+<div class="bg-surface-container-low rounded-xl border border-outline-variant border-l-4 border-l-primary overflow-hidden shadow-sm relative">
+<!-- Background ambient texture/pattern (light subtle dots) -->
+<div class="absolute inset-0 opacity-[0.03] pointer-events-none" style="background-image: radial-gradient(#005ab4 1px, transparent 1px); background-size: 16px 16px;"></div>
+<div class="p-6 relative z-10 flex flex-col md:flex-row gap-6 md:items-center">
+<div class="flex-1 space-y-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary bg-primary-fixed p-2 rounded-lg">rocket_launch</span>
+<h2 class="text-headline-md text-on-surface">Progresso de Implantação da Clínica Sorriso</h2>
+</div>
+<!-- Progress Bar -->
+<div class="space-y-2">
+<div class="flex justify-between text-label-md">
+<span class="text-on-surface-variant font-medium">Completude do Setup</span>
+<span class="text-primary font-bold">85%</span>
+</div>
+<div class="h-2 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-emerald-600 rounded-full" style="width: 85%;"></div>
+</div>
+</div>
+<div class="flex items-start gap-2 bg-error-container/30 text-on-surface p-3 rounded-lg border border-error-container">
+<span class="material-symbols-outlined text-error text-[20px] shrink-0 mt-0.5">warning</span>
+<p class="text-body-md">Faltam 2 etapas críticas para ativar o faturamento automático e o convênio.</p>
+</div>
+</div>
+<div class="shrink-0 flex flex-col gap-3">
+<button class="w-full text-left px-4 py-3 rounded-lg border border-error/50 bg-surface hover:bg-error-container/20 transition-colors flex items-center gap-3 group">
+<div class="w-6 h-6 rounded-full border border-error flex items-center justify-center shrink-0 group-hover:bg-error group-hover:text-on-error transition-colors">
+<span class="material-symbols-outlined text-[14px] text-error group-hover:text-on-error">close</span>
+</div>
+<span class="text-body-md font-medium text-on-surface">Configurar Gateway de Pagamento</span>
+<span class="material-symbols-outlined text-on-surface-variant ml-auto text-[18px]">chevron_right</span>
+</button>
+<button class="w-full text-left px-4 py-3 rounded-lg border border-tertiary/50 bg-surface hover:bg-tertiary-fixed/30 transition-colors flex items-center gap-3 group">
+<div class="w-6 h-6 rounded-full border border-tertiary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[14px] text-tertiary">hourglass_empty</span>
+</div>
+<span class="text-body-md font-medium text-on-surface">Enviar Certificado Digital</span>
+<span class="material-symbols-outlined text-on-surface-variant ml-auto text-[18px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- 3. Categories Grid (Bento style / Assymetric feel via span) -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Card 1 -->
+<a class="bg-surface-container-lowest rounded-xl border border-outline-variant p-6 hover:shadow-md hover:border-primary/50 transition-all duration-200 group flex flex-col relative overflow-hidden" href="#">
+<div class="w-12 h-12 rounded-lg bg-primary-fixed text-primary flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[28px]">business</span>
+</div>
+<h3 class="text-headline-md text-on-surface mb-2 font-semibold">Clínica e Identidade</h3>
+<p class="text-body-md text-on-surface-variant mb-6 flex-1">Dados, CNPJ, Logo, Cores e Multi-unidades</p>
+<div class="mt-auto flex items-center justify-between">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-label-md font-medium">
+<span class="w-2 h-2 rounded-full bg-emerald-500"></span> Concluído
+                        </span>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors">arrow_forward</span>
+</div>
+</a>
+<!-- Card 2 -->
+<a class="bg-surface-container-lowest rounded-xl border border-outline-variant p-6 hover:shadow-md hover:border-primary/50 transition-all duration-200 group flex flex-col" href="#">
+<div class="w-12 h-12 rounded-lg bg-secondary-fixed text-secondary flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[28px]">medical_services</span>
+</div>
+<h3 class="text-headline-md text-on-surface mb-2 font-semibold">Operação Clínica</h3>
+<p class="text-body-md text-on-surface-variant mb-6 flex-1">Catálogo de Serviços, Salas, Medicamentos e Documentos</p>
+<div class="mt-auto flex items-center justify-between">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed-variant border border-tertiary/20 text-label-md font-medium">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span> 12 serviços sem preço
+                        </span>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors">arrow_forward</span>
+</div>
+</a>
+<!-- Card 3 -->
+<a class="bg-surface-container-lowest rounded-xl border border-outline-variant p-6 hover:shadow-md hover:border-primary/50 transition-all duration-200 group flex flex-col" href="#">
+<div class="w-12 h-12 rounded-lg bg-primary-fixed text-primary flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[28px]">groups</span>
+</div>
+<h3 class="text-headline-md text-on-surface mb-2 font-semibold">Equipe e Permissões</h3>
+<p class="text-body-md text-on-surface-variant mb-6 flex-1">Profissionais, Comissões e RBAC (Acessos)</p>
+<div class="mt-auto flex items-center justify-between">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-label-md font-medium">
+<span class="w-2 h-2 rounded-full bg-emerald-500"></span> Concluído
+                        </span>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors">arrow_forward</span>
+</div>
+</a>
+<!-- Card 4 -->
+<a class="bg-surface-container-lowest rounded-xl border border-outline-variant p-6 hover:shadow-md hover:border-primary/50 transition-all duration-200 group flex flex-col" href="#">
+<div class="w-12 h-12 rounded-lg bg-secondary-fixed text-secondary flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[28px]">calendar_month</span>
+</div>
+<h3 class="text-headline-md text-on-surface mb-2 font-semibold">Agenda e Atendimento</h3>
+<p class="text-body-md text-on-surface-variant mb-6 flex-1">Regras, Horários, Templates de WhatsApp e Disparos</p>
+<div class="mt-auto flex items-center justify-between">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-label-md font-medium">
+<span class="w-2 h-2 rounded-full bg-emerald-500"></span> Concluído
+                        </span>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors">arrow_forward</span>
+</div>
+</a>
+<!-- Card 5 (Attention Required) -->
+<a class="bg-surface-container-lowest rounded-xl border border-error/40 shadow-[0_0_15px_rgba(186,26,26,0.05)] p-6 hover:shadow-md hover:border-error transition-all duration-200 group flex flex-col relative overflow-hidden" href="#">
+<div class="absolute top-0 right-0 w-16 h-16 bg-error-container rounded-bl-full -z-10 opacity-50"></div>
+<div class="w-12 h-12 rounded-lg bg-error-container text-error flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[28px]">account_balance</span>
+</div>
+<h3 class="text-headline-md text-on-surface mb-2 font-semibold">Financeiro</h3>
+<p class="text-body-md text-on-surface-variant mb-6 flex-1">Gateways, Contas Bancárias, NFS-e e Orçamentos</p>
+<div class="mt-auto flex items-center justify-between">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-error text-on-error border border-error text-label-md font-medium">
+<span class="w-2 h-2 rounded-full bg-white animate-pulse"></span> Ação Necessária
+                        </span>
+<span class="material-symbols-outlined text-error group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</div>
+</a>
+<!-- Card 6 -->
+<a class="bg-surface-container-lowest rounded-xl border border-outline-variant p-6 hover:shadow-md hover:border-primary/50 transition-all duration-200 group flex flex-col" href="#">
+<div class="w-12 h-12 rounded-lg bg-secondary-fixed text-secondary flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[28px]">hub</span>
+</div>
+<h3 class="text-headline-md text-on-surface mb-2 font-semibold">Integrações</h3>
+<p class="text-body-md text-on-surface-variant mb-6 flex-1">WhatsApp API, Meta CAPI, TISS e Assinatura Digital</p>
+<div class="mt-auto flex items-center justify-between">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed-variant border border-tertiary/20 text-label-md font-medium">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span> Meta CAPI Inativo
+                        </span>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors">arrow_forward</span>
+</div>
+</a>
+<!-- Card 7 (Spans 3 cols on large screens to break grid monotony) -->
+<a class="bg-surface-container-lowest rounded-xl border border-outline-variant p-6 hover:shadow-md hover:border-primary/50 transition-all duration-200 group flex flex-col md:flex-row items-start md:items-center gap-6 lg:col-span-3 relative overflow-hidden" href="#">
+<div class="w-16 h-16 rounded-2xl bg-inverse-on-surface text-secondary flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[32px]">shield_person</span>
+</div>
+<div class="flex-1">
+<h3 class="text-headline-md text-on-surface mb-1 font-semibold">Segurança e Sistema</h3>
+<p class="text-body-md text-on-surface-variant">MFA, Logs de Auditoria, LGPD e Configurações da IA</p>
+</div>
+<div class="mt-4 md:mt-0 flex items-center gap-4 shrink-0">
+<span class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-label-md font-medium">
+<span class="w-2 h-2 rounded-full bg-emerald-500"></span> Concluído
+                        </span>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors">arrow_forward</span>
+</div>
+</a>
+</div>
+<!-- 4. AI Governance Banner (Footer) -->
+<div class="rounded-xl border border-outline-variant overflow-hidden shadow-sm flex flex-col md:flex-row relative bg-purple-50 border-l-4" style="border-left-color: #9333ea;">
+<!-- Decorative AI glow -->
+<div class="absolute top-0 right-0 w-64 h-64 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 pointer-events-none"></div>
+<div class="p-6 md:p-8 flex-1 flex flex-col justify-center relative z-10">
+<div class="flex items-center gap-2 mb-3">
+<span class="material-symbols-outlined text-purple-700" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<h3 class="text-headline-md font-bold text-purple-900">Recomendação de Segurança e Compliance</h3>
+</div>
+<p class="text-body-lg text-purple-800/80 mb-6 max-w-3xl">
+                        Identificamos acessos ao módulo financeiro de IPs desconhecidos fora do horário comercial. Para adequação à LGPD e proteção de dados sensíveis, recomendamos fortemente a exigência de MFA (Múltiplo Fator de Autenticação) para a equipe financeira.
+                    </p>
+<div class="flex flex-wrap items-center gap-4">
+<button class="px-6 py-2.5 rounded-lg bg-purple-700 text-white hover:bg-purple-800 transition-colors font-medium text-body-md shadow-sm active:scale-95 flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">verified_user</span>
+                            Ativar MFA para o Financeiro
+                        </button>
+<button class="px-6 py-2.5 rounded-lg border border-purple-300 text-purple-800 bg-white hover:bg-purple-100 transition-colors font-medium text-body-md active:scale-95">
+                            Ver Logs de Acesso
+                        </button>
+</div>
+</div>
+</div>
+<!-- Bottom spacing -->
+<div class="h-8"></div>
+</div>
+</main>
+</body></html>

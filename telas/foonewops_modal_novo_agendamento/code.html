@@ -1,0 +1,148 @@
+<!DOCTYPE html><html lang="pt-BR"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>FooNewOps - Novo Agendamento</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">tailwind.config = {darkMode: "class", theme: {extend: {colors: {"surface-container-low": "#f1f3fc", "on-secondary-container": "#3f5881", "inverse-primary": "#aac7ff", "surface-tint": "#005db8", "surface-dim": "#d7dae3", "on-background": "#181c22", "secondary-fixed": "#d6e3ff", "error-container": "#ffdad6", background: "#f9f9ff", primary: "#005ab4", "surface-container-lowest": "#ffffff", "surface-container": "#ebedf7", "primary-fixed": "#d6e3ff", "on-surface": "#181c22", "on-secondary-fixed-variant": "#2d476f", secondary: "#465f88", error: "#ba1a1a", "surface-bright": "#f9f9ff", "surface-container-high": "#e6e8f1", tertiary: "#964400", "secondary-fixed-dim": "#aec7f7", "tertiary-fixed": "#ffdbc9", surface: "#f9f9ff", "inverse-surface": "#2d3037", "secondary-container": "#b6d0ff", "on-tertiary-fixed": "#321200", "on-primary-fixed-variant": "#00458d", "on-primary-fixed": "#001b3e", "tertiary-container": "#bd5700", "surface-container-highest": "#e0e2eb", "primary-container": "#0a73e0", "on-primary-container": "#fefcff", "on-surface-variant": "#414753", "on-secondary": "#ffffff", "on-tertiary-fixed-variant": "#763400", "primary-fixed-dim": "#aac7ff", "outline-variant": "#c1c6d5", "inverse-on-surface": "#eef0fa", "on-error": "#ffffff", "tertiary-fixed-dim": "#ffb68c", outline: "#717785", "on-error-container": "#93000a", "on-tertiary-container": "#fffbff", "on-secondary-fixed": "#001b3d", "on-primary": "#ffffff", "on-tertiary": "#ffffff", "surface-variant": "#e0e2eb"}, borderRadius: {DEFAULT: "0.5rem", lg: "1rem", xl: "1.5rem", full: "9999px"}, fontFamily: {headline: ["Inter"], body: ["Inter"], label: ["Inter"], display: ["Inter"]}, fontSize: {}}}};</script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-on-background h-screen w-full relative overflow-hidden flex">
+<!-- Background Agenda Screen Placeholder (Simulated) -->
+<div aria-hidden="true" class="absolute inset-0 z-0 bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuATOhHorVPAaDHpID-Atw2Jd3TNFrlGMVIsTKcfmrMOCFvXWuU31b7kMAlFGk72T_yheTPc_gzVWVGAIgK_6BRLJipHQMPTChb45wVZAwZGEXmXPAB4nSGTCmbkl7aifuR5zU7zr8Awcuw7mKobFwRO7c-fZYZffHETEh3myZ0tNaplPA1N5GxR8UtrfsPwHs78oa9f6s_a39CQGnP6DdKufKzV0DgNdiZ7Fnbp9W_gV61-T4kvhFHnbi9lSyLRuHZueH5BZIj2qkd3');">
+<!-- Overlay -->
+<div class="absolute inset-0 bg-black/40 backdrop-blur-sm z-10"></div>
+</div>
+<!-- Modal Container -->
+<div class="relative z-20 flex items-center justify-center w-full h-full p-4 sm:p-6">
+<!-- Modal Content -->
+<div class="bg-surface-container-lowest w-full max-w-[600px] rounded-2xl shadow-xl flex flex-col overflow-hidden animate-fade-in-up">
+<!-- Header -->
+<div class="flex items-center justify-between px-6 py-5 border-b border-outline-variant/30">
+<h2 class="font-headline text-[24px] leading-[32px] font-semibold text-on-surface">Novo Agendamento</h2>
+<button aria-label="Close modal" class="p-2 rounded-full text-on-surface-variant hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<!-- Body -->
+<div class="flex-1 overflow-y-auto px-6 py-6 space-y-6">
+<!-- 1. Patient Search -->
+<div class="space-y-2">
+<label class="block font-label text-[12px] font-medium text-on-surface-variant">Paciente</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full pl-10 pr-4 py-2.5 bg-surface-container-lowest border border-outline-variant rounded-lg text-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-shadow placeholder:text-outline-variant" placeholder="Buscar paciente por nome, CPF ou telefone..." type="text">
+</div>
+<a class="inline-block text-sm font-medium text-primary hover:text-on-primary-fixed-variant transition-colors mt-1" href="#">+ Criar novo paciente rapidamente</a>
+</div>
+<!-- 2. Service & Professional -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- Service -->
+<div class="space-y-1">
+<label class="block font-label text-[12px] font-medium text-on-surface-variant">Procedimento / Serviço</label>
+<select class="w-full px-3 py-2.5 bg-surface-container-lowest border border-outline-variant rounded-lg text-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-shadow appearance-none">
+<option disabled="" selected="" value="">Selecione um serviço</option>
+<option value="limpeza">Limpeza Dental</option>
+<option value="consulta">Consulta Inicial</option>
+<option value="clareamento">Clareamento</option>
+</select>
+</div>
+<!-- Professional -->
+<div class="space-y-1">
+<label class="block font-label text-[12px] font-medium text-on-surface-variant">Profissional Responsável</label>
+<div class="relative">
+<div class="absolute left-3 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-surface-container-highest overflow-hidden border border-outline-variant/30 flex items-center justify-center">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">person</span>
+</div>
+<select class="w-full pl-11 pr-3 py-2.5 bg-surface-container-lowest border border-outline-variant rounded-lg text-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-shadow appearance-none">
+<option disabled="" selected="" value="">Selecione um profissional</option>
+<option value="dr_silva">Dr. Silva (Ortodontia)</option>
+<option value="dra_costa">Dra. Costa (Clínico Geral)</option>
+</select>
+</div>
+</div>
+</div>
+<!-- 3. Schedule -->
+<div class="space-y-2">
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+<!-- Date -->
+<div class="space-y-1">
+<label class="block font-label text-[12px] font-medium text-on-surface-variant">Data</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-outline pointer-events-none">calendar_today</span>
+<input class="w-full px-3 py-2.5 bg-surface-container-lowest border border-outline-variant rounded-lg text-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-shadow" type="text" value="23/05/2026">
+</div>
+</div>
+<!-- Time -->
+<div class="space-y-1">
+<label class="block font-label text-[12px] font-medium text-on-surface-variant">Horário de Início</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-outline pointer-events-none">schedule</span>
+<input class="w-full px-3 py-2.5 bg-surface-container-lowest border border-outline-variant rounded-lg text-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-shadow" type="text" value="14:00">
+</div>
+</div>
+<!-- Room -->
+<div class="space-y-1">
+<label class="block font-label text-[12px] font-medium text-on-surface-variant">Sala / Recurso</label>
+<select class="w-full px-3 py-2.5 bg-surface-container-lowest border border-outline-variant rounded-lg text-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-shadow appearance-none">
+<option value="sala1">Sala 1 - Cirurgia</option>
+<option value="sala2">Sala 2 - Avaliação</option>
+</select>
+</div>
+</div>
+<!-- 4. Availability Feedback -->
+<div class="flex items-center gap-2 text-sm font-medium mt-1">
+<span class="material-symbols-outlined text-[18px] text-green-600">check_circle</span>
+<span class="text-green-700">Horário disponível</span>
+</div>
+</div>
+<!-- 5. Status & Notes -->
+<div class="space-y-4 pt-2">
+<!-- Status -->
+<div class="space-y-2">
+<label class="block font-label text-[12px] font-medium text-on-surface-variant">Status Inicial</label>
+<div class="flex p-1 bg-surface-container-low rounded-lg border border-outline-variant/30">
+<button class="flex-1 py-1.5 px-3 text-sm font-medium rounded-md bg-surface-container-lowest shadow-sm text-on-surface border border-outline-variant/20">Confirmado</button>
+<button class="flex-1 py-1.5 px-3 text-sm font-medium rounded-md text-on-surface-variant hover:text-on-surface transition-colors">Pendente</button>
+<button class="flex-1 py-1.5 px-3 text-sm font-medium rounded-md text-on-surface-variant hover:text-on-surface transition-colors">Provisório</button>
+</div>
+</div>
+<!-- Notes -->
+<div class="space-y-1">
+<label class="block font-label text-[12px] font-medium text-on-surface-variant">Observações Internas</label>
+<textarea class="w-full px-3 py-2.5 bg-surface-container-lowest border border-outline-variant rounded-lg text-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-shadow resize-none" placeholder="Adicione notas relevantes para este agendamento..." rows="3"></textarea>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<div class="px-6 py-4 border-t border-outline-variant/30 bg-surface-container-low/50 flex justify-end items-center gap-3">
+<button class="px-4 py-2 rounded-lg text-sm font-medium text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors focus:outline-none focus:ring-2 focus:ring-outline-variant">
+                    Cancelar
+                </button>
+<button class="flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium bg-primary text-on-primary hover:bg-on-primary-fixed-variant transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
+<span class="material-symbols-outlined text-[18px]">check</span>
+                    Salvar Agendamento
+                </button>
+</div>
+</div>
+</div>
+<style>
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px) scale(0.98);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        .animate-fade-in-up {
+            animation: fadeInUp 0.3s ease-out forwards;
+        }
+    </style>
+</body></html>

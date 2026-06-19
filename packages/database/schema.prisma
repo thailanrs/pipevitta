@@ -1,0 +1,164 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Plan {
+  STANDARD
+  PREMIUM
+  ENTERPRISE
+}
+
+enum UserProfile {
+  ADMIN
+  FINANCEIRO
+  PROFISSIONAL
+  AUXILIAR_TECNICO
+  GESTOR_RELACIONAMENTO
+  RECEPCIONISTA
+}
+
+enum AppointmentStatus {
+  PENDING
+  CONFIRMED
+  COMPLETED
+  CANCELLED
+}
+
+enum TransactionType {
+  INFLOW
+  OUTFLOW
+}
+
+enum TransactionStatus {
+  PENDING
+  COMPLETED
+  CANCELLED
+}
+
+model Tenant {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name      String
+  slug      String   @unique
+  plan      Plan     @default(STANDARD)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  users        User[]
+  patients     Patient[]
+  appointments Appointment[]
+  transactions Transaction[]
+  auditLogs    AuditLog[]
+
+  @@map("tenants")
+}
+
+model User {
+  id           String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  tenantId     String        @db.Uuid @map("tenant_id")
+  tenant       Tenant        @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  name         String
+  email        String
+  passwordHash String        @map("password_hash")
+  profiles     UserProfile[]
+  mfaEnabled   Boolean       @default(false) @map("mfa_enabled")
+  mfaSecret    String?       @map("mfa_secret")
+  createdAt    DateTime      @default(now()) @map("created_at")
+  updatedAt    DateTime      @updatedAt @map("updated_at")
+
+  appointments         Appointment[] @relation("ProfessionalAppointments")
+  transactionsCreated  Transaction[] @relation("CreatedTransactions")
+  transactionsReceived Transaction[] @relation("ProfessionalCommissions")
+  auditLogs            AuditLog[]
+
+  @@unique([tenantId, email])
+  @@map("users")
+}
+
+model Patient {
+  id              String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  tenantId        String    @db.Uuid @map("tenant_id")
+  tenant          Tenant    @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  name            String
+  cpf             String
+  email           String?
+  phone           String
+  birthDate       DateTime? @map("birth_date")
+  notes           String?
+  clinicalHistory String?   @map("clinical_history")
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+
+  appointments Appointment[]
+  transactions Transaction[]
+
+  @@unique([tenantId, cpf])
+  @@map("patients")
+}
+
+model Appointment {
+  id             String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  tenantId       String            @db.Uuid @map("tenant_id")
+  tenant         Tenant            @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  patientId      String            @db.Uuid @map("patient_id")
+  patient        Patient           @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  professionalId String            @db.Uuid @map("professional_id")
+  professional   User              @relation("ProfessionalAppointments", fields: [professionalId], references: [id], onDelete: Cascade)
+  startTime      DateTime          @map("start_time")
+  endTime        DateTime          @map("end_time")
+  status         AppointmentStatus @default(PENDING)
+  room           String?
+  bufferMinutes  Int               @default(0) @map("buffer_minutes")
+  notes          String?
+  createdAt      DateTime          @default(now()) @map("created_at")
+  updatedAt      DateTime          @updatedAt @map("updated_at")
+
+  @@map("appointments")
+}
+
+model Transaction {
+  id             String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  tenantId       String            @db.Uuid @map("tenant_id")
+  tenant         Tenant            @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  patientId      String?           @db.Uuid @map("patient_id")
+  patient        Patient?          @relation(fields: [patientId], references: [id], onDelete: SetNull)
+  amount         Decimal           @db.Decimal(12, 2)
+  type           TransactionType
+  status         TransactionStatus @default(PENDING)
+  description    String
+  createdById    String            @db.Uuid @map("created_by_id")
+  createdBy      User              @relation("CreatedTransactions", fields: [createdById], references: [id])
+  
+  // Commission Split attributes
+  commissionAmount Decimal?        @db.Decimal(12, 2) @map("commission_amount")
+  professionalId   String?         @db.Uuid @map("professional_id")
+  professional     User?           @relation("ProfessionalCommissions", fields: [professionalId], references: [id], onDelete: SetNull)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("transactions")
+}
+
+model AuditLog {
+  id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  tenantId   String   @db.Uuid @map("tenant_id")
+  tenant     Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  userId     String?  @db.Uuid @map("user_id")
+  user       User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  ipAddress  String?  @map("ip_address")
+  userAgent  String?  @map("user_agent")
+  action     String
+  resource   String
+  resourceId String?  @map("resource_id")
+  beforeState Json?   @map("before_state")
+  afterState  Json?   @map("after_state")
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  @@map("audit_logs")
+}
+

@@ -1,0 +1,521 @@
+<!DOCTYPE html><html lang="pt-BR" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>FooNewOps - Marketing Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#763400",
+                        "surface-container": "#ebedf7",
+                        "secondary": "#465f88",
+                        "primary-container": "#0a73e0",
+                        "surface-variant": "#e0e2eb",
+                        "error-container": "#ffdad6",
+                        "on-error": "#ffffff",
+                        "background": "#f9f9ff",
+                        "secondary-fixed-dim": "#aec7f7",
+                        "on-primary-container": "#fefcff",
+                        "on-secondary-fixed": "#001b3d",
+                        "inverse-primary": "#aac7ff",
+                        "on-primary-fixed-variant": "#00458d",
+                        "surface-container-highest": "#e0e2eb",
+                        "primary-fixed-dim": "#aac7ff",
+                        "on-tertiary-fixed": "#321200",
+                        "surface-dim": "#d7dae3",
+                        "on-surface-variant": "#414753",
+                        "inverse-on-surface": "#eef0fa",
+                        "primary": "#005ab4",
+                        "tertiary": "#964400",
+                        "on-secondary": "#ffffff",
+                        "surface": "#f9f9ff",
+                        "tertiary-fixed-dim": "#ffb68c",
+                        "surface-bright": "#f9f9ff",
+                        "surface-tint": "#005db8",
+                        "outline": "#717785",
+                        "on-secondary-container": "#3f5881",
+                        "on-error-container": "#93000a",
+                        "on-surface": "#181c22",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed": "#ffdbc9",
+                        "primary-fixed": "#d6e3ff",
+                        "on-primary": "#ffffff",
+                        "secondary-container": "#b6d0ff",
+                        "surface-container-low": "#f1f3fc",
+                        "on-primary-fixed": "#001b3e",
+                        "inverse-surface": "#2d3037",
+                        "secondary-fixed": "#d6e3ff",
+                        "tertiary-container": "#bd5700",
+                        "surface-container-lowest": "#ffffff",
+                        "outline-variant": "#c1c6d5",
+                        "on-tertiary-container": "#fffbff",
+                        "on-secondary-fixed-variant": "#2d476f",
+                        "on-background": "#181c22",
+                        "surface-container-high": "#e6e8f1",
+                        "status-active": "#10B981",
+                        "status-paused": "#c55b00",
+                        "status-rejected": "#ba1a1a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.5rem",
+                        "sm": "0.25rem",
+                        "md": "0.75rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Inter"],
+                        "display": ["Inter"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-on-background h-screen flex overflow-hidden">
+<!-- SideNavBar Component -->
+<nav class="bg-surface-container text-primary font-body-md text-body-md h-screen w-20 flex flex-col items-center py-6 border-r border-outline-variant fixed left-0 top-0 z-50 transition-all duration-200 ease-in-out"><div class="mb-8 flex flex-col items-center justify-center w-full"><div class="w-12 h-12 bg-primary-container text-on-primary-container rounded-full flex items-center justify-center mb-2 shadow-sm font-bold text-lg">FN</div></div><div class="flex flex-col w-full gap-2"><a class="text-on-surface-variant flex flex-col items-center justify-center py-3 w-full border-l-4 border-transparent hover:bg-surface-container-high transition-colors" href="#" title="Dashboard"><span class="material-symbols-outlined mb-1">dashboard</span><span class="text-[10px] font-medium truncate w-full text-center px-1">Dashboard</span></a><a class="text-on-surface-variant flex flex-col items-center justify-center py-3 w-full border-l-4 border-transparent hover:bg-surface-container-high transition-colors" href="#" title="Agenda"><span class="material-symbols-outlined mb-1">calendar_today</span><span class="text-[10px] font-medium truncate w-full text-center px-1">Agenda</span></a><a class="text-on-surface-variant flex flex-col items-center justify-center py-3 w-full border-l-4 border-transparent hover:bg-surface-container-high transition-colors" href="#" title="CRM"><span class="material-symbols-outlined mb-1">groups</span><span class="text-[10px] font-medium truncate w-full text-center px-1">CRM</span></a><a class="text-on-surface-variant flex flex-col items-center justify-center py-3 w-full border-l-4 border-transparent hover:bg-surface-container-high transition-colors" href="#" title="Inbox"><span class="material-symbols-outlined mb-1">inbox</span><span class="text-[10px] font-medium truncate w-full text-center px-1">Inbox</span></a><a class="text-on-surface-variant flex flex-col items-center justify-center py-3 w-full border-l-4 border-transparent hover:bg-surface-container-high transition-colors" href="#" title="Patients"><span class="material-symbols-outlined mb-1">person</span><span class="text-[10px] font-medium truncate w-full text-center px-1">Pacientes</span></a><a class="text-secondary border-l-4 border-secondary bg-secondary-container/10 flex flex-col items-center justify-center py-3 w-full hover:bg-surface-container-high transition-colors" href="#" title="Marketing"><span class="material-symbols-outlined mb-1 icon-fill">campaign</span><span class="text-[10px] font-medium truncate w-full text-center px-1">Marketing</span></a><a class="text-on-surface-variant flex flex-col items-center justify-center py-3 w-full border-l-4 border-transparent hover:bg-surface-container-high transition-colors" href="#" title="Inventory"><span class="material-symbols-outlined mb-1">inventory_2</span><span class="text-[10px] font-medium truncate w-full text-center px-1">Estoque</span></a></div><div class="mt-auto w-full"><a class="text-on-surface-variant flex flex-col items-center justify-center py-3 w-full border-l-4 border-transparent hover:bg-surface-container-high transition-colors" href="#" title="Settings"><span class="material-symbols-outlined mb-1">settings</span><span class="text-[10px] font-medium truncate w-full text-center px-1">Settings</span></a></div></nav>
+<!-- Main Content Wrapper -->
+<div class="flex-1 flex flex-col relative min-w-0 ml-20">
+<!-- TopNavBar Component -->
+<header class="bg-surface/80 backdrop-blur-md border-b border-outline-variant/30 w-full h-16 flex items-center justify-between px-6 sticky top-0 z-40"><div class="flex items-center gap-6 flex-1"><h2 class="text-lg font-bold text-on-surface tracking-tight">Clínica Sorriso Holding</h2><div class="h-6 w-[1px] bg-outline-variant/50 hidden md:block"></div><div class="relative max-w-md w-full hidden md:block"><span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">search</span><input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border border-outline-variant/30 rounded-full text-sm focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all shadow-inner" placeholder="Buscar pacientes, conversas ou agendamentos..." type="text"></div></div><div class="flex items-center gap-3"><button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-all relative group"><span class="material-symbols-outlined text-[24px]">notifications</span><span class="absolute top-2 right-2.5 w-2 h-2 bg-error rounded-full ring-2 ring-surface"></span><div class="absolute top-full mt-2 right-0 bg-surface border border-outline-variant/30 rounded-lg shadow-xl p-2 hidden group-hover:block w-48 text-xs z-50">Nenhuma notificao nova</div></button><button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-all"><span class="material-symbols-outlined text-[24px]">help_outline</span></button><div class="h-8 w-[1px] bg-outline-variant/30 mx-1"></div><button class="flex items-center gap-2 pl-1 pr-3 py-1 rounded-full hover:bg-surface-container-high transition-all"><div class="w-8 h-8 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-xs border border-primary/10 shadow-sm">DS</div><span class="text-sm font-medium text-on-surface">Dr. Santos</span><span class="material-symbols-outlined text-[18px] text-outline">keyboard_arrow_down</span></button></div></header>
+<!-- Main Workspace -->
+<main class="flex-1 overflow-auto p-6 bg-background relative flex min-w-0" onclick="if(event.target === this) { document.getElementById('slide-over').classList.add('translate-x-full'); document.getElementById('main-content-area').style.paddingRight = '0'; }"><div id="slide-over-backdrop" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 transition-opacity duration-300 opacity-0 pointer-events-none" onclick="document.getElementById('slide-over').classList.add('translate-x-full'); this.classList.add('opacity-0', 'pointer-events-none'); document.getElementById('main-content-area').classList.remove('blur-sm', 'backdrop-blur');"></div>
+<!-- Content Area (shrinks when slide-over is open) -->
+<div class="flex-1 min-w-0 pr-0 transition-all duration-300" id="main-content-area" style="padding-right: 0px;">
+<!-- Page Header & Tabs -->
+<div class="mb-8">
+<h2 class="text-headline-lg text-on-surface mb-6">Marketing</h2>
+<div class="border-b border-outline-variant">
+<nav class="flex gap-6 -mb-px">
+<button class="pb-3 text-on-surface-variant font-medium hover:text-primary transition-colors text-sm">Dashboard</button>
+<button class="pb-3 text-primary font-semibold border-b-2 border-primary text-sm">Campanhas</button>
+<button class="pb-3 text-on-surface-variant font-medium hover:text-primary transition-colors text-sm">Analytics</button>
+<button class="pb-3 text-on-surface-variant font-medium hover:text-primary transition-colors text-sm">Social Listening</button>
+<button class="pb-3 text-on-surface-variant font-medium hover:text-primary transition-colors text-sm">Configurações</button>
+</nav>
+</div>
+</div>
+<!-- Toolbar -->
+<div class="flex flex-col xl:flex-row justify-between items-start xl:items-center gap-4 mb-6">
+<div class="flex flex-wrap items-center gap-3">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-sm">search</span>
+<input class="w-64 bg-surface-container-lowest border border-outline-variant rounded-lg py-2 pl-9 pr-4 text-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all shadow-sm" placeholder="Buscar campanhas..." type="text">
+</div>
+<div class="flex items-center gap-2 border border-outline-variant rounded-lg bg-surface-container-lowest p-1 shadow-sm">
+<button class="px-3 py-1.5 text-sm font-medium rounded text-on-surface bg-surface-container">Ativas</button>
+<button class="px-3 py-1.5 text-sm font-medium rounded text-on-surface-variant hover:bg-surface-container-low transition-colors">Todas</button>
+</div>
+<select class="border border-outline-variant rounded-lg py-2 pl-3 pr-8 text-sm bg-surface-container-lowest shadow-sm focus:border-primary focus:ring-1 focus:ring-primary outline-none appearance-none cursor-pointer">
+<option>Todas as Plataformas</option>
+<option>Meta Ads</option>
+<option>Google Ads</option>
+<option>TikTok Ads</option>
+</select>
+<select class="border border-outline-variant rounded-lg py-2 pl-3 pr-8 text-sm bg-surface-container-lowest shadow-sm focus:border-primary focus:ring-1 focus:ring-primary outline-none appearance-none cursor-pointer">
+<option>Todos os Objetivos</option>
+<option>Geração de Leads</option>
+<option>Tráfego</option>
+<option>Vendas</option>
+</select>
+</div>
+<div class="flex items-center gap-3">
+<button class="flex items-center gap-2 px-4 py-2 text-sm font-medium border border-outline-variant rounded-lg bg-surface-container-lowest hover:bg-surface-container-low transition-colors shadow-sm">
+<span class="material-symbols-outlined text-sm">calendar_today</span>
+                            Últimos 30 dias
+                        </button>
+<button class="flex items-center gap-2 px-4 py-2 text-sm font-medium border border-outline-variant rounded-lg bg-surface-container-lowest hover:bg-surface-container-low transition-colors shadow-sm text-secondary">
+<span class="material-symbols-outlined text-sm">upload</span>
+                            Importar
+                        </button>
+<button class="flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-lg bg-primary text-on-primary hover:bg-primary/90 transition-colors shadow-sm">
+<span class="material-symbols-outlined text-sm">add</span>
+                            Criar Nova Campanha
+                        </button>
+</div>
+</div>
+<!-- Smart KPIs -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+<div class="bg-surface-container-lowest rounded-xl p-5 border border-outline-variant shadow-sm flex flex-col relative overflow-hidden">
+<div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-status-active/10 to-transparent rounded-bl-full -mr-4 -mt-4"></div>
+<span class="text-label-md text-on-surface-variant font-medium mb-1">Campanhas Ativas</span>
+<div class="flex items-end gap-3 mt-1">
+<span class="text-headline-lg text-on-surface">12</span>
+<span class="text-sm text-status-active font-medium flex items-center mb-1 bg-status-active/10 px-2 py-0.5 rounded">
+<span class="material-symbols-outlined text-[16px] mr-1">trending_up</span>+2
+                            </span>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-xl p-5 border border-outline-variant shadow-sm flex flex-col relative overflow-hidden">
+<div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-primary/10 to-transparent rounded-bl-full -mr-4 -mt-4"></div>
+<span class="text-label-md text-on-surface-variant font-medium mb-1">Orçamento Diário</span>
+<div class="flex items-end gap-3 mt-1">
+<span class="text-headline-lg text-on-surface">R$ 850</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-xl p-5 border border-outline-variant shadow-sm flex flex-col relative overflow-hidden">
+<div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-tertiary/10 to-transparent rounded-bl-full -mr-4 -mt-4"></div>
+<span class="text-label-md text-on-surface-variant font-medium mb-1">Gasto Mês (Proj.)</span>
+<div class="flex items-end gap-3 mt-1">
+<span class="text-headline-lg text-on-surface">R$ 18.450</span>
+<span class="text-sm text-tertiary font-medium flex items-center mb-1">
+                                92% do budget
+                            </span>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-xl p-5 border border-outline-variant shadow-sm flex flex-col relative overflow-hidden">
+<div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-outline/10 to-transparent rounded-bl-full -mr-4 -mt-4"></div>
+<span class="text-label-md text-on-surface-variant font-medium mb-1">CPA Médio</span>
+<div class="flex items-end gap-3 mt-1">
+<span class="text-headline-lg text-on-surface">R$ 42</span>
+<span class="text-sm text-outline font-medium flex items-center mb-1">
+                                Meta: R$ 45
+                            </span>
+</div>
+</div>
+</div>
+<!-- Campaigns Table -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm overflow-hidden mb-20">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-outline-variant bg-surface-container-low text-label-md text-on-surface-variant uppercase tracking-wider">
+<th class="p-4 font-medium w-10">
+<input class="rounded border-outline-variant text-primary focus:ring-primary w-4 h-4 cursor-pointer" type="checkbox">
+</th>
+<th class="p-4 font-medium">Campanha</th>
+<th class="p-4 font-medium w-32">Status</th>
+<th class="p-4 font-medium w-48">Budget Diário</th>
+<th class="p-4 font-medium w-32">Criativos</th>
+<th class="p-4 font-medium w-48">Desempenho</th>
+<th class="p-4 font-medium w-16"></th>
+</tr>
+</thead>
+<tbody class="text-body-md text-on-surface divide-y divide-outline-variant">
+<!-- Row 1: Active -->
+<tr class="hover:bg-surface-container-lowest/50 transition-colors group cursor-pointer bg-surface-variant/20" onclick="document.getElementById('slide-over').classList.remove('translate-x-full'); document.getElementById('slide-over-backdrop').classList.remove('opacity-0', 'pointer-events-none'); document.getElementById('main-content-area').classList.add('blur-sm');">
+<td class="p-4">
+<input checked="" class="rounded border-outline-variant text-primary focus:ring-primary w-4 h-4 cursor-pointer" type="checkbox">
+</td>
+<td class="p-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-surface-container-high flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">public</span> <!-- Assuming Meta icon proxy -->
+</div>
+<div>
+<div class="font-semibold text-primary">Harmonização Facial - Verão 2026</div>
+<div class="text-label-md text-on-surface-variant">Meta Ads • Lead Gen</div>
+</div>
+</div>
+</td>
+<td class="p-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-status-active/10 text-status-active border border-status-active/20">
+<span class="w-1.5 h-1.5 rounded-full bg-status-active"></span>
+                                        Ativa
+                                    </span>
+</td>
+<td class="p-4">
+<div class="font-medium">R$ 150/dia</div>
+<div class="w-full bg-surface-container-highest rounded-full h-1.5 mt-2">
+<div class="bg-primary h-1.5 rounded-full" style="width: 71%"></div>
+</div>
+<div class="text-[10px] text-on-surface-variant mt-1 text-right">71% gasto hoje</div>
+</td>
+<td class="p-4">
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-md bg-surface-container-high border-2 border-surface-container-lowest overflow-hidden">
+<img alt="Creative 1" class="w-full h-full object-cover" data-alt="A close-up shot of a person's face receiving a cosmetic treatment, highlighting smooth skin and professional care. Soft, flattering studio lighting creates a bright and trustworthy aesthetic. The mood is clinical yet reassuring, suitable for a high-end beauty clinic advertisement." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDS6jVvzBKJoL3be1DlLCRsjMkYfzeBjcVIyYvb3fX8DAd7qgkzW9MXrbtEsJSUr5mzOw2vNnLEaSul6Ie6yZsoNjwTeqVnBdS7hht9OMNcPsDpgrSN_c9tjQXlffL2AtyxCcKQQl11xvdHiv3_8zd2Lgx_KTQj8upb1PbC6zPs4lhpfE7T3zeyiDH8xSk1CfRd-r4mJioCbah-dG4LD_3WT-q4zvrJ7aefvbTRfTfs9WDGNG-zdKQOITyZwXh-HZQ__SZsY7dF-HAi">
+</div>
+<div class="w-8 h-8 rounded-md bg-surface-container-high border-2 border-surface-container-lowest overflow-hidden">
+<img alt="Creative 2" class="w-full h-full object-cover" data-alt="A modern, sterile aesthetic clinic room setup with professional equipment in the background. Bright, natural light filters in, creating a clean and inviting atmosphere. The overall style is premium healthcare, designed to instill confidence and highlight a hygienic environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDxfPiPML8cBBHz5jJ8JEIx6-oB6CLLENRgRyTN_mnh9ske_Ym5k71HKqKz_ZzS_1ugwzRIRe1q-rIVy6Liqo6JK9kjuBjrrmqMP57gF3oeRbLioQYew5DLreuIQIm50Oer3lOQQw5o2AA5cbFPJx0K9Do0I4f2iUaeHHOmt33CQqzDXx0Ej_1Bj0D3kyCVGjB0xwez6TU8t-oSY-inx44X5Q5TjSeBr-eeuI2nsXP0gr1j97zeDtDJMCW8fA38bLwa_VeGuaKjfE16">
+</div>
+<div class="w-8 h-8 rounded-md bg-surface-container border-2 border-surface-container-lowest flex items-center justify-center text-xs font-medium text-on-surface-variant">
+                                            +2
+                                        </div>
+</div>
+</td>
+<td class="p-4">
+<div class="grid grid-cols-2 gap-x-2 gap-y-1 text-xs">
+<div class="text-on-surface-variant">CTR:</div>
+<div class="font-medium text-right">2.8%</div>
+<div class="text-on-surface-variant">Leads:</div>
+<div class="font-medium text-right">78</div>
+<div class="text-on-surface-variant">CPA:</div>
+<div class="font-medium text-right text-status-active">R$ 41</div>
+</div>
+</td>
+<td class="p-4 text-right">
+<button class="text-outline hover:text-primary transition-colors p-1 rounded-md hover:bg-surface-container-low">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 2: Paused -->
+<tr class="hover:bg-surface-container-lowest/50 transition-colors group">
+<td class="p-4">
+<input class="rounded border-outline-variant text-primary focus:ring-primary w-4 h-4 cursor-pointer" type="checkbox">
+</td>
+<td class="p-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-surface-container-high flex items-center justify-center text-[#ea4335]">
+<span class="material-symbols-outlined text-[20px]">search</span> <!-- Assuming Google icon proxy -->
+</div>
+<div>
+<div class="font-medium text-on-surface">Implante Dentário - Search</div>
+<div class="text-label-md text-on-surface-variant">Google Ads • Search</div>
+</div>
+</div>
+</td>
+<td class="p-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-status-paused/10 text-status-paused border border-status-paused/20">
+<span class="w-1.5 h-1.5 rounded-full bg-status-paused"></span>
+                                        Pausada
+                                    </span>
+</td>
+<td class="p-4">
+<div class="font-medium">R$ 200/dia</div>
+<div class="w-full bg-surface-container-highest rounded-full h-1.5 mt-2">
+<div class="bg-outline-variant h-1.5 rounded-full" style="width: 0%"></div>
+</div>
+</td>
+<td class="p-4">
+<div class="flex items-center gap-1 text-on-surface-variant text-xs font-medium border border-outline-variant rounded px-2 py-1 bg-surface-container-low w-fit">
+<span class="material-symbols-outlined text-[14px]">format_align_left</span>
+                                        Texto
+                                    </div>
+</td>
+<td class="p-4">
+<div class="grid grid-cols-2 gap-x-2 gap-y-1 text-xs">
+<div class="text-on-surface-variant">CTR:</div>
+<div class="font-medium text-right">5.2%</div>
+<div class="text-on-surface-variant">Leads:</div>
+<div class="font-medium text-right">38</div>
+<div class="text-on-surface-variant">CPA:</div>
+<div class="font-medium text-right text-status-paused">R$ 47</div>
+</div>
+</td>
+<td class="p-4 text-right">
+<button class="text-outline hover:text-primary transition-colors p-1 rounded-md hover:bg-surface-container-low opacity-0 group-hover:opacity-100">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 3: Rejected -->
+<tr class="hover:bg-surface-container-lowest/50 transition-colors group">
+<td class="p-4">
+<input class="rounded border-outline-variant text-primary focus:ring-primary w-4 h-4 cursor-pointer" type="checkbox">
+</td>
+<td class="p-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-surface-container-high flex items-center justify-center text-on-surface">
+<span class="material-symbols-outlined text-[20px]">music_note</span> <!-- Assuming TikTok icon proxy -->
+</div>
+<div>
+<div class="font-medium text-on-surface">Botox sem Dor - Gen Z</div>
+<div class="text-label-md text-on-surface-variant">TikTok Ads • Video Views</div>
+</div>
+</div>
+</td>
+<td class="p-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-status-rejected/10 text-status-rejected border border-status-rejected/20">
+<span class="material-symbols-outlined text-[12px]">error</span>
+                                        Rejeitada
+                                    </span>
+</td>
+<td class="p-4">
+<div class="font-medium text-outline">R$ 100/dia</div>
+</td>
+<td class="p-4">
+<div class="w-8 h-8 rounded-md bg-error-container border border-status-rejected/30 flex items-center justify-center text-status-rejected relative">
+<span class="material-symbols-outlined text-[16px]">play_circle</span>
+<span class="absolute -top-1 -right-1 w-3 h-3 bg-status-rejected rounded-full border border-surface-container-lowest"></span>
+</div>
+</td>
+<td class="p-4">
+<div class="text-xs text-on-surface-variant italic">Sem dados (Campanha não veiculada)</div>
+</td>
+<td class="p-4 text-right">
+<button class="text-outline hover:text-primary transition-colors p-1 rounded-md hover:bg-surface-container-low opacity-0 group-hover:opacity-100">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Slide-over Panel -->
+<div id="slide-over-backdrop" class="fixed inset-0 bg-on-surface/40 backdrop-blur-sm z-40 transition-opacity duration-300 opacity-0 pointer-events-none" onclick="document.getElementById('slide-over').classList.add('translate-x-full'); this.classList.add('opacity-0', 'pointer-events-none'); document.getElementById('main-content-area').classList.remove('blur-sm', 'backdrop-blur');"></div><div class="fixed inset-y-0 right-0 w-[500px] bg-surface-container-lowest shadow-2xl border-l border-outline-variant flex flex-col z-50 transform transition-transform duration-300 translate-x-full" id="slide-over">
+<!-- Header -->
+<div class="px-6 py-5 border-b border-outline-variant flex justify-between items-start bg-surface-container-low/50">
+<div class="flex gap-4">
+<div class="w-12 h-12 rounded-lg bg-surface-container-lowest border border-outline-variant flex items-center justify-center text-primary shadow-sm mt-1">
+<span class="material-symbols-outlined text-[28px]">public</span>
+</div>
+<div>
+<div class="flex items-center gap-3 mb-1">
+<h3 class="text-headline-md text-on-surface leading-tight">Harmonização Facial</h3>
+</div>
+<div class="flex items-center gap-2 text-sm">
+<span class="text-on-surface-variant">Verão 2026 • Meta Ads</span>
+<span class="w-1 h-1 rounded-full bg-outline"></span>
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[11px] font-medium bg-status-active/10 text-status-active">
+                                    Ativo
+                                </span>
+</div>
+</div>
+</div>
+<button class="text-outline hover:text-on-surface p-1 rounded-md hover:bg-surface-container-high transition-colors" onclick="document.getElementById('slide-over').classList.add('translate-x-full'); document.getElementById('slide-over-backdrop').classList.add('opacity-0', 'pointer-events-none'); document.getElementById('main-content-area').classList.remove('blur-sm', 'backdrop-blur');">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<!-- Body -->
+<div class="flex-1 overflow-y-auto p-6 space-y-8">
+<!-- Metrics Grid -->
+<div>
+<h4 class="text-label-md text-on-surface-variant uppercase tracking-wider mb-3">Visão Geral (Hoje)</h4>
+<div class="grid grid-cols-2 gap-4">
+<div class="p-4 rounded-xl border border-outline-variant bg-surface-container-lowest">
+<div class="text-sm text-on-surface-variant mb-1">CPA Atual</div>
+<div class="text-2xl font-bold text-status-active">R$ 41,20</div>
+<div class="text-xs text-outline mt-2 border-t border-outline-variant/30 pt-2">-R$ 3.80 vs meta</div>
+</div>
+<div class="p-4 rounded-xl border border-outline-variant bg-surface-container-lowest">
+<div class="text-sm text-on-surface-variant mb-1">Leads Gerados</div>
+<div class="text-2xl font-bold text-on-surface">78</div>
+<div class="text-xs text-status-active mt-2 border-t border-outline-variant/30 pt-2 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">arrow_upward</span> 12% d/d
+                                </div>
+</div>
+<div class="p-4 rounded-xl border border-outline-variant bg-surface-container-lowest">
+<div class="text-sm text-on-surface-variant mb-1">Gasto Diário</div>
+<div class="text-2xl font-bold text-on-surface">R$ 106,50</div>
+<div class="w-full bg-surface-container-high rounded-full h-1 mt-3">
+<div class="bg-primary h-1 rounded-full" style="width: 71%"></div>
+</div>
+<div class="text-[10px] text-right mt-1 text-on-surface-variant">71% de R$ 150</div>
+</div>
+<div class="p-4 rounded-xl border border-outline-variant bg-surface-container-lowest relative overflow-hidden">
+<div class="text-sm text-on-surface-variant mb-1">Evolução Leads</div>
+<!-- Mock mini sparkline -->
+<div class="absolute bottom-0 left-0 w-full h-12 flex items-end px-2 opacity-60">
+<div class="w-1/6 bg-primary/20 h-2 mx-0.5 rounded-t-sm"></div>
+<div class="w-1/6 bg-primary/40 h-4 mx-0.5 rounded-t-sm"></div>
+<div class="w-1/6 bg-primary/60 h-3 mx-0.5 rounded-t-sm"></div>
+<div class="w-1/6 bg-primary/80 h-7 mx-0.5 rounded-t-sm"></div>
+<div class="w-1/6 bg-primary/90 h-6 mx-0.5 rounded-t-sm"></div>
+<div class="w-1/6 bg-primary h-10 mx-0.5 rounded-t-sm"></div>
+</div>
+<div class="text-2xl font-bold text-on-surface relative z-10 mt-1">↑ Tendência</div>
+</div>
+</div>
+</div>
+<!-- Creatives Carousel -->
+<div>
+<div class="flex justify-between items-end mb-3">
+<h4 class="text-label-md text-on-surface-variant uppercase tracking-wider">Criativos (4)</h4>
+<button class="text-xs text-primary font-medium hover:underline">Ver todos</button>
+</div>
+<div class="flex gap-4 overflow-x-auto pb-4 -mx-6 px-6 snap-x">
+<!-- Creative Card 1 -->
+<div class="min-w-[200px] rounded-xl border border-outline-variant bg-surface-container-lowest overflow-hidden snap-start flex flex-col">
+<div class="h-24 bg-surface-variant relative">
+<img alt="Ad Image 1" class="w-full h-full object-cover" data-alt="A brightly lit, professional portrait focused on flawless facial skin, intended for a premium cosmetic procedure advertisement. The subject has a serene expression. The color palette is soft, relying on whites, creams, and subtle skin tones to convey cleanliness and medical safety." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBB-8d9cjKbQmuQ-MvPbaywug2y4FCFd2sDKfxU42R0hBbvzjQT_RDqszs211YK9aWJLFy1bYO7OkUXRnXmwJbjA0d_oqLiyqbb2wupj7DoazzPjHgvyCU_oUYuN8n_2HpRGcb3uVUmZOKKS9YHi927vMKC6b_Lsd0Q0PhJdf7lHFmd6O7hepzM8s0BR7qNd9Y9W7QOhqK-3LmF1Z4C7k7-SQlZnk-FOk_3sWf1vS9lmn4-ejjKJxC7q6AyrgWdu06QyrJy3Pc4HMpG">
+<div class="absolute top-2 left-2 bg-surface-container-lowest/90 backdrop-blur-sm px-1.5 py-0.5 rounded text-[10px] font-bold text-on-surface flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[12px] text-status-active">star</span> Campeão
+                                    </div>
+</div>
+<div class="p-3 flex-1 flex flex-col justify-between">
+<div class="text-xs font-medium truncate mb-2">V1_Sorriso_Praia</div>
+<div class="flex justify-between text-[11px] text-on-surface-variant">
+<span class="">CTR: <strong class="text-on-surface">3.2%</strong></span>
+<span class="">CPA: <strong class="text-on-surface">R$ 38</strong></span>
+</div>
+</div>
+</div>
+<!-- Creative Card 2 -->
+<div class="min-w-[200px] rounded-xl border border-outline-variant bg-surface-container-lowest overflow-hidden snap-start flex flex-col">
+<div class="h-24 bg-surface-variant relative">
+<img alt="Ad Image 2" class="w-full h-full object-cover" data-alt="A modern aesthetic clinic interior showcasing advanced technological equipment. The room is immaculate, featuring sleek metallic surfaces and soft, diffused white lighting. The overall mood is high-tech, reassuring, and impeccably clean, designed to appeal to clients seeking premium medical beauty treatments." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZA2OIIP98UKAL1ZFa55hOcVdmKlTCQ5rx9yQBuK1iQp0FgGhj2fg7bcI3CRLhCg4AuM_14d-FGG6N2Dd7Evvf1Fm4cph8AEa9fS6bxDm1kdltXqNquZSxMVKrOtNSgvljBhmMdf8MP77DPN2jeKNnJIKkWnzM-bpR73iiHKXjhTvbXil0Cu2gNdEcbKCa75qCPkrjIfZyuhLaqi7OqhIWrzDvghQeDV8o_Pq2-Wz1N19NOXbcKb6PL_5YRxocVdutelZbIQakMwBQ">
+</div>
+<div class="p-3 flex-1 flex flex-col justify-between">
+<div class="text-xs font-medium truncate mb-2">V2_Clinica_Equipamento</div>
+<div class="flex justify-between text-[11px] text-on-surface-variant">
+<span class="">CTR: <strong class="text-on-surface">2.4%</strong></span>
+<span class="">CPA: <strong class="text-on-surface">R$ 45</strong></span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Audience Targeting -->
+<div>
+<h4 class="text-label-md text-on-surface-variant uppercase tracking-wider mb-3">Público-Alvo</h4>
+<div class="bg-surface-container-low rounded-xl p-4 border border-outline-variant/50">
+<div class="flex flex-wrap gap-2 mb-4">
+<span class="bg-surface-container-lowest border border-outline-variant px-2.5 py-1 rounded-md text-xs font-medium text-on-surface shadow-sm">Mulheres</span>
+<span class="bg-surface-container-lowest border border-outline-variant px-2.5 py-1 rounded-md text-xs font-medium text-on-surface shadow-sm">28-45 anos</span>
+<span class="bg-surface-container-lowest border border-outline-variant px-2.5 py-1 rounded-md text-xs font-medium text-on-surface shadow-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">location_on</span> São Paulo, SP (+20km)
+                                </span>
+</div>
+<div class="text-xs text-on-surface-variant space-y-1">
+<p class=""><strong class="text-on-surface">Interesses:</strong> Estética, Bem-estar, Skincare premium, Dermatologia.</p>
+<p class=""><strong class="text-on-surface">Exclusões:</strong> Profissionais de estética, Estudantes de odontologia.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Actions -->
+<div class="p-6 border-t border-outline-variant bg-surface-container-lowest flex flex-col gap-3">
+<button class="w-full py-2.5 rounded-lg border-2 border-primary text-primary font-semibold hover:bg-primary/5 transition-colors flex justify-center items-center gap-2">
+<span class="material-symbols-outlined text-sm">edit</span> Editar Orçamento
+                    </button>
+<div class="flex gap-3">
+<button class="flex-1 py-2.5 rounded-lg border border-outline-variant text-on-surface font-medium hover:bg-surface-container-low transition-colors flex justify-center items-center gap-2 text-sm">
+<span class="material-symbols-outlined text-sm">content_copy</span> Duplicar / A/B
+                        </button>
+<button class="flex-1 py-2.5 rounded-lg bg-error-container text-on-error-container font-medium hover:bg-error-container/80 transition-colors flex justify-center items-center gap-2 text-sm">
+<span class="material-symbols-outlined text-sm">pause_circle</span> Pausar
+                        </button>
+</div>
+</div>
+</div>
+<!-- Floating Bulk Action Bar -->
+<div class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-inverse-surface text-inverse-on-surface px-6 py-3 rounded-full shadow-lg flex items-center gap-6 z-40 md:ml-32 transition-transform translate-y-0">
+<div class="flex items-center gap-2 text-sm font-medium border-r border-outline-variant/30 pr-6">
+<div class="w-5 h-5 rounded bg-primary flex items-center justify-center text-on-primary text-[12px] font-bold">2</div>
+                    campanhas selecionadas
+                </div>
+<div class="flex items-center gap-2">
+<button class="text-inverse-on-surface hover:text-primary-fixed transition-colors flex items-center gap-1 text-sm px-2 py-1 rounded">
+<span class="material-symbols-outlined text-[18px]">play_arrow</span> Ativar
+                    </button>
+<button class="text-inverse-on-surface hover:text-tertiary-fixed transition-colors flex items-center gap-1 text-sm px-2 py-1 rounded">
+<span class="material-symbols-outlined text-[18px]">pause</span> Pausar
+                    </button>
+<button class="text-outline-variant hover:text-error transition-colors flex items-center gap-1 text-sm px-2 py-1 rounded ml-2">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</div>
+</main>
+</div>
+
+
+
+
+</body></html>

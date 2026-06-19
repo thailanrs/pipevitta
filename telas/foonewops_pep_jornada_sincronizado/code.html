@@ -1,0 +1,345 @@
+<!DOCTYPE html><html class="h-full bg-surface" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Jornada - FooNewOps</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-container": "#bd5700",
+                        "tertiary": "#964400",
+                        "surface-bright": "#f9f9ff",
+                        "secondary": "#465f88",
+                        "on-primary": "#ffffff",
+                        "secondary-container": "#b6d0ff",
+                        "surface-container-low": "#f1f3fc",
+                        "on-tertiary-fixed-variant": "#763400",
+                        "on-background": "#181c22",
+                        "surface-dim": "#d7dae3",
+                        "on-secondary-fixed-variant": "#2d476f",
+                        "on-tertiary": "#ffffff",
+                        "on-surface": "#181c22",
+                        "error-container": "#ffdad6",
+                        "inverse-surface": "#2d3037",
+                        "on-secondary-fixed": "#001b3d",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-fixed": "#ffdbc9",
+                        "inverse-primary": "#aac7ff",
+                        "secondary-fixed-dim": "#aec7f7",
+                        "on-secondary-container": "#3f5881",
+                        "outline": "#717785",
+                        "on-primary-fixed-variant": "#00458d",
+                        "primary-fixed-dim": "#aac7ff",
+                        "primary-container": "#0a73e0",
+                        "surface": "#f9f9ff",
+                        "on-tertiary-container": "#fffbff",
+                        "on-primary-container": "#fefcff",
+                        "surface-container": "#ebedf7",
+                        "primary-fixed": "#d6e3ff",
+                        "on-error-container": "#93000a",
+                        "background": "#f9f9ff",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary-fixed": "#321200",
+                        "secondary-fixed": "#d6e3ff",
+                        "primary": "#005ab4",
+                        "outline-variant": "#c1c6d5",
+                        "on-surface-variant": "#414753",
+                        "tertiary-fixed-dim": "#ffb68c",
+                        "on-error": "#ffffff",
+                        "surface-tint": "#005db8",
+                        "surface-container-high": "#e6e8f1",
+                        "inverse-on-surface": "#eef0fa",
+                        "error": "#ba1a1a",
+                        "surface-variant": "#e0e2eb",
+                        "surface-container-highest": "#e0e2eb",
+                        "on-primary-fixed": "#001b3e"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Inter"],
+                        "display": ["Inter"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-fill {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="font-body text-on-surface h-full flex overflow-hidden">
+<!-- SideNavBar -->
+<nav class="bg-surface-container text-primary h-screen w-20 flex flex-col items-center py-6 border-r border-outline-variant shrink-0 transition-all duration-200 ease-in-out">
+<div class="mb-8 flex flex-col items-center justify-center w-full">
+<div class="w-12 h-12 bg-primary-container text-on-primary-container rounded-full flex items-center justify-center mb-2 shadow-sm font-bold text-lg">
+      FN
+    </div>
+</div>
+<div class="flex flex-col w-full gap-2">
+<a class="text-on-surface-variant flex flex-col items-center justify-center py-3 w-full border-l-4 border-transparent hover:bg-surface-container-high transition-colors" href="#" title="Dashboard">
+<span class="material-symbols-outlined mb-1">dashboard</span>
+<span class="text-[10px] font-medium truncate w-full text-center px-1">Dashboard</span>
+</a>
+<a class="text-on-surface-variant flex flex-col items-center justify-center py-3 w-full border-l-4 border-transparent hover:bg-surface-container-high transition-colors" href="#" title="Agenda">
+<span class="material-symbols-outlined mb-1">calendar_today</span>
+<span class="text-[10px] font-medium truncate w-full text-center px-1">Agenda</span>
+</a>
+<a class="text-on-surface-variant flex flex-col items-center justify-center py-3 w-full border-l-4 border-transparent hover:bg-surface-container-high transition-colors" href="#" title="CRM">
+<span class="material-symbols-outlined mb-1">groups</span>
+<span class="text-[10px] font-medium truncate w-full text-center px-1">CRM</span>
+</a>
+<a class="text-on-surface-variant flex flex-col items-center justify-center py-3 w-full border-l-4 border-transparent hover:bg-surface-container-high transition-colors" href="#" title="Inbox">
+<span class="material-symbols-outlined mb-1">inbox</span>
+<span class="text-[10px] font-medium truncate w-full text-center px-1">Inbox</span>
+</a>
+<a class="text-secondary border-l-4 border-secondary bg-secondary-container/10 flex flex-col items-center justify-center py-3 w-full hover:bg-surface-container-high transition-colors" href="#" title="Patients">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: &quot;FILL&quot; 1;">person</span>
+<span class="text-[10px] font-medium truncate w-full text-center px-1">Patients</span>
+</a>
+<a class="text-on-surface-variant flex flex-col items-center justify-center py-3 w-full border-l-4 border-transparent hover:bg-surface-container-high transition-colors" href="#" title="Financial">
+<span class="material-symbols-outlined mb-1">payments</span>
+<span class="text-[10px] font-medium truncate w-full text-center px-1">Financial</span>
+</a>
+<a class="text-on-surface-variant flex flex-col items-center justify-center py-3 w-full border-l-4 border-transparent hover:bg-surface-container-high transition-colors" href="#" title="Inventory">
+<span class="material-symbols-outlined mb-1">inventory_2</span>
+<span class="text-[10px] font-medium truncate w-full text-center px-1">Inventory</span>
+</a>
+</div>
+<div class="mt-auto w-full">
+<a class="text-on-surface-variant flex flex-col items-center justify-center py-3 w-full border-l-4 border-transparent hover:bg-surface-container-high transition-colors" href="#" title="Settings">
+<span class="material-symbols-outlined mb-1">settings</span>
+<span class="text-[10px] font-medium truncate w-full text-center px-1">Settings</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col h-full overflow-hidden bg-background">
+<!-- TopAppBar -->
+<header class="flex items-center justify-between border-b border-outline-variant px-8 py-5 bg-surface-container-lowest shrink-0 z-10">
+<div class="flex items-center gap-6">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-2xl size-14 shadow-sm" style="background-image: url(&quot;https://lh3.googleusercontent.com/aida-public/AB6AXuDNnoEsfuAyX7IU2eXzf11DScZRrEhUkP_aiehF4m_7lUtJTd2Z6zMKkGP2bqHdUuk6TWnklVq3apase605_wr27Ae3DyZuLqHaNdolHNkH8Q8UHGHH-bX8gV4e5SN_-KmMSl3VPO3jz1xQFiXmsZ9rMdPu34zdBPDZqB3k9hc7sDX2DsS9Nfhpfy2k2Y67aeBtSrwj5waYuxk2slyttU5OVy4EYs8xnhTxUVNKhs2v0Z5U6pOQ2E9UijMXp1za5QdmXk865gSTZWnr&quot;);"></div>
+<div>
+<div class="flex items-center gap-3">
+<h1 class="text-on-surface text-2xl font-bold font-headline leading-tight tracking-tight">Maria Oliveira, 32 anos</h1>
+<span class="bg-error text-on-error text-[10px] uppercase font-bold px-2.5 py-1 rounded-md flex items-center gap-1 font-label tracking-wider shadow-sm">
+<span class="material-symbols-outlined text-[14px]">warning</span>
+          Alergia: Dipirona e Látex
+        </span>
+</div>
+<div class="flex items-center gap-4 mt-1 text-sm font-medium font-body text-on-surface-variant">
+<span class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px]">health_and_safety</span> Bradesco Saúde</span>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<span class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px]">badge</span> 987654321C</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="flex items-center justify-center rounded-xl h-11 px-5 bg-surface hover:bg-surface-container-high transition-colors text-on-surface font-semibold text-sm border border-outline-variant shadow-sm">
+<span class="material-symbols-outlined mr-2" style="font-size: 18px;">calendar_view_day</span>
+      Agenda do Dia
+    </button>
+<div class="flex items-center rounded-xl h-11 px-5 bg-emerald-50 border border-emerald-200 text-emerald-800 text-sm font-bold font-body shadow-sm">
+<span class="relative flex h-3 w-3 mr-3">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+<span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+</span>
+      Em Atendimento (14:15)
+    </div>
+</div>
+</header>
+<div class="flex items-center px-8 bg-surface-container-lowest border-b border-outline-variant shrink-0 z-10 overflow-x-auto scrollbar-hide">
+<div class="flex items-center h-14">
+<a class="h-full px-5 flex items-center text-sm font-medium text-on-surface-variant hover:text-primary transition-colors border-b-2 border-transparent" href="#">Visão Geral</a>
+<a class="h-full px-5 flex items-center text-sm font-medium text-on-surface-variant hover:text-primary transition-colors border-b-2 border-transparent" href="#">Evolução</a>
+<a class="h-full px-5 flex items-center text-sm font-medium text-on-surface-variant hover:text-primary transition-colors border-b-2 border-transparent" href="#">Mapa Visual</a>
+<a class="h-full px-5 flex items-center text-sm font-medium text-on-surface-variant hover:text-primary transition-colors border-b-2 border-transparent" href="#">Orçamentos</a>
+<a class="h-full px-5 flex items-center text-sm font-medium text-on-surface-variant hover:text-primary transition-colors border-b-2 border-transparent" href="#">Financeiro</a>
+<a class="h-full px-5 flex items-center text-sm font-medium text-on-surface-variant hover:text-primary transition-colors border-b-2 border-transparent" href="#">Mídias</a>
+<a class="h-full px-5 flex items-center text-sm font-medium text-on-surface-variant hover:text-primary transition-colors border-b-2 border-transparent" href="#">Convênios</a>
+<a class="h-full px-5 flex items-center text-sm font-bold text-on-primary relative bg-primary rounded-lg my-2" href="#">Jornada</a>
+</div>
+</div>
+<!-- Page Content -->
+<div class="flex-1 overflow-y-auto p-6 md:p-8">
+<div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-8">
+<!-- Timeline Column (70%) -->
+<div class="w-full lg:w-[70%] flex flex-col gap-6">
+<!-- Timeline Container -->
+<div class="relative pl-6 sm:pl-10 pb-10 mt-2">
+<!-- Vertical Line -->
+<div class="absolute top-4 bottom-0 left-[15px] sm:left-[31px] w-0.5 bg-outline-variant/50 rounded-full"></div>
+<!-- Event 1: Today - Clínico -->
+<div class="relative mb-10 group">
+<div class="absolute -left-[37px] sm:-left-[37px] top-1 w-10 h-10 rounded-full bg-surface-container-lowest border-2 border-primary flex items-center justify-center shadow-sm z-10 transition-transform group-hover:scale-110">
+<span class="material-symbols-outlined text-primary text-xl icon-fill">medical_services</span>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-5 shadow-sm hover:shadow-md transition-shadow">
+<div class="flex justify-between items-start mb-2">
+<div class="flex items-center gap-2">
+<span class="text-xs font-bold text-primary uppercase tracking-wider bg-primary-fixed text-on-primary-fixed px-2 py-0.5 rounded">Hoje</span>
+<span class="text-xs text-on-surface-variant">Clínico</span>
+</div>
+<span class="text-xs text-on-surface-variant">09:15</span>
+</div>
+<h3 class="font-semibold text-lg text-on-surface mb-1">Consulta Realizada - Harmonização Facial</h3>
+<p class="text-sm text-on-surface-variant mb-4 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">person</span> Dra. Ana Souza | <span class="material-symbols-outlined text-sm ml-2">door_front</span> Sala 2
+                                </p>
+<div class="flex gap-3">
+<button class="text-sm font-medium text-primary hover:bg-primary-fixed px-3 py-1.5 rounded-lg transition-colors border border-primary/20 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">description</span> Ver Prontuário
+                                    </button>
+<button class="text-sm font-medium text-secondary hover:bg-secondary-fixed px-3 py-1.5 rounded-lg transition-colors border border-outline-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">record_voice_over</span> Ouvir Transcrição da IA
+                                    </button>
+</div>
+</div>
+</div>
+<!-- Event 2: Yesterday - Atendimento -->
+<div class="relative mb-10 group">
+<div class="absolute -left-[37px] sm:-left-[37px] top-1 w-10 h-10 rounded-full bg-[#25D366] text-white flex items-center justify-center shadow-sm z-10 transition-transform group-hover:scale-110">
+<!-- WhatsApp Icon approximation -->
+<span class="material-symbols-outlined text-xl">forum</span>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-5 shadow-sm hover:shadow-md transition-shadow">
+<div class="flex justify-between items-start mb-2">
+<div class="flex items-center gap-2">
+<span class="text-xs font-bold text-on-surface-variant uppercase tracking-wider">Ontem</span>
+<span class="text-xs text-on-surface-variant">Atendimento</span>
+</div>
+<span class="text-xs text-on-surface-variant">14:32</span>
+</div>
+<h3 class="font-semibold text-lg text-on-surface mb-1">Confirmação de Presença</h3>
+<div class="bg-surface-container-low p-3 rounded-lg border border-outline-variant/30 flex items-start gap-3 mt-2">
+<span class="material-symbols-outlined text-secondary mt-0.5">smart_toy</span>
+<p class="text-sm text-on-surface-variant italic">"Paciente confirmou via Bot de IA às 14:32"</p>
+</div>
+</div>
+</div>
+<!-- Event 3: 3 days ago - Marketing -->
+<div class="relative mb-10 group">
+<div class="absolute -left-[37px] sm:-left-[37px] top-1 w-10 h-10 rounded-full bg-[#9c27b0] text-white flex items-center justify-center shadow-sm z-10 transition-transform group-hover:scale-110">
+<span class="material-symbols-outlined text-xl">photo_camera</span>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-5 shadow-sm hover:shadow-md transition-shadow">
+<div class="flex justify-between items-start mb-2">
+<div class="flex items-center gap-2">
+<span class="text-xs font-bold text-on-surface-variant uppercase tracking-wider">Há 3 dias</span>
+<span class="text-xs text-on-surface-variant">Marketing</span>
+</div>
+</div>
+<h3 class="font-semibold text-lg text-on-surface mb-1">Interação em Story</h3>
+<p class="text-sm text-on-surface-variant mb-4">Paciente respondeu ao story sobre Botox com "PREÇO".</p>
+<button class="text-sm font-medium text-on-surface hover:bg-surface-container-low px-3 py-1.5 rounded-lg transition-colors border border-outline-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">chat</span> Ver Chat na Inbox
+                                </button>
+</div>
+</div>
+<!-- Event 4: 15 days ago - Ads -->
+<div class="relative group">
+<div class="absolute -left-[37px] sm:-left-[37px] top-1 w-10 h-10 rounded-full bg-[#1877F2] text-white flex items-center justify-center shadow-sm z-10 transition-transform group-hover:scale-110">
+<span class="material-symbols-outlined text-xl">ads_click</span>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-5 shadow-sm hover:shadow-md transition-shadow">
+<div class="flex justify-between items-start mb-2">
+<div class="flex items-center gap-2">
+<span class="text-xs font-bold text-on-surface-variant uppercase tracking-wider">Há 15 dias</span>
+<span class="text-xs text-on-surface-variant">Aquisição</span>
+</div>
+<span class="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">CAC: R$ 45,00</span>
+</div>
+<h3 class="font-semibold text-lg text-on-surface mb-1">Conversão via Meta Ads (CAPI)</h3>
+<p class="text-sm text-on-surface-variant">Clicou no anúncio "Harmonização Verão" e preencheu formulário.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- ROI Summary Column (30%) -->
+<div class="w-full lg:w-[30%] flex flex-col gap-4">
+<!-- Card 1: Origem Comprovada -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-5 shadow-sm">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary">radar</span>
+<h3 class="font-bold text-on-surface">Origem Comprovada</h3>
+</div>
+<div class="flex flex-col gap-3">
+<div class="flex justify-between items-center py-2 border-b border-outline-variant/30">
+<span class="text-sm text-on-surface-variant">CAC</span>
+<span class="font-semibold text-on-surface">R$ 45,00</span>
+</div>
+<div class="flex justify-between items-center py-2 border-b border-outline-variant/30">
+<span class="text-sm text-on-surface-variant">LTV Estimado</span>
+<span class="font-semibold text-on-surface">R$ 4.200,00</span>
+</div>
+<div class="mt-2 text-center p-3 bg-green-50 rounded-lg border border-green-200">
+<p class="text-xs text-green-700 font-medium uppercase mb-1">ROI Atual</p>
+<p class="text-2xl font-black text-green-600">9.233%</p>
+</div>
+</div>
+</div>
+<!-- Card 2: Satisfação -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-5 shadow-sm">
+<div class="flex items-center justify-between mb-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">favorite</span>
+<h3 class="font-bold text-on-surface">Satisfação e Retenção</h3>
+</div>
+</div>
+<div class="mb-3">
+<span class="inline-flex items-center rounded-md bg-green-100 px-2.5 py-1 text-sm font-semibold text-green-800">
+                                NPS: 9/10 (Promotora)
+                            </span>
+</div>
+<p class="text-sm text-on-surface-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-primary">groups</span> Indicou 2 novos pacientes
+                        </p>
+</div>
+<!-- Card 3: Gatilhos -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-5 shadow-sm">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-tertiary">bolt</span>
+<h3 class="font-bold text-on-surface">Próximos Gatilhos</h3>
+</div>
+<ul class="space-y-3">
+<li class="flex items-start gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container-low flex items-center justify-center shrink-0 border border-outline-variant">
+<span class="material-symbols-outlined text-on-surface-variant text-sm">cake</span>
+</div>
+<div>
+<p class="text-sm font-medium text-on-surface">Aniversário em 45 dias</p>
+<p class="text-xs text-on-surface-variant">Ação sugerida: Enviar Voucher</p>
+</div>
+</li>
+<li class="flex items-start gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container-low flex items-center justify-center shrink-0 border border-outline-variant">
+<span class="material-symbols-outlined text-on-surface-variant text-sm">event_repeat</span>
+</div>
+<div>
+<p class="text-sm font-medium text-on-surface">Retorno Botox em 5 meses</p>
+<p class="text-xs text-on-surface-variant">Ação sugerida: Agendar agora</p>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

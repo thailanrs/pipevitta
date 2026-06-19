@@ -1,0 +1,232 @@
+<!DOCTYPE html><html lang="pt-BR"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>FooNewOps - Lead Details Slide-over</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">tailwind.config = {darkMode: "class", theme: {extend: {colors: {"on-tertiary-fixed-variant": "#763400", "inverse-primary": "#aac7ff", "tertiary-container": "#bd5700", "secondary-fixed-dim": "#aec7f7", "primary-fixed": "#d6e3ff", "on-secondary-fixed": "#001b3d", "on-surface": "#181c22", "tertiary-fixed-dim": "#ffb68c", "inverse-surface": "#2d3037", "on-tertiary": "#ffffff", primary: "#005ab4", "error-container": "#ffdad6", "surface-container-high": "#e6e8f1", "secondary-fixed": "#d6e3ff", "inverse-on-surface": "#eef0fa", "on-primary-fixed": "#001b3e", "primary-container": "#0a73e0", "on-secondary": "#ffffff", "on-primary-container": "#fefcff", outline: "#717785", "surface-container-lowest": "#ffffff", surface: "#f9f9ff", "surface-dim": "#d7dae3", "secondary-container": "#b6d0ff", "on-tertiary-fixed": "#321200", "on-error": "#ffffff", "outline-variant": "#c1c6d5", "on-tertiary-container": "#fffbff", error: "#ba1a1a", "surface-container-low": "#f1f3fc", "on-primary": "#ffffff", "surface-container-highest": "#e0e2eb", "surface-tint": "#005db8", "surface-container": "#ebedf7", "on-background": "#181c22", "surface-variant": "#e0e2eb", "primary-fixed-dim": "#aac7ff", "on-primary-fixed-variant": "#00458d", secondary: "#465f88", "on-error-container": "#93000a", "tertiary-fixed": "#ffdbc9", tertiary: "#964400", "on-surface-variant": "#414753", "on-secondary-fixed-variant": "#2d476f", "surface-bright": "#f9f9ff", background: "#f9f9ff", "on-secondary-container": "#3f5881"}, borderRadius: {DEFAULT: "0.5rem", lg: "1rem", xl: "1.5rem", full: "9999px"}, fontFamily: {headline: ["Inter"], display: ["Inter"], body: ["Inter"], label: ["Inter"]}, fontSize: {}}}};</script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .material-symbols-outlined.fill { font-variation-settings: 'FILL' 1; }
+        
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background-color: #c1c6d5; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-background text-on-background h-screen w-full overflow-hidden relative">
+<!-- Background CRM Image -->
+<div class="absolute inset-0 z-0 bg-cover bg-center filter blur-sm grayscale-[30%] opacity-80" data-alt="A high-fidelity mockup of a complex CRM pipeline Kanban board interface..." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDzHQYb4NggJEo6cBt8xMeZpA9SigmVTIRkg6Qx3n1JSoJopJ1gC4KQZkZwX38OZ5QIXgcLj7gWs4ap11dS9llLI9zC5TsBs34Sfvhs6ZIerUOZifutX0jpxXz6Wc3KMaftMymdE5gCsFxJ5jyumUwRA0rl85q5lEIuJcaTRaNbTzn8OthJJh_WdzB-F4Yrz9xPKKjcpFfjYNqtqUkfA47GnsAKw8cQpFLRiTHB8E5ySPEA_xZuPzi6yFHPVJ99uRCH6QYgOTHjAve-');">
+</div>
+<!-- Slide-over Overlay -->
+<div class="absolute inset-0 bg-black/40 z-10" id="slideOverOverlay"></div>
+<!-- Slide-over Container -->
+<div class="absolute top-0 right-0 h-full w-[950px] max-w-[95vw] bg-surface-container-low shadow-2xl z-20 flex flex-row transform transition-transform duration-300 translate-x-0" id="slideOverPanel">
+<!-- Command Center Dark Sidebar -->
+<div class="w-[320px] bg-inverse-surface text-inverse-on-surface flex flex-col flex-shrink-0 relative border-r border-outline-variant/30">
+<div class="p-8 pt-12 flex flex-col items-center text-center gap-4">
+<div class="w-24 h-24 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center text-headline-lg font-bold overflow-hidden shadow-lg border-4 border-inverse-on-surface/10">
+<img alt="Juliana Mendes" class="w-full h-full object-cover" data-alt="A professional headshot of a smiling woman..." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdBxiOU6qBeXUy27vgZW7AeYY3OYZEeEzo1uHUYaCiSgjkOzNPj32Ku6QZEtGzvO8il3ucrLsn5aZ5ysjdILTKNNjuwG0P6Kb3ByuoGYyp7c1xCBS219wo8xPh3wXaSgtnaO9h9hBXZLDRWkTM_htzomZIOWNFFPa6Rl7ue0IQ2LEfjAJUK7Mhw_2GilfbBy3_6agfUM2cf27J6C7VB6jzZIWXpCRQjsASWeYKsa746AEJ3wdcVq-rocAijhWo1eUsDVQrusUzBcrD">
+</div>
+<div>
+<h2 class="text-headline-sm font-bold text-surface-container-lowest mb-1">Juliana Mendes</h2>
+<div class="inline-flex items-center gap-1.5 px-3 py-1 bg-tertiary-container/30 rounded-full text-tertiary-fixed text-label-md font-semibold border border-tertiary-container mt-2">
+<span class="material-symbols-outlined text-[16px] fill">local_fire_department</span>
+                        Lead Score: 92/100
+                    </div>
+</div>
+<div class="w-full mt-6 flex flex-col gap-3 text-left bg-inverse-on-surface/5 p-4 rounded-xl">
+<p class="text-body-md text-surface-container-highest flex items-center gap-3">
+<span class="material-symbols-outlined text-[20px] text-primary-fixed-dim">phone_iphone</span> (11) 98765-4321
+                    </p>
+<p class="text-body-md text-surface-container-highest flex items-center gap-3">
+<span class="material-symbols-outlined text-[20px] text-primary-fixed-dim">mail</span> juliana@email.com
+                    </p>
+</div>
+</div>
+<!-- Contact Action Row -->
+<div class="px-8 mt-2 flex flex-col gap-3 w-full">
+<button class="w-full flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#1ebd5a] text-white py-3 px-4 rounded-lg font-medium text-body-md transition-colors shadow-sm">
+<svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.82 9.82 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"></path></svg>
+                    WhatsApp
+                </button>
+<button class="w-full flex items-center justify-center gap-2 border border-primary-fixed text-primary-fixed hover:bg-primary-fixed/10 py-3 px-4 rounded-lg font-medium text-body-md transition-colors">
+<span class="material-symbols-outlined text-[20px]">call</span>
+                    Ligar
+                </button>
+<button class="w-full flex items-center justify-center gap-2 border border-outline text-surface-container-highest hover:bg-surface-container-highest/10 py-3 px-4 rounded-lg font-medium text-body-md transition-colors">
+<span class="material-symbols-outlined text-[20px]">mail</span>
+                    E-mail
+                </button>
+</div>
+</div>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col h-full relative">
+<button aria-label="Close slide-over" class="absolute top-4 right-4 z-30 text-on-surface-variant hover:text-on-surface hover:bg-surface-variant p-2 rounded-full transition-colors bg-surface-container-lowest shadow-md">
+<span class="material-symbols-outlined">close</span>
+</button>
+<div class="flex-1 overflow-y-auto px-10 py-10 space-y-8 bg-[#f4f5f8]">
+<!-- Section 2: AI Insights (Moved up and Prominent) -->
+<section class="bg-primary-container/10 border-2 border-primary/20 rounded-2xl p-7 shadow-md relative overflow-hidden">
+<div class="absolute top-0 right-0 w-48 h-48 bg-primary/5 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"></div>
+<div class="flex items-start gap-5 mb-5 relative z-10">
+<div class="w-14 h-14 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-lg shrink-0">
+<span class="material-symbols-outlined text-[32px] fill">auto_awesome</span>
+</div>
+<div>
+<h3 class="text-title-xl font-bold text-on-surface mb-2">Resumo da IA &amp; Sentimento</h3>
+<p class="text-body-lg text-on-surface-variant leading-relaxed">
+                                A lead enviou 2 áudios perguntando sobre a durabilidade do Botox e o valor da sessão. O sentimento é <strong class="text-[#25D366]">Positivo</strong> e há urgência (mencionou um evento no próximo mês).
+                            </p>
+</div>
+</div>
+<div class="ml-16 relative z-10">
+<button class="text-primary text-body-md font-medium hover:underline flex items-center gap-1 mb-6">
+                            Ler Transcrição Completa dos Áudios
+                            <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+<button class="w-full flex items-center justify-center gap-2 bg-surface-container-lowest border border-primary text-primary hover:bg-primary-container/20 py-3.5 px-5 rounded-xl font-semibold text-body-md transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[20px]">lightbulb</span>
+                            IA sugere: Enviar Portfólio de Antes/Depois + Link de Agendamento
+                        </button>
+</div>
+</section>
+<!-- Section 1: Acquisition Journey -->
+<section class="bg-surface-container-lowest rounded-2xl p-7 shadow-sm border border-outline-variant/40">
+<h3 class="text-label-md uppercase tracking-wider text-on-surface-variant mb-6 font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]">route</span>
+                        Rastreamento e Origem
+                    </h3>
+<div class="bg-surface-bright border border-outline-variant rounded-xl p-5 shadow-sm">
+<div class="relative pl-8 space-y-6 before:absolute before:inset-y-2 before:left-[11px] before:w-0.5 before:bg-outline-variant">
+<!-- Step 1 -->
+<div class="relative">
+<div class="absolute -left-[35px] top-0 w-6 h-6 rounded-full bg-surface-variant border-2 border-surface-container-lowest flex items-center justify-center text-outline">
+<span class="material-symbols-outlined text-[14px]">ads_click</span>
+</div>
+<div>
+<p class="text-body-md font-semibold text-on-surface">Meta Ads</p>
+<p class="text-body-sm text-on-surface-variant">Campanha: Botox Verão</p>
+</div>
+</div>
+<!-- Step 2 -->
+<div class="relative">
+<div class="absolute -left-[35px] top-0 w-6 h-6 rounded-full bg-surface-variant border-2 border-surface-container-lowest flex items-center justify-center text-outline">
+<span class="material-symbols-outlined text-[14px]">web</span>
+</div>
+<div>
+<p class="text-body-md font-semibold text-on-surface">Landing Page</p>
+<p class="text-body-sm text-on-surface-variant">Tempo: 2m 15s</p>
+</div>
+</div>
+<!-- Step 3 -->
+<div class="relative">
+<div class="absolute -left-[35px] top-0 w-6 h-6 rounded-full bg-primary-container border-2 border-surface-container-lowest flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined text-[14px]">chat</span>
+</div>
+<div>
+<p class="text-body-md font-semibold text-on-surface">Instagram DM</p>
+<p class="text-body-sm text-primary font-medium">Keyword: "PREÇO"</p>
+</div>
+</div>
+</div>
+<div class="mt-5 pt-4 border-t border-outline-variant flex justify-between items-center">
+<span class="text-body-sm text-on-surface-variant">CAC estimado desta jornada:</span>
+<span class="text-body-md font-bold text-on-surface">R$ 45,00</span>
+</div>
+</div>
+</section>
+<!-- Section 3: History Timeline -->
+<section class="bg-surface-container-lowest rounded-2xl p-7 shadow-sm border border-outline-variant/40">
+<h3 class="text-label-md uppercase tracking-wider text-on-surface-variant mb-6 font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]">history</span>
+                        Histórico de Interações
+                    </h3>
+<div class="space-y-6">
+<!-- Item 1 (Now) -->
+<div class="flex gap-4">
+<div class="mt-1 flex-shrink-0 w-8 h-8 rounded-full bg-[#e8f5e9] flex items-center justify-center text-[#25D366]">
+<svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.82 9.82 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"></path></svg>
+</div>
+<div>
+<div class="flex items-baseline gap-2 mb-1">
+<p class="text-body-md font-medium text-on-surface">WhatsApp</p>
+<span class="text-label-md text-outline">Agora mesmo</span>
+</div>
+<p class="text-body-md text-on-surface-variant bg-surface-container-low p-3 rounded-lg rounded-tl-none">Mensagem automática enviada pela IA: Catálogo de Harmonização</p>
+</div>
+</div>
+<!-- Item 2 (2 hours ago) -->
+<div class="flex gap-4">
+<div class="mt-1 flex-shrink-0 w-8 h-8 rounded-full bg-[#f3e5f5] flex items-center justify-center text-[#9c27b0]">
+<svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"></path></svg>
+</div>
+<div>
+<div class="flex items-baseline gap-2 mb-1">
+<p class="text-body-md font-medium text-on-surface">Instagram</p>
+<span class="text-label-md text-outline">Há 2 horas</span>
+</div>
+<p class="text-body-md text-on-surface-variant">Lead comentou 'PREÇO' no post do dia 20/05</p>
+</div>
+</div>
+<!-- Item 3 (Yesterday) -->
+<div class="flex gap-4">
+<div class="mt-1 flex-shrink-0 w-8 h-8 rounded-full bg-primary-fixed flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[16px]">web</span>
+</div>
+<div>
+<div class="flex items-baseline gap-2 mb-1">
+<p class="text-body-md font-medium text-on-surface">Website</p>
+<span class="text-label-md text-outline">Ontem</span>
+</div>
+<p class="text-body-md text-on-surface-variant">Visitou a página de 'Quem Somos' (Rastreado via CAPI)</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 4: Notes & Follow-up -->
+<section class="bg-surface-container-lowest rounded-2xl p-7 shadow-sm border border-outline-variant/40">
+<h3 class="text-label-md uppercase tracking-wider text-on-surface-variant mb-4 font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]">edit_note</span>
+                        Anotações e Follow-up
+                    </h3>
+<div class="space-y-4">
+<div>
+<label class="sr-only" for="internalNote">Adicionar nota interna</label>
+<textarea class="w-full border border-outline-variant rounded-xl p-4 text-body-md bg-surface placeholder-outline focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all resize-none shadow-sm" id="internalNote" placeholder="Adicionar nota interna..." rows="3"></textarea>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-outline">schedule</span>
+<div class="flex-1 relative">
+<select class="w-full appearance-none border border-outline-variant rounded-xl p-3.5 pr-10 text-body-md bg-surface text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none cursor-pointer shadow-sm">
+<option>Amanhã às 10:00</option>
+<option>Amanhã às 14:00</option>
+<option>Daqui a 2 dias</option>
+<option>Próxima semana</option>
+<option>Personalizado...</option>
+</select>
+<div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-outline">
+<span class="material-symbols-outlined text-[20px]">expand_more</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Fixed Footer -->
+<div class="flex-shrink-0 border-t border-outline-variant bg-surface-container-lowest p-6 mt-auto">
+<div class="flex items-center gap-4">
+<button class="px-5 py-3.5 text-error font-medium hover:bg-error-container rounded-xl transition-colors text-body-md border border-transparent hover:border-error">
+                        Desqualificar Lead
+                    </button>
+<button class="flex-1 flex items-center justify-center gap-2 bg-primary hover:bg-surface-tint text-on-primary py-3.5 px-6 rounded-xl font-semibold text-body-lg shadow-md transition-colors">
+<span class="material-symbols-outlined">event_available</span>
+                        Converter em Paciente e Agendar
+                    </button>
+</div>
+</div>
+</div>
+</div>
+</body></html>

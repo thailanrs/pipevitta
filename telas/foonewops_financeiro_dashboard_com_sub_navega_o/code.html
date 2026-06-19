@@ -1,0 +1,445 @@
+<!DOCTYPE html><html class="light" lang="pt-BR" style="width: 1280px; height: 1024px; overflow: hidden; position: relative;"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Visão Financeira - FooNewOps</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "tertiary": "#964400",
+                        "on-background": "#181c22",
+                        "on-primary-container": "#fefcff",
+                        "inverse-surface": "#2d3037",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-fixed": "#321200",
+                        "secondary": "#465f88",
+                        "background": "#f9f9ff",
+                        "on-tertiary-fixed-variant": "#763400",
+                        "secondary-fixed": "#d6e3ff",
+                        "primary": "#005ab4",
+                        "tertiary-fixed": "#ffdbc9",
+                        "surface-container-low": "#f1f3fc",
+                        "on-surface-variant": "#414753",
+                        "on-secondary-fixed-variant": "#2d476f",
+                        "on-primary": "#ffffff",
+                        "inverse-on-surface": "#eef0fa",
+                        "surface-dim": "#d7dae3",
+                        "error": "#ba1a1a",
+                        "surface-variant": "#e0e2eb",
+                        "on-secondary-fixed": "#001b3d",
+                        "surface-container": "#ebedf7",
+                        "primary-container": "#0a73e0",
+                        "on-primary-fixed-variant": "#00458d",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-tint": "#005db8",
+                        "primary-fixed": "#d6e3ff",
+                        "tertiary-container": "#bd5700",
+                        "on-surface": "#181c22",
+                        "surface": "#f9f9ff",
+                        "outline-variant": "#c1c6d5",
+                        "tertiary-fixed-dim": "#ffb68c",
+                        "inverse-primary": "#aac7ff",
+                        "surface-container-highest": "#e0e2eb",
+                        "surface-bright": "#f9f9ff",
+                        "on-tertiary-container": "#fffbff",
+                        "on-secondary-container": "#3f5881",
+                        "on-error": "#ffffff",
+                        "secondary-container": "#b6d0ff",
+                        "primary-fixed-dim": "#aac7ff",
+                        "outline": "#717785",
+                        "on-primary-fixed": "#001b3e",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed-dim": "#aec7f7",
+                        "surface-container-high": "#e6e8f1",
+                        "on-error-container": "#93000a"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px",
+                        "card": "12px"
+                    },
+                    spacing: {
+                        "gutter": "16px"
+                    },
+                    fontFamily: {
+                        "headline": ["Inter", "sans-serif"],
+                        "display": ["Inter", "sans-serif"],
+                        "body": ["Inter", "sans-serif"],
+                        "label": ["Inter", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+<style type="text/tailwindcss">
+        @layer utilities {
+            .card-border {
+                @apply border border-outline-variant rounded-card bg-surface-container-lowest;
+            }
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body antialiased flex h-screen overflow-hidden">
+<!-- SideNavBar -->
+<nav class="bg-surface-container text-primary font-body-md text-body-md h-screen w-20 flex flex-col items-center py-6 border-r border-outline-variant fixed left-0 top-0 z-50 transition-all duration-200 ease-in-out"><div class="mb-8 flex flex-col items-center justify-center w-full"><div class="w-12 h-12 bg-primary-container text-on-primary-container rounded-full flex items-center justify-center mb-2 shadow-sm font-bold text-lg">FN</div></div><div class="flex flex-col w-full gap-2"><a class="text-on-surface-variant flex flex-col items-center justify-center py-3 w-full border-l-4 border-transparent hover:bg-surface-container-high transition-colors" href="#" title="Dashboard"><span class="material-symbols-outlined mb-1">dashboard</span><span class="text-[10px] font-medium truncate w-full text-center px-1">Dashboard</span></a><a class="text-on-surface-variant flex flex-col items-center justify-center py-3 w-full border-l-4 border-transparent hover:bg-surface-container-high transition-colors" href="#" title="Agenda"><span class="material-symbols-outlined mb-1">calendar_today</span><span class="text-[10px] font-medium truncate w-full text-center px-1">Agenda</span></a><a class="text-on-surface-variant flex flex-col items-center justify-center py-3 w-full border-l-4 border-transparent hover:bg-surface-container-high transition-colors" href="#" title="CRM"><span class="material-symbols-outlined mb-1">groups</span><span class="text-[10px] font-medium truncate w-full text-center px-1">CRM</span></a><a class="text-on-surface-variant flex flex-col items-center justify-center py-3 w-full border-l-4 border-transparent hover:bg-surface-container-high transition-colors" href="#" title="Inbox"><span class="material-symbols-outlined mb-1">inbox</span><span class="text-[10px] font-medium truncate w-full text-center px-1">Inbox</span></a><a class="text-on-surface-variant flex flex-col items-center justify-center py-3 w-full border-l-4 border-transparent hover:bg-surface-container-high transition-colors" href="#" title="Patients"><span class="material-symbols-outlined mb-1">person</span><span class="text-[10px] font-medium truncate w-full text-center px-1">Pacientes</span></a><a class="text-secondary border-l-4 border-secondary bg-secondary-container/10 flex flex-col items-center justify-center py-3 w-full hover:bg-surface-container-high transition-colors" href="#" title="Financial"><span class="material-symbols-outlined mb-1 icon-fill">payments</span><span class="text-[10px] font-medium truncate w-full text-center px-1">Financeiro</span></a><a class="text-on-surface-variant flex flex-col items-center justify-center py-3 w-full border-l-4 border-transparent hover:bg-surface-container-high transition-colors" href="#" title="Inventory"><span class="material-symbols-outlined mb-1">inventory_2</span><span class="text-[10px] font-medium truncate w-full text-center px-1">Estoque</span></a></div><div class="mt-auto w-full"><a class="text-on-surface-variant flex flex-col items-center justify-center py-3 w-full border-l-4 border-transparent hover:bg-surface-container-high transition-colors" href="#" title="Settings"><span class="material-symbols-outlined mb-1">settings</span><span class="text-[10px] font-medium truncate w-full text-center px-1">Settings</span></a></div></nav>
+<!-- Main Content Wrapper -->
+<div class="flex-1 ml-20 flex flex-col h-screen overflow-hidden relative">
+<!-- TopNavBar -->
+<header class="bg-surface/80 backdrop-blur-md border-b border-outline-variant/30 w-full h-16 flex items-center justify-between px-6 sticky top-0 z-40"><div class="flex items-center gap-6 flex-1"><h2 class="text-lg font-bold text-on-surface tracking-tight">Clínica Sorriso Holding</h2><div class="h-6 w-[1px] bg-outline-variant/50 hidden md:block"></div><div class="relative max-w-md w-full hidden md:block"><span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">search</span><input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border border-outline-variant/30 rounded-full text-sm focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all shadow-inner" placeholder="Buscar pacientes, conversas ou agendamentos..." type="text"></div></div><div class="flex items-center gap-3"><button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-all relative group"><span class="material-symbols-outlined text-[24px]">notifications</span><span class="absolute top-2 right-2.5 w-2 h-2 bg-error rounded-full ring-2 ring-surface"></span><div class="absolute top-full mt-2 right-0 bg-surface border border-outline-variant/30 rounded-lg shadow-xl p-2 hidden group-hover:block w-48 text-xs z-50">Nenhuma notificao nova</div></button><button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-all"><span class="material-symbols-outlined text-[24px]">help_outline</span></button><div class="h-8 w-[1px] bg-outline-variant/30 mx-1"></div><button class="flex items-center gap-2 pl-1 pr-3 py-1 rounded-full hover:bg-surface-container-high transition-all"><div class="w-8 h-8 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-xs border border-primary/10 shadow-sm">DS</div><span class="text-sm font-medium text-on-surface">Dr. Santos</span><span class="material-symbols-outlined text-[18px] text-outline">keyboard_arrow_down</span></button></div></header>
+<!-- Page Content -->
+<main class="flex-1 overflow-y-auto p-6 md:p-8">
+<div class="max-w-7xl mx-auto space-y-6">
+<!-- 1. Header -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+<div>
+<h1 class="font-headline text-[32px] font-bold text-on-surface leading-tight">Visão Financeira</h1>
+<p class="text-on-surface-variant text-[16px]">Maio de 2026</p>
+</div>
+<div class="flex flex-wrap items-center gap-3">
+<div class="relative">
+<select class="appearance-none bg-surface-container-lowest border border-outline-variant text-on-surface rounded-lg py-2 pl-4 pr-10 focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-shadow cursor-pointer font-medium">
+<option>Maio 2026</option>
+<option>Abril 2026</option>
+<option>Março 2026</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-outline pointer-events-none">expand_more</span>
+</div>
+</div>
+</div><div class="border-b border-outline-variant/30 mb-8">
+<nav class="flex flex-wrap gap-2 py-1">
+<a class="px-4 py-2 text-sm font-bold bg-primary/10 text-primary rounded-full transition-colors" href="#">
+      Visão Geral
+    </a>
+<a class="px-4 py-2 text-sm font-medium text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors" href="#">
+      Contas a Receber
+    </a>
+<a class="px-4 py-2 text-sm font-medium text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors" href="#">
+      Contas a Pagar
+    </a>
+<a class="px-4 py-2 text-sm font-medium text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors" href="#">
+      Comissões e Repasses
+    </a>
+<a class="px-4 py-2 text-sm font-medium text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors" href="#">
+      Convênios (TISS)
+    </a>
+<a class="px-4 py-2 text-sm font-medium text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors" href="#">
+      Relatórios e DRE
+    </a>
+<a class="px-4 py-2 text-sm font-medium text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors" href="#">
+      Régua de Cobrança
+    </a>
+</nav>
+</div>
+<!-- 2. KPIs Financeiros -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Faturamento Bruto -->
+<div class="card-border p-5 flex flex-col justify-between h-32 relative overflow-hidden group">
+<div class="absolute right-0 top-0 w-24 h-24 bg-surface-container-low rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-110"></div>
+<div class="flex justify-between items-start relative z-10">
+<span class="text-on-surface-variant text-[14px] font-medium">Faturamento Bruto</span>
+<span class="material-symbols-outlined text-primary bg-primary-fixed rounded-full p-1 text-lg">account_balance_wallet</span>
+</div>
+<div class="relative z-10">
+<div class="font-headline text-[24px] font-bold text-on-surface">R$ 185.400</div>
+<div class="flex items-center gap-1 mt-1 text-[12px] font-medium text-[#10B981]">
+<span class="material-symbols-outlined text-[14px]">trending_up</span>
+                                +18% vs mês anterior
+                            </div>
+</div>
+</div>
+<!-- Receita Realizada -->
+<div class="card-border p-5 flex flex-col justify-between h-32">
+<div class="flex justify-between items-start">
+<span class="text-on-surface-variant text-[14px] font-medium">Receita Realizada</span>
+<span class="material-symbols-outlined text-secondary bg-secondary-fixed rounded-full p-1 text-lg">monetization_on</span>
+</div>
+<div>
+<div class="font-headline text-[24px] font-bold text-on-surface">R$ 142.300</div>
+<div class="text-on-surface-variant text-[12px] mt-1">Líquido de taxas</div>
+</div>
+</div>
+<!-- Despesas Totais -->
+<div class="card-border p-5 flex flex-col justify-between h-32">
+<div class="flex justify-between items-start">
+<span class="text-on-surface-variant text-[14px] font-medium">Despesas Totais</span>
+<span class="material-symbols-outlined text-error bg-error-container rounded-full p-1 text-lg">trending_down</span>
+</div>
+<div>
+<div class="font-headline text-[24px] font-bold text-on-surface">R$ 68.500</div>
+<div class="text-on-surface-variant text-[12px] mt-1">Previsto: R$ 70.000</div>
+</div>
+</div>
+<!-- Lucro Líquido -->
+<div class="card-border p-5 flex flex-col justify-between h-32">
+<div class="flex justify-between items-start">
+<span class="text-on-surface-variant text-[14px] font-medium">Lucro Líquido</span>
+<span class="material-symbols-outlined text-primary bg-primary-fixed rounded-full p-1 text-lg">savings</span>
+</div>
+<div>
+<div class="font-headline text-[24px] font-bold text-on-surface">R$ 73.800</div>
+<div class="inline-flex items-center gap-1 mt-1 text-[12px] font-medium text-primary bg-primary-fixed-dim/30 px-2 py-0.5 rounded">
+                                Margem: 39.8%
+                            </div>
+</div>
+</div>
+<!-- Inadimplência -->
+<div class="card-border p-5 flex flex-col justify-between h-32 border-l-4 border-l-[#c55b00]">
+<div class="flex justify-between items-start">
+<span class="text-on-surface-variant text-[14px] font-medium">Inadimplência</span>
+<span class="material-symbols-outlined text-[#c55b00] bg-tertiary-fixed rounded-full p-1 text-lg">warning</span>
+</div>
+<div>
+<div class="font-headline text-[24px] font-bold text-on-surface">R$ 14.500</div>
+<div class="text-on-surface-variant text-[12px] mt-1">45 pacientes pendentes</div>
+</div>
+</div>
+<!-- Ticket Médio -->
+<div class="card-border p-5 flex flex-col justify-between h-32">
+<div class="flex justify-between items-start">
+<span class="text-on-surface-variant text-[14px] font-medium">Ticket Médio</span>
+<span class="material-symbols-outlined text-secondary bg-secondary-fixed rounded-full p-1 text-lg">receipt_long</span>
+</div>
+<div>
+<div class="font-headline text-[24px] font-bold text-on-surface">R$ 850</div>
+<div class="text-on-surface-variant text-[12px] mt-1">Por atendimento</div>
+</div>
+</div>
+</div>
+<!-- 3. Gráficos -->
+<div class="grid grid-cols-1 lg:grid-cols-5 gap-6">
+<!-- Fluxo de Caixa (60%) -->
+<div class="card-border p-6 lg:col-span-3">
+<div class="flex justify-between items-center mb-6">
+<h2 class="font-headline text-[16px] font-semibold text-on-surface">Fluxo de Caixa</h2>
+<div class="flex gap-4">
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-[#10B981]"></div>
+<span class="text-[12px] text-on-surface-variant">Receitas</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-[#ba1a1a]"></div>
+<span class="text-[12px] text-on-surface-variant">Despesas</span>
+</div>
+</div>
+</div>
+<div class="h-64 w-full relative">
+<!-- SVG Placeholder for Chart -->
+<svg class="w-full h-full" preserveAspectRatio="none" viewBox="0 0 500 200">
+<!-- Grid lines -->
+<line stroke="#e0e2eb" stroke-dasharray="4" x1="0" x2="500" y1="50" y2="50"></line>
+<line stroke="#e0e2eb" stroke-dasharray="4" x1="0" x2="500" y1="100" y2="100"></line>
+<line stroke="#e0e2eb" stroke-dasharray="4" x1="0" x2="500" y1="150" y2="150"></line>
+<line stroke="#e0e2eb" x1="0" x2="500" y1="200" y2="200"></line>
+<!-- Receitas Line -->
+<path d="M 0 150 C 50 120, 100 160, 150 110 C 200 60, 250 90, 300 40 C 350 -10, 400 50, 450 20 L 500 10" fill="none" stroke="#10B981" stroke-linecap="round" stroke-width="3"></path>
+<!-- Despesas Line -->
+<path d="M 0 180 C 50 170, 100 190, 150 160 C 200 130, 250 150, 300 140 C 350 130, 400 160, 450 140 L 500 120" fill="none" stroke="#ba1a1a" stroke-linecap="round" stroke-width="3"></path>
+<!-- Tooltip Point -->
+<circle class="cursor-pointer" cx="300" cy="40" fill="#10B981" r="5"></circle>
+</svg>
+<!-- Tooltip HTML (Positioned over the SVG point) -->
+<div class="absolute top-[10px] left-[260px] bg-inverse-surface text-inverse-on-surface p-3 rounded-lg shadow-lg text-[12px] pointer-events-none z-10 w-32 border border-outline">
+<div class="font-bold mb-1">15 Maio</div>
+<div class="flex justify-between text-[#10B981]"><span class="">Rec:</span> <span class="">R$ 18.2k</span></div>
+<div class="flex justify-between text-[#ffb4ab]"><span class="">Desp:</span> <span class="">R$ 4.1k</span></div>
+</div>
+<!-- X Axis Labels -->
+<div class="flex justify-between text-[10px] text-outline mt-2 px-2">
+<span class="">01</span><span class="">05</span><span class="">10</span><span class="">15</span><span class="">20</span><span class="">25</span><span class="">30</span>
+</div>
+</div>
+</div>
+<!-- Composição da Receita (40%) -->
+<div class="card-border p-6 lg:col-span-2">
+<h2 class="font-headline text-[16px] font-semibold text-on-surface mb-6">Composição da Receita</h2>
+<div class="flex flex-col items-center justify-center h-64 relative">
+<!-- Donut Chart Approximation with CSS/SVG -->
+<div class="relative w-40 h-40">
+<svg class="transform -rotate-90 w-full h-full" viewBox="0 0 100 100">
+<circle cx="50" cy="50" fill="transparent" r="40" stroke="#e0e2eb" stroke-width="20"></circle>
+<!-- Particular 65% -->
+<circle cx="50" cy="50" fill="transparent" r="40" stroke="#005ab4" stroke-dasharray="251.2" stroke-dashoffset="87.92" stroke-width="20"></circle>
+<!-- Convênios 25% -->
+<circle class="transform origin-center rotate-[234deg]" cx="50" cy="50" fill="transparent" r="40" stroke="#1877F2" stroke-dasharray="251.2" stroke-dashoffset="188.4" stroke-width="20"></circle>
+<!-- Recorrência 10% -->
+<circle class="transform origin-center rotate-[324deg]" cx="50" cy="50" fill="transparent" r="40" stroke="#7c3aed" stroke-dasharray="251.2" stroke-dashoffset="226.08" stroke-width="20"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="text-[20px] font-bold text-on-surface">100%</span>
+<span class="text-[10px] text-on-surface-variant uppercase tracking-wider">Total</span>
+</div>
+</div>
+<!-- Legend -->
+<div class="w-full mt-6 space-y-3">
+<div class="flex justify-between items-center text-[14px]">
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-[#005ab4]"></div>
+<span class="text-on-surface-variant">Particular</span>
+</div>
+<span class="font-semibold text-on-surface">65%</span>
+</div>
+<div class="flex justify-between items-center text-[14px]">
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-[#1877F2]"></div>
+<span class="text-on-surface-variant">Convênios</span>
+</div>
+<span class="font-semibold text-on-surface">25%</span>
+</div>
+<div class="flex justify-between items-center text-[14px]">
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-[#7c3aed]"></div>
+<span class="text-on-surface-variant">Recorrência</span>
+</div>
+<span class="font-semibold text-on-surface">10%</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- 4. Operacional -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+<!-- Próximos Recebimentos -->
+<div class="card-border p-6">
+<div class="flex justify-between items-center mb-6">
+<h2 class="font-headline text-[16px] font-semibold text-on-surface">Próximos Recebimentos</h2>
+<button class="text-primary text-[14px] font-medium hover:underline">Ver todos</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-outline-variant text-[12px] text-on-surface-variant uppercase tracking-wider">
+<th class="pb-3 font-medium">Paciente</th>
+<th class="pb-3 font-medium text-right">Valor</th>
+<th class="pb-3 font-medium pl-4">Status/Método</th>
+</tr>
+</thead>
+<tbody class="text-[14px]">
+<tr class="border-b border-surface-variant last:border-0 hover:bg-surface-container-lowest transition-colors">
+<td class="py-4 text-on-surface font-medium flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center font-bold text-xs">MO</div>
+                                            Maria Oliveira
+                                        </td>
+<td class="py-4 text-right font-semibold text-on-surface">R$ 620,00</td>
+<td class="py-4 pl-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[12px] font-medium bg-surface-container text-on-surface-variant border border-outline-variant">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+                                                Pix Pendente
+                                            </span>
+</td>
+</tr>
+<tr class="border-b border-surface-variant last:border-0 hover:bg-surface-container-lowest transition-colors">
+<td class="py-4 text-on-surface font-medium flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center font-bold text-xs">JS</div>
+                                            João Santos
+                                        </td>
+<td class="py-4 text-right font-semibold text-on-surface">R$ 1.200,00</td>
+<td class="py-4 pl-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[12px] font-medium bg-surface-container text-on-surface-variant border border-outline-variant">
+<span class="material-symbols-outlined text-[14px]">credit_card</span>
+                                                Cartão
+                                            </span>
+</td>
+</tr>
+<tr class="border-b border-surface-variant last:border-0 hover:bg-surface-container-lowest transition-colors">
+<td class="py-4 text-on-surface font-medium flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center font-bold text-xs">AC</div>
+                                            Ana Costa
+                                        </td>
+<td class="py-4 text-right font-semibold text-on-surface">R$ 450,00</td>
+<td class="py-4 pl-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[12px] font-medium bg-surface-container text-on-surface-variant border border-outline-variant">
+<span class="material-symbols-outlined text-[14px]">receipt</span>
+                                                Boleto
+                                            </span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Comissões do Mês -->
+<div class="card-border p-6">
+<div class="flex justify-between items-center mb-6">
+<h2 class="font-headline text-[16px] font-semibold text-on-surface">Comissões do Mês</h2>
+<button class="text-primary text-[14px] font-medium hover:underline">Gerenciar</button>
+</div>
+<div class="space-y-5">
+<!-- Profissional 1 -->
+<div class="flex items-center gap-4">
+<img alt="Dr. Carlos Silva" class="w-10 h-10 rounded-full object-cover border border-outline-variant" data-alt="A professional headshot of a male doctor in his 40s wearing a crisp white medical coat over a light blue shirt. He has short dark hair and a warm, reassuring smile. The background is a clean, softly lit clinic setting. The lighting is bright and modern, conveying trust and medical professionalism." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUIcbkUG-3t8dhyTNjwGuHG7CnpeUr7oM4-ewQJKXBh7WamClXD3m9WzJpC63BA_y42gguYMZFgRqYa8TPIccjR0m6QkSWjhYUXq4pyf03Ww6aMUTQlwSS8h6BWl979141Xe9UcsMwU1R2JSapsJXdVZuzfJxx0oKmqrdVYBzZIolWwjW4YsKeENP75zQSonMqoUN6V79wnvPzTYntMSN8ginWHaZUIaPYxjKzNhgtLjqVuxey9SUWqBl27kNsnB2PqXyMqVMW7pIb">
+<div class="flex-1">
+<div class="flex justify-between text-[14px] mb-1">
+<span class="font-medium text-on-surface">Dr. Carlos Silva</span>
+<span class="text-on-surface-variant font-medium">85% da meta</span>
+</div>
+<div class="w-full bg-surface-container-high rounded-full h-2">
+<div class="bg-primary h-2 rounded-full" style="width: 85%"></div>
+</div>
+</div>
+</div>
+<!-- Profissional 2 -->
+<div class="flex items-center gap-4">
+<img alt="Dra. Ana Souza" class="w-10 h-10 rounded-full object-cover border border-outline-variant" data-alt="A confident female doctor with dark hair tied back, wearing a white lab coat and a stethoscope around her neck. She has a gentle, professional expression. The background is a well-lit, sterile medical office environment. The image is bright, high-resolution, and projects competence and care." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKQyL8zDc0BPyBeUlUrY1bJsc36XNbMpcNAK4yyUy4bWoeqdY8Gw5zbz3Stv-2g6ikbigOY3msOK4BfQsVa5ea6N3194gDv0-FldsroSGXQbYolG3PaPABJSx-tv10gFNiMJECdwxeSWpKjPYJnlaqmnPKKZtvJEjRwkjf3mH72sBXQ9UC9K8xDA5z6PpmRNvR02MjB9pw0E3BG5OpbbGXZlLcWN9eqQiV6P6EpkaAQ6nR0Rvp2dolh90eHFyr3NzQnKLY4NcDyCFo">
+<div class="flex-1">
+<div class="flex justify-between text-[14px] mb-1">
+<span class="font-medium text-on-surface">Dra. Ana Souza</span>
+<span class="text-on-surface-variant font-medium">70% da meta</span>
+</div>
+<div class="w-full bg-surface-container-high rounded-full h-2">
+<div class="bg-primary h-2 rounded-full opacity-80" style="width: 70%"></div>
+</div>
+</div>
+</div>
+<!-- Profissional 3 -->
+<div class="flex items-center gap-4">
+<img alt="Dr. Pedro Lima" class="w-10 h-10 rounded-full object-cover border border-outline-variant" data-alt="A portrait of a male healthcare professional in dark blue scrubs. He has a neat beard and a friendly, approachable look. The lighting highlights a modern clinical atmosphere with soft, out-of-focus medical equipment in the background. The mood is calm and efficient." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAmrChSaZ_-fWAKvk8FVMPoILU6pGqysUmd-V3qrsFkuoNkheggGTP0TZMfGYN2_E5OFSUai3d20UXJYxQggQvMLHILyaPfg5UK1V_yL4rSVPZc3jXPKXFl5AWB0klbRXpQq74Wm-7v7yHjgQ8Om3EIFFwz4SASsSD8CWcnNDI4qgpuFpa5RkE4NFr82Uzv9Rs_YRCBSnpW-QQw4SiJ_BqDCWPxBFHqXH0hsX70gwYtWYbvbntpeNo30I4_FXHnjvXr7Nsx4tHW_yyA">
+<div class="flex-1">
+<div class="flex justify-between text-[14px] mb-1">
+<span class="font-medium text-on-surface">Dr. Pedro Lima</span>
+<span class="text-on-surface-variant font-medium">50% da meta</span>
+</div>
+<div class="w-full bg-surface-container-high rounded-full h-2">
+<div class="bg-primary h-2 rounded-full opacity-60" style="width: 50%"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- 5. IA Financeira (Rodapé) -->
+<div class="bg-surface-container-low border border-outline-variant border-l-4 border-l-primary rounded-card p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative overflow-hidden">
+<!-- Decorative subtle background element -->
+<div class="absolute right-0 top-0 w-64 h-full bg-gradient-to-l from-primary-fixed-dim/20 to-transparent pointer-events-none"></div>
+<div class="flex gap-4 items-start z-10">
+<div class="w-12 h-12 rounded-full bg-primary-fixed flex items-center justify-center shrink-0 border border-primary-fixed-dim">
+<span class="material-symbols-outlined text-primary text-2xl">auto_awesome</span>
+</div>
+<div>
+<h3 class="font-headline text-[18px] font-bold text-on-surface mb-1">Insight da IA Financeira</h3>
+<p class="text-on-surface-variant text-[14px] max-w-3xl leading-relaxed">
+                                Identificamos um padrão na inadimplência recente. Ao ativar a automação de cobrança via WhatsApp para pacientes com mais de 5 dias de atraso, projetamos a recuperação imediata de <span class="font-bold text-on-surface">R$ 8.500</span> neste ciclo.
+                            </p>
+</div>
+</div>
+<div class="shrink-0 z-10 w-full md:w-auto">
+<button class="w-full md:w-auto flex items-center justify-center gap-2 bg-primary text-on-primary px-6 py-3 rounded-lg hover:bg-primary-container transition-colors shadow-sm font-semibold text-[14px]">
+<span class="material-symbols-outlined text-[18px]">rule</span>
+                            Aprovar Régua de Cobrança IA
+                        </button>
+</div>
+</div>
+</div>
+</main>
+</div>
+
+
+</body></html>

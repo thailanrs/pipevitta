@@ -1,0 +1,72 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: pipevitta-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: pipevitta_admin
+      POSTGRES_PASSWORD: pipevitta_secure_pwd
+      POSTGRES_MULTIPLE_DATABASES: pipevitta_dev,unleash
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./infra/postgres-init:/docker-entrypoint-initdb.d
+    networks:
+      - pipevitta-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: pipevitta-redis
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - pipevitta-network
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: pipevitta-rabbitmq
+    restart: always
+    ports:
+      - "5672:5672"
+      - "15672:15672" # Management UI
+    environment:
+      RABBITMQ_DEFAULT_USER: pipevitta_guest
+      RABBITMQ_DEFAULT_PASS: pipevitta_guest_pwd
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    networks:
+      - pipevitta-network
+
+  unleash:
+    image: unleashorg/unleash-server:5
+    container_name: pipevitta-unleash
+    ports:
+      - "4242:4242"
+    environment:
+      UNLEASH_DATABASE_URL: postgres://pipevitta_admin:pipevitta_secure_pwd@postgres:5432/unleash?sslmode=disable
+      DATABASE_SSL: "false"
+      DATABASE_HOST: postgres
+      DATABASE_NAME: unleash
+      DATABASE_USERNAME: pipevitta_admin
+      DATABASE_PASSWORD: pipevitta_secure_pwd
+      INIT_CLIENT_API_TOKENS: "default:development.unleash-token-secret-12345"
+      INIT_FRONTEND_API_TOKENS: "default:development.unleash-frontend-token-secret-12345"
+    depends_on:
+      - postgres
+    networks:
+      - pipevitta-network
+
+volumes:
+  postgres_data:
+  redis_data:
+  rabbitmq_data:
+
+networks:
+  pipevitta-network:
+    driver: bridge
