@@ -79,6 +79,18 @@ export default function PatientsPage() {
     loadData();
   }, [loadData]);
 
+  // Global ESC Key Handler to close modal
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setIsModalOpen(false);
+        setCreateError(null);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
   // Form Field Changers
   function handleInputChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     const { name, value } = e.target;
@@ -189,7 +201,7 @@ export default function PatientsPage() {
           </p>
         </div>
         <div className="text-xs text-outline flex items-center gap-1.5 font-semibold">
-          <span className="material-symbols-outlined text-[16px] animate-spin-slow">sync</span>
+          <span className="material-symbols-outlined text-base animate-spin-slow">sync</span>
           Atualizado em tempo real
         </div>
       </div>
@@ -207,7 +219,7 @@ export default function PatientsPage() {
           <div className="flex justify-between items-start">
             <span className="text-xs font-bold text-on-surface-variant uppercase tracking-wider">Total de Pacientes</span>
             <div className="w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center">
-              <span className="material-symbols-outlined text-[20px]">groups</span>
+              <span className="material-symbols-outlined text-xl">groups</span>
             </div>
           </div>
           <div>
@@ -221,7 +233,7 @@ export default function PatientsPage() {
           <div className="flex justify-between items-start">
             <span className="text-xs font-bold text-on-surface-variant uppercase tracking-wider">Pacientes Ativos</span>
             <div className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center">
-              <span className="material-symbols-outlined text-[20px]">check_circle</span>
+              <span className="material-symbols-outlined text-xl">check_circle</span>
             </div>
           </div>
           <div>
@@ -229,7 +241,7 @@ export default function PatientsPage() {
               {patients.length > 0 ? Math.ceil(patients.length * 0.75) : 0}
             </div>
             <div className="text-[10px] text-emerald-600 font-semibold mt-1 flex items-center gap-0.5">
-              <span className="material-symbols-outlined text-[12px]">trending_up</span>
+              <span className="material-symbols-outlined text-xs">trending_up</span>
               +12% vs semestre anterior
             </div>
           </div>
@@ -246,7 +258,7 @@ export default function PatientsPage() {
           <div className="flex justify-between items-start">
             <span className="text-xs font-bold text-on-surface-variant uppercase tracking-wider">Retornos Atrasados</span>
             <div className="w-8 h-8 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center">
-              <span className="material-symbols-outlined text-[20px]">warning</span>
+              <span className="material-symbols-outlined text-xl">warning</span>
             </div>
           </div>
           <div>
@@ -268,7 +280,7 @@ export default function PatientsPage() {
           <div className="flex justify-between items-start">
             <span className="text-xs font-bold text-on-surface-variant uppercase tracking-wider">Pendências Financeiras</span>
             <div className="w-8 h-8 rounded-full bg-error-container text-error flex items-center justify-center">
-              <span className="material-symbols-outlined text-[20px]">payments</span>
+              <span className="material-symbols-outlined text-xl">payments</span>
             </div>
           </div>
           <div>
@@ -287,7 +299,7 @@ export default function PatientsPage() {
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 w-full sm:w-auto">
             {/* Search Input */}
             <div className="relative w-full sm:w-72">
-              <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline/65 text-[20px]">
+              <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline/65 text-xl">
                 search
               </span>
               <input
@@ -314,7 +326,7 @@ export default function PatientsPage() {
                   onClick={() => setSelectedFilter('ALL')}
                   className="hover:bg-primary/20 rounded-full p-0.5 flex items-center justify-center cursor-pointer"
                 >
-                  <span className="material-symbols-outlined text-[14px]">close</span>
+                  <span className="material-symbols-outlined text-sm">close</span>
                 </button>
               </div>
             )}
@@ -328,7 +340,7 @@ export default function PatientsPage() {
               }}
               className="px-4 py-2 border border-outline-variant/40 rounded-xl text-xs font-bold text-on-surface hover:bg-surface-container-high transition-colors flex items-center gap-2 cursor-pointer"
             >
-              <span className="material-symbols-outlined text-[16px]">download</span>
+              <span className="material-symbols-outlined text-base">download</span>
               Exportar
             </button>
           </div>
@@ -437,7 +449,7 @@ export default function PatientsPage() {
                           </span>
                         ) : isDelayed ? (
                           <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded text-[10px] font-bold bg-amber-50 text-amber-700 border border-amber-200">
-                            <span className="material-symbols-outlined text-[12px] font-bold">warning</span>
+                            <span className="material-symbols-outlined text-xs font-bold">warning</span>
                             Retorno Atrasado
                           </span>
                         ) : (
@@ -453,7 +465,7 @@ export default function PatientsPage() {
                             className="p-1.5 text-outline hover:text-primary hover:bg-primary/5 rounded-full transition-colors cursor-pointer"
                             title="Prontuário Eletrônico (PEP)"
                           >
-                            <span className="material-symbols-outlined text-[20px]">clinical_notes</span>
+                            <span className="material-symbols-outlined text-xl">clinical_notes</span>
                           </Link>
                           <button
                             onClick={() => {
@@ -463,7 +475,7 @@ export default function PatientsPage() {
                             className="p-1.5 text-outline hover:text-primary hover:bg-primary/5 rounded-full transition-colors cursor-pointer"
                             title="Enviar WhatsApp"
                           >
-                            <span className="material-symbols-outlined text-[20px]">chat</span>
+                            <span className="material-symbols-outlined text-xl">chat</span>
                           </button>
                         </div>
                       </td>
@@ -482,14 +494,22 @@ export default function PatientsPage() {
         className="fixed bottom-8 right-8 w-14 h-14 bg-primary text-on-primary rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-1 hover:bg-surface-tint transition-all duration-200 flex items-center justify-center z-30 group cursor-pointer"
         title="Cadastrar Novo Paciente"
       >
-        <span className="material-symbols-outlined text-[28px] group-hover:scale-110 transition-transform">
+        <span className="material-symbols-outlined text-3xl group-hover:scale-110 transition-transform">
           add
         </span>
       </button>
 
       {/* Create Patient Dialog Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm animate-fade-in">
+        <div
+          onClick={(e) => {
+            if (e.target === e.currentTarget) {
+              setIsModalOpen(false);
+              setCreateError(null);
+            }
+          }}
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm animate-fade-in"
+        >
           <div className="relative w-full max-w-lg bg-surface-container-lowest rounded-2xl shadow-2xl border border-outline-variant/30 overflow-hidden">
             {/* Modal Header */}
             <div className="px-6 py-4 border-b border-outline-variant/20 flex justify-between items-center bg-surface-container-low/20">
@@ -512,7 +532,7 @@ export default function PatientsPage() {
             <form onSubmit={handleCreatePatient} className="p-6 space-y-4">
               {createError && (
                 <div className="bg-error-container text-on-error-container p-3.5 rounded-xl text-xs font-semibold flex items-start gap-2 border border-error/20">
-                  <span className="material-symbols-outlined text-[18px]">warning</span>
+                  <span className="material-symbols-outlined text-lg">warning</span>
                   <span>{createError}</span>
                 </div>
               )}
@@ -615,7 +635,7 @@ export default function PatientsPage() {
                 >
                   {createLoading ? (
                     <>
-                      <span className="material-symbols-outlined text-[18px] animate-spin">sync</span>
+                      <span className="material-symbols-outlined text-lg animate-spin">sync</span>
                       <span>Salvando...</span>
                     </>
                   ) : (

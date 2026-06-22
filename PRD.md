@@ -61,10 +61,10 @@ Tornar-se o Hub All-in-One de RevOps e Marketing definitivo para clínicas, unif
 |--------|-----------|---------------|
 | **Backend** | Node.js + NestJS (TypeScript) | Ecossistema vasto, alta concorrência para mensagens, TypeScript end-to-end com o frontend |
 | **Frontend** | Next.js (React) | SSR/SSG para Portal do Paciente (SEO), App Router, componentização madura, maior pool de candidatos |
-| **Banco de Dados** | PostgreSQL (com RLS) | Robusto, Row Level Security nativo para multi-tenant, extensões ricas (PostGIS, pgcrypto) |
+| **Banco de Dados** | PostgreSQL (com RLS) | Robusto, Row Level Security nativo para multi-tenant, extensões ricas (PostGIS, pgcrypto, **pg_trgm para busca full-text na Fase 1**) |
 | **Cache** | Redis | Cache de configurações, sessões, rate limiting |
 | **Message Broker** | RabbitMQ / AWS SQS | Filas isoladas por tenant para WhatsApp e processamento assíncrono |
-| **Search** | Elasticsearch | Busca global de pacientes, leads, prontuários |
+| **Search (Fase 3)** | Elasticsearch | Busca global semântica em prontuários e histórico extenso (Fase 1/1.5 usa Postgres FTS) |
 | **Storage** | S3-compatible | Documentos, imagens, prontuários, áudios |
 | **CDN** | CloudFront ou similar | Assets estáticos, SDK JavaScript |
 
@@ -282,14 +282,14 @@ Tokens da API da Meta, certificados digitais e senhas sensíveis **nunca** ficam
 
 ### 5.5 Módulo Financeiro — *Todos os planos (escopo varia)*
 
-**Standard (Básico)**:
+> **Nota de Arquitetura**: O motor financeiro do PipeVitta será modelado desde o MVP utilizando o padrão de **Contabilidade em Partidas Dobradas (Double-Entry Ledger)**. Isso garante integridade absoluta nos saldos, facilita a conciliação bancária futura e auditoria, e evita retrabalho estrutural ao implementarmos DRE e relatórios avançados.
 
-* Caixa diário (abertura/fechamento manual)
-* Split de comissões automático (fixo ou percentual) por profissional
+**Standard (Básico)**:
+* Caixa diário (abertura/fechamento manual) via lançamentos de débito/crédito em contas contábeis padrão.
 * Aba financeira do paciente (extrato individual)
 
 **Premium (Completo)**:
-
+* Split de comissões automático (fixo ou percentual) por profissional
 * Contas a Pagar e Receber
 * DRE por centro de custo/unidade
 * Emissão de NFS-e (integração com prefeitura)
@@ -303,7 +303,8 @@ Tokens da API da Meta, certificados digitais e senhas sensíveis **nunca** ficam
 * Split automático de pagamento entre clínica e profissional
 * Conciliação bancária automática (Open Banking)
 
-### 5.6 Módulo de Estoque e Insumos — *Todos os planos*
+### 5.6 Módulo de Estoque e Insumos — *Todos os planos (Básico na 1.5, Avançado no Premium)*
+*(Movido para a Fase 1.5 para afunilar o escopo do MVP)*
 
 * Controle completo de materiais médicos/odontológicos
 * Rastreabilidade de lotes (ANVISA)
@@ -682,6 +683,7 @@ Se a Meta revogar ou restringir acesso à API:
 3. **E-mail** como canal de fallback universal
 
 ### 11.4 Onboarding WhatsApp
+> ⚠️ **Aviso de Risco e Compliance:** Esta opção utiliza bibliotecas não-oficiais que violam os Termos de Serviço da Meta. O PipeVitta oferece esta modalidade exclusivamente para clientes que optarem pela praticidade de não sofrerem "travas" da API oficial, **assumindo o risco total de banimento do número**. Um checkbox de aceite de risco obrigatório será exibido na interface antes da ativação.
 
 Fluxo **Embedded Signup** da Meta:
 
@@ -748,7 +750,7 @@ O PipeVitta opera com **2 planos públicos** (Standard e Premium), **1 add-on** 
 | **Estoque** | ✅ (básico) | ✅ (avançado: baixa automática, curva ABC) |
 | **Marketing Intelligence** | ❌ | ✅ |
 | **TISS/Convênios** | ❌ | ✅ |
-| **Financeiro Avançado** | ❌ | ✅ (DRE, NFS-e, régua de cobrança) |
+| **Financeiro Avançado** | ❌ | ✅ (DRE, NFS-e, régua de cobrança, split comissões) |
 | **IA Copilot** | ❌ | ✅ (100 interações/mês) |
 | **IA Autônoma** | ❌ | ❌ |
 | **Multi-clínicas** | ❌ | ❌ |
@@ -890,7 +892,7 @@ O PipeVitta possui um sistema robusto de configurações organizado em 8 categor
 
 * Agenda Multi-recursos (4 visualizações + modal + detalhamento)
 * PEP básico (visão geral, evolução, mídias, orçamentos)
-* Financeiro Básico (caixa + comissões)
+* Financeiro Básico (apenas Fluxo de Caixa via Double-Entry, sem split de comissões)
 * RBAC mínimo (3 perfis: Admin, Profissional, Recepcionista)
 * Configurações essenciais (Clínica, Equipe, Agenda, Financeiro)
 * Onboarding Wizard (5 passos)
@@ -914,6 +916,7 @@ O PipeVitta possui um sistema robusto de configurações organizado em 8 categor
 * Portal do Paciente completo (15 telas: login, OTP, consultas, faturas, exames, NPS, perfil)
 * Configurações completas (todas as 8 categorias)
 * Estoque Básico (entrada/saída, alertas de validade)
+* Split de Comissões Automático no Financeiro
 * RBAC completo (6 perfis) + Audit Trail
 * Odontograma básico
 * Prescrição Digital

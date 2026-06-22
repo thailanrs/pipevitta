@@ -68,8 +68,5 @@ module.exports = {
         display: ["Inter", "sans-serif"]
       }
     }
-  },
-  plugins: [
-    require('@tailwindcss/forms')
-  ]
+  }
 };

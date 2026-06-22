@@ -73,20 +73,19 @@ export function Topbar({ user, tenant }: TopbarProps) {
       `}
     >
       {/* Left Section */}
-      <div className="flex items-center gap-6 flex-1">
+      <div className="flex items-center gap-6 flex-1 justify-start">
         <h2 className="text-lg font-bold text-on-surface tracking-tight">
           {tenant?.name ?? 'PipeVitta'}
         </h2>
+      </div>
 
-        {/* Vertical divider */}
-        <div className="h-6 w-[1px] bg-outline-variant/50 hidden md:block" />
-
-        {/* Search bar trigger */}
+      {/* Center Section: Search bar trigger */}
+      <div className="flex-grow max-w-md w-full mx-4 hidden md:block">
         <div
           onClick={() => setIsPaletteOpen(true)}
-          className="relative max-w-md w-full hidden md:block cursor-pointer group"
+          className="relative w-full cursor-pointer group"
         >
-          <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline/60 group-hover:text-primary text-[20px] transition-colors">
+          <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline/60 group-hover:text-primary text-xl transition-colors">
             search
           </span>
           <div
@@ -102,7 +101,7 @@ export function Topbar({ user, tenant }: TopbarProps) {
       </div>
 
       {/* Right Section */}
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-3 flex-1 justify-end">
         {/* Notifications */}
         <button
           className="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-all relative group cursor-pointer"
@@ -135,7 +134,7 @@ export function Topbar({ user, tenant }: TopbarProps) {
             <span className="text-sm font-medium text-on-surface hidden md:inline">
               {user?.name ?? 'Usuário'}
             </span>
-            <span className="material-symbols-outlined text-[18px] text-outline">
+            <span className="material-symbols-outlined text-lg text-outline">
               keyboard_arrow_down
             </span>
           </button>
@@ -156,7 +155,7 @@ export function Topbar({ user, tenant }: TopbarProps) {
                   onClick={handleLogout}
                   className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-error hover:bg-error-container/30 transition-colors cursor-pointer"
                 >
-                  <span className="material-symbols-outlined text-[20px]">logout</span>
+                  <span className="material-symbols-outlined text-xl">logout</span>
                   Sair
                 </button>
               </div>
@@ -174,7 +173,7 @@ export function Topbar({ user, tenant }: TopbarProps) {
           <div className="relative w-full max-w-2xl bg-surface-container-lowest rounded-2xl shadow-2xl border border-outline-variant/30 overflow-hidden mt-20 flex flex-col max-h-[400px]">
             {/* Search Input Header */}
             <div className="flex items-center gap-3 px-4 py-3.5 border-b border-outline-variant/25">
-              <span className="material-symbols-outlined text-primary text-[24px]">search</span>
+              <span className="material-symbols-outlined text-primary text-2xl">search</span>
               <input
                 ref={paletteInputRef}
                 type="text"
@@ -195,7 +194,7 @@ export function Topbar({ user, tenant }: TopbarProps) {
             <div className="flex-1 overflow-y-auto p-2">
               {searchQuery ? (
                 <div className="space-y-1">
-                  <p className="text-[11px] text-outline font-semibold px-3 py-1.5 uppercase tracking-wider">Resultados da busca</p>
+                  <p className="text-xs text-outline font-semibold px-3 py-1.5 uppercase tracking-wider">Resultados da busca</p>
                   <button
                     onClick={() => {
                       setIsPaletteOpen(false);
@@ -220,7 +219,7 @@ export function Topbar({ user, tenant }: TopbarProps) {
               ) : (
                 <div className="space-y-4">
                   <div>
-                    <p className="text-[11px] text-outline font-semibold px-3 py-1.5 uppercase tracking-wider">Ações Rápidas</p>
+                    <p className="text-xs text-outline font-semibold px-3 py-1.5 uppercase tracking-wider">Ações Rápidas</p>
                     <div className="space-y-1">
                       <button
                         onClick={() => {
@@ -229,7 +228,7 @@ export function Topbar({ user, tenant }: TopbarProps) {
                         }}
                         className="flex items-center gap-3 w-full px-3 py-2 rounded-lg text-sm text-on-surface hover:bg-surface-container-high transition-colors text-left cursor-pointer"
                       >
-                        <span className="material-symbols-outlined text-outline text-[20px]">person_add</span>
+                        <span className="material-symbols-outlined text-outline text-xl">person_add</span>
                         <span>Cadastrar Novo Paciente</span>
                       </button>
                       <button
@@ -239,41 +238,41 @@ export function Topbar({ user, tenant }: TopbarProps) {
                         }}
                         className="flex items-center gap-3 w-full px-3 py-2 rounded-lg text-sm text-on-surface hover:bg-surface-container-high transition-colors text-left cursor-pointer"
                       >
-                        <span className="material-symbols-outlined text-outline text-[20px]">event</span>
+                        <span className="material-symbols-outlined text-outline text-xl">event</span>
                         <span>Agendar Nova Consulta</span>
                       </button>
                     </div>
                   </div>
 
                   <div>
-                    <p className="text-[11px] text-outline font-semibold px-3 py-1.5 uppercase tracking-wider">Navegação rápida</p>
+                    <p className="text-xs text-outline font-semibold px-3 py-1.5 uppercase tracking-wider">Navegação rápida</p>
                     <div className="grid grid-cols-2 gap-1 px-1">
                       <button
                         onClick={() => { setIsPaletteOpen(false); router.push('/agenda'); }}
                         className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs text-on-surface-variant hover:bg-surface-container-high text-left cursor-pointer"
                       >
-                        <span className="material-symbols-outlined text-[18px]">calendar_today</span>
+                        <span className="material-symbols-outlined text-lg">calendar_today</span>
                         <span>Agenda Multi-recursos</span>
                       </button>
                       <button
                         onClick={() => { setIsPaletteOpen(false); router.push('/crm'); }}
                         className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs text-on-surface-variant hover:bg-surface-container-high text-left cursor-pointer"
                       >
-                        <span className="material-symbols-outlined text-[18px]">groups</span>
+                        <span className="material-symbols-outlined text-lg">groups</span>
                         <span>CRM Pipeline Kanban</span>
                       </button>
                       <button
                         onClick={() => { setIsPaletteOpen(false); router.push('/patients'); }}
                         className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs text-on-surface-variant hover:bg-surface-container-high text-left cursor-pointer"
                       >
-                        <span className="material-symbols-outlined text-[18px]">person</span>
+                        <span className="material-symbols-outlined text-lg">person</span>
                         <span>Listagem de Pacientes</span>
                       </button>
                       <button
                         onClick={() => { setIsPaletteOpen(false); router.push('/'); }}
                         className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs text-on-surface-variant hover:bg-surface-container-high text-left cursor-pointer"
                       >
-                        <span className="material-symbols-outlined text-[18px]">dashboard</span>
+                        <span className="material-symbols-outlined text-lg">dashboard</span>
                         <span>Painel do Dashboard</span>
                       </button>
                     </div>

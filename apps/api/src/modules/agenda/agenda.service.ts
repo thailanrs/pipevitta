@@ -45,17 +45,18 @@ export class AgendaService {
       throw new NotFoundException('Paciente não encontrado');
     }
 
-    // 3. Check for resource conflicts (Professional / Room + Buffer times)
+    // 3. Check for resource conflicts (Professional + Buffer times)
     await this.checkResourceConflicts(
       start,
       end,
       buffer,
       dto.professionalId,
-      dto.room,
+      undefined,
+      dto.resourceIds,
     );
 
     // 4. Create appointment
-    return this.db.client.appointment.create({
+    const appointment = await this.db.client.appointment.create({
       data: {
         tenantId,
         patientId: dto.patientId,
@@ -63,15 +64,22 @@ export class AgendaService {
         startTime: start,
         endTime: end,
         status: dto.status ?? AppointmentStatus.PENDING,
-        room: dto.room,
         bufferMinutes: buffer,
         notes: dto.notes,
       },
-      include: {
-        patient: { select: { name: true, phone: true } },
-        professional: { select: { name: true } },
-      },
     });
+
+    if (dto.resourceIds && dto.resourceIds.length > 0) {
+      await this.db.client.appointmentResource.createMany({
+        data: dto.resourceIds.map((resId) => ({
+          appointmentId: appointment.id,
+          resourceId: resId,
+          tenantId,
+        })),
+      });
+    }
+
+    return this.findOne(appointment.id);
   }
 
   async findAll(): Promise<any[]> {
@@ -79,6 +87,7 @@ export class AgendaService {
       include: {
         patient: { select: { name: true } },
         professional: { select: { name: true } },
+        resources: { include: { resource: true } },
       },
       orderBy: { startTime: 'asc' },
     });
@@ -90,6 +99,7 @@ export class AgendaService {
       include: {
         patient: { select: { name: true, phone: true } },
         professional: { select: { name: true } },
+        resources: { include: { resource: true } },
       },
     });
 
@@ -106,14 +116,13 @@ export class AgendaService {
       endTime: Date;
       bufferMinutes: number;
       professionalId: string;
-      room: string | null;
+      tenantId: string;
     };
 
     const start = dto.startTime ? new Date(dto.startTime) : existing.startTime;
     const end = dto.endTime ? new Date(dto.endTime) : existing.endTime;
     const buffer = dto.bufferMinutes ?? existing.bufferMinutes;
     const professionalId = dto.professionalId ?? existing.professionalId;
-    const room = dto.room !== undefined ? dto.room : existing.room;
 
     if (start >= end) {
       throw new BadRequestException(
@@ -121,25 +130,24 @@ export class AgendaService {
       );
     }
 
-    // If changing time, professional, or room, check conflicts
+    // If changing time or professional, check conflicts
     if (
       dto.startTime ||
       dto.endTime ||
       dto.bufferMinutes !== undefined ||
-      dto.professionalId ||
-      dto.room !== undefined
+      dto.professionalId
     ) {
       await this.checkResourceConflicts(
         start,
         end,
         buffer,
         professionalId,
-        room ?? undefined,
         id,
+        dto.resourceIds,
       );
     }
 
-    return this.db.client.appointment.update({
+    const updated = await this.db.client.appointment.update({
       where: { id },
       data: {
         patientId: dto.patientId,
@@ -147,14 +155,39 @@ export class AgendaService {
         startTime: start,
         endTime: end,
         status: dto.status,
-        room,
         bufferMinutes: buffer,
         notes: dto.notes,
       },
-      include: {
-        patient: { select: { name: true } },
-        professional: { select: { name: true } },
-      },
+    });
+
+    if (dto.resourceIds) {
+      // Clear existing links
+      await this.db.client.appointmentResource.deleteMany({
+        where: { appointmentId: id },
+      });
+      // Add new links
+      if (dto.resourceIds.length > 0) {
+        await this.db.client.appointmentResource.createMany({
+          data: dto.resourceIds.map((resId) => ({
+            appointmentId: id,
+            resourceId: resId,
+            tenantId: updated.tenantId,
+          })),
+        });
+      }
+    }
+
+    return this.findOne(id);
+  }
+
+  async findResources(): Promise<any[]> {
+    const tenantId = tenantLocalStorage.getStore()?.tenantId;
+    if (!tenantId) {
+      throw new BadRequestException('Contexto do inquilino ausente');
+    }
+    return this.db.client.resource.findMany({
+      where: { tenantId },
+      orderBy: { name: 'asc' },
     });
   }
 
@@ -165,14 +198,14 @@ export class AgendaService {
     });
   }
 
-  // Helper method to detect overlaps with professional or room availability (including buffer time)
+  // Helper method to detect overlaps with professional/resource availability (including buffer time)
   private async checkResourceConflicts(
     start: Date,
     end: Date,
     buffer: number,
     professionalId: string,
-    room?: string,
     excludeAppointmentId?: string,
+    resourceIds?: string[],
   ): Promise<void> {
     // Define a 24-hour search boundary around the target start time to optimize query size
     const dayStart = new Date(start.getTime() - 24 * 60 * 60 * 1000);
@@ -183,9 +216,7 @@ export class AgendaService {
         id: excludeAppointmentId ? { not: excludeAppointmentId } : undefined,
         status: { not: AppointmentStatus.CANCELLED },
         startTime: { gte: dayStart, lte: dayEnd },
-        OR: [{ professionalId }, room ? { room } : undefined].filter(
-          Boolean,
-        ) as any,
+        professionalId,
       },
     });
 
@@ -206,10 +237,60 @@ export class AgendaService {
             'O profissional já possui um agendamento conflitante neste horário (incluindo tempo de buffer)',
           );
         }
-        if (room && app.room === room) {
-          throw new ConflictException(
-            'A sala de atendimento já está ocupada neste horário (incluindo tempo de buffer)',
+      }
+    }
+
+    // Now validate Rooms/Resources conflicts
+    let targetResourceIds = resourceIds;
+    if (excludeAppointmentId && !targetResourceIds) {
+      const existingResources =
+        await this.db.client.appointmentResource.findMany({
+          where: { appointmentId: excludeAppointmentId },
+          select: { resourceId: true },
+        });
+      targetResourceIds = existingResources.map((r) => r.resourceId);
+    }
+
+    if (targetResourceIds && targetResourceIds.length > 0) {
+      const overlappingAppsWithResources =
+        await this.db.client.appointment.findMany({
+          where: {
+            id: excludeAppointmentId
+              ? { not: excludeAppointmentId }
+              : undefined,
+            status: { not: AppointmentStatus.CANCELLED },
+            startTime: { gte: dayStart, lte: dayEnd },
+            resources: {
+              some: {
+                resourceId: { in: targetResourceIds },
+              },
+            },
+          },
+          include: {
+            resources: {
+              include: {
+                resource: true,
+              },
+            },
+          },
+        });
+
+      for (const app of overlappingAppsWithResources) {
+        const appBlockedEnd =
+          app.endTime.getTime() + app.bufferMinutes * 60 * 1000;
+        const overlaps =
+          start.getTime() < appBlockedEnd &&
+          app.startTime.getTime() < newBlockedEnd;
+
+        if (overlaps) {
+          const conflictingResource = app.resources.find((r) =>
+            targetResourceIds.includes(r.resourceId),
           );
+          if (conflictingResource) {
+            throw new ConflictException(
+              `O recurso/sala "${conflictingResource.resource.name}" já está em uso por outro agendamento neste horário.`,
+            );
+          }
         }
       }
     }

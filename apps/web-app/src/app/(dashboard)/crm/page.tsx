@@ -114,6 +114,19 @@ export default function CRMPage() {
     loadData();
   }, [loadData]);
 
+  // Global ESC Key Handler to close modal and drawer
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setIsModalOpen(false);
+        setCreateError(null);
+        setSelectedLead(null);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
   // Form input handlers
   function handleInputChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) {
     const { name, value } = e.target;
@@ -295,7 +308,7 @@ export default function CRMPage() {
         <div className="flex items-center gap-3 w-full sm:w-auto">
           {/* Search bar */}
           <div className="relative flex-1 sm:w-60">
-            <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline/65 text-[20px]">
+            <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline/65 text-xl">
               search
             </span>
             <input
@@ -390,7 +403,7 @@ export default function CRMPage() {
                       </td>
                       <td className="px-6 py-4">
                         <span className="inline-flex items-center gap-1 bg-surface-container px-2 py-0.5 rounded text-xs font-semibold text-on-surface-variant">
-                          <span className="material-symbols-outlined text-[14px]">
+                          <span className="material-symbols-outlined text-sm">
                             {getSourceIcon(lead.source)}
                           </span>
                           {lead.source}
@@ -478,7 +491,7 @@ export default function CRMPage() {
                       </span>
                     </div>
                   </div>
-                  <div className="text-[11px] font-bold text-on-surface-variant/80 mb-3 px-1">
+                  <div className="text-xs font-bold text-on-surface-variant/80 mb-3 px-1">
                     Previsto: {columnValue}
                   </div>
 
@@ -499,13 +512,13 @@ export default function CRMPage() {
 
                         <div className="flex justify-between items-start mb-2.5" onClick={() => openLeadDrawer(lead)}>
                           <span className="inline-flex items-center gap-1 bg-surface-container-high text-on-surface-variant text-[10px] font-bold px-2 py-0.5 rounded-md">
-                            <span className="material-symbols-outlined text-[12px]">
+                            <span className="material-symbols-outlined text-xs">
                               {getSourceIcon(lead.source)}
                             </span>
                             {lead.source}
                           </span>
 
-                          <span className="material-symbols-outlined text-outline text-[18px] opacity-0 group-hover:opacity-100 transition-opacity">
+                          <span className="material-symbols-outlined text-outline text-lg opacity-0 group-hover:opacity-100 transition-opacity">
                             edit
                           </span>
                         </div>
@@ -550,7 +563,7 @@ export default function CRMPage() {
                                 className="p-0.5 hover:bg-surface-container-high rounded text-outline hover:text-primary cursor-pointer"
                                 title="Mover para esquerda"
                               >
-                                <span className="material-symbols-outlined text-[16px] font-bold">arrow_left</span>
+                                <span className="material-symbols-outlined text-base font-bold">arrow_left</span>
                               </button>
                             )}
                             {columnKey !== 'WON' && (
@@ -568,7 +581,7 @@ export default function CRMPage() {
                                 className="p-0.5 hover:bg-surface-container-high rounded text-outline hover:text-primary cursor-pointer"
                                 title="Mover para direita"
                               >
-                                <span className="material-symbols-outlined text-[16px] font-bold">arrow_right</span>
+                                <span className="material-symbols-outlined text-base font-bold">arrow_right</span>
                               </button>
                             )}
                           </div>
@@ -594,14 +607,22 @@ export default function CRMPage() {
         className="fixed bottom-8 right-8 w-14 h-14 bg-primary text-on-primary rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-1 hover:bg-surface-tint transition-all duration-200 flex items-center justify-center z-30 group cursor-pointer"
         title="Cadastrar Novo Lead"
       >
-        <span className="material-symbols-outlined text-[28px] group-hover:scale-110 transition-transform">
+        <span className="material-symbols-outlined text-3xl group-hover:scale-110 transition-transform">
           add
         </span>
       </button>
 
       {/* Add Lead Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm animate-fade-in">
+        <div
+          onClick={(e) => {
+            if (e.target === e.currentTarget) {
+              setIsModalOpen(false);
+              setCreateError(null);
+            }
+          }}
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm animate-fade-in"
+        >
           <div className="relative w-full max-w-lg bg-surface-container-lowest rounded-2xl shadow-2xl border border-outline-variant/30 overflow-hidden">
             <div className="px-6 py-4 border-b border-outline-variant/20 flex justify-between items-center bg-surface-container-low/20">
               <h3 className="font-display font-bold text-lg text-on-surface flex items-center gap-2">
@@ -622,7 +643,7 @@ export default function CRMPage() {
             <form onSubmit={handleCreateLead} className="p-6 space-y-4">
               {createError && (
                 <div className="bg-error-container text-on-error-container p-3 rounded-xl text-xs font-semibold flex items-start gap-2 border border-error/20">
-                  <span className="material-symbols-outlined text-[18px]">warning</span>
+                  <span className="material-symbols-outlined text-lg">warning</span>
                   <span>{createError}</span>
                 </div>
               )}
@@ -754,7 +775,7 @@ export default function CRMPage() {
                 >
                   {createLoading ? (
                     <>
-                      <span className="material-symbols-outlined text-[18px] animate-spin">sync</span>
+                      <span className="material-symbols-outlined text-lg animate-spin">sync</span>
                       <span>Salvando...</span>
                     </>
                   ) : (
@@ -786,7 +807,7 @@ export default function CRMPage() {
 
             {drawerError && (
               <div className="bg-error-container text-on-error-container p-3 rounded-xl text-xs font-semibold flex items-start gap-2 border border-error/20 mb-4 shrink-0">
-                <span className="material-symbols-outlined text-[16px]">warning</span>
+                <span className="material-symbols-outlined text-base">warning</span>
                 <span>{drawerError}</span>
               </div>
             )}
@@ -878,7 +899,7 @@ export default function CRMPage() {
                 >
                   {drawerLoading ? (
                     <>
-                      <span className="material-symbols-outlined text-[18px] animate-spin">sync</span>
+                      <span className="material-symbols-outlined text-lg animate-spin">sync</span>
                       <span>Salvando...</span>
                     </>
                   ) : (
@@ -893,7 +914,7 @@ export default function CRMPage() {
                     disabled={drawerLoading}
                     className="w-full py-2.5 border border-error/40 hover:bg-error-container/10 text-error font-bold text-sm rounded-xl transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
                   >
-                    <span className="material-symbols-outlined text-[18px]">delete</span>
+                    <span className="material-symbols-outlined text-lg">delete</span>
                     Excluir Lead
                   </button>
                 )}

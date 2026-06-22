@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/forms";
 @config "../../../../packages/design-system/tailwind.config.js";
 
 /* Custom fonts and utilities from packages/design-system */

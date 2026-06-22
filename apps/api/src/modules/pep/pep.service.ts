@@ -72,13 +72,12 @@ export class PepService {
         },
         transactions: {
           orderBy: { createdAt: 'desc' },
-          select: {
-            id: true,
-            amount: true,
-            type: true,
-            status: true,
-            description: true,
-            createdAt: true,
+          include: {
+            entries: {
+              include: {
+                account: true,
+              },
+            },
           },
         },
       },
@@ -88,7 +87,70 @@ export class PepService {
       throw new NotFoundException('Paciente não encontrado');
     }
 
-    return patient;
+    // Map transactions to include dynamic amount and type fields for backwards compatibility
+    const mappedTransactions = patient.transactions.map((tx: any) => {
+      const assetEntry = tx.entries.find(
+        (e: any) => e.account?.type === 'ASSET',
+      );
+      let type = 'INFLOW';
+      let amount = 0;
+
+      if (assetEntry) {
+        const debit = Number(assetEntry.debit);
+        const credit = Number(assetEntry.credit);
+        if (debit > 0) {
+          type = 'INFLOW';
+          amount = debit;
+        } else if (credit > 0) {
+          type = 'OUTFLOW';
+          amount = credit;
+        }
+      } else {
+        const revenueEntry = tx.entries.find(
+          (e: any) => e.account?.type === 'REVENUE',
+        );
+        if (revenueEntry) {
+          type = 'INFLOW';
+          amount = Number(revenueEntry.credit);
+        } else {
+          const expenseEntry = tx.entries.find(
+            (e: any) => e.account?.type === 'EXPENSE',
+          );
+          if (expenseEntry) {
+            type = 'OUTFLOW';
+            amount = Number(expenseEntry.debit);
+          } else {
+            amount = tx.entries.reduce(
+              (sum: number, e: any) => sum + Number(e.debit),
+              0,
+            );
+          }
+        }
+      }
+
+      return {
+        ...tx,
+        amount,
+        type,
+      };
+    });
+
+    // Calculate total spent by summing up the debit values of completed transactions' entries
+    const completedTransactions = mappedTransactions.filter(
+      (tx: any) => tx.status === 'COMPLETED',
+    );
+    const totalSpent = completedTransactions.reduce((acc: number, tx: any) => {
+      const debitSum = tx.entries
+        .filter((e: any) => e.account?.type === 'ASSET')
+        .reduce((sum: number, entry: any) => sum + Number(entry.debit), 0);
+      return acc + debitSum;
+    }, 0);
+
+    return {
+      ...patient,
+      transactions: mappedTransactions,
+      totalSpent: Number(totalSpent.toFixed(2)),
+    };
   }
 
   async update(id: string, dto: UpdatePatientDto): Promise<any> {

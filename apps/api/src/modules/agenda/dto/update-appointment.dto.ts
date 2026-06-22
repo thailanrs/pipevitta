@@ -35,6 +35,10 @@ export class UpdateAppointmentDto {
   room?: string;
 
   @IsOptional()
+  @IsUUID(undefined, { each: true })
+  resourceIds?: string[];
+
+  @IsOptional()
   @IsInt()
   @Min(0)
   bufferMinutes?: number;

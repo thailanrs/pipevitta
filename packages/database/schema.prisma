@@ -48,12 +48,16 @@ model Tenant {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  users        User[]
-  patients     Patient[]
-  appointments Appointment[]
-  transactions Transaction[]
-  auditLogs    AuditLog[]
-  leads        Lead[]
+  users                User[]
+  patients             Patient[]
+  appointments         Appointment[]
+  transactions         Transaction[]
+  auditLogs            AuditLog[]
+  leads                Lead[]
+  resources            Resource[]
+  appointmentResources AppointmentResource[]
+  ledgerAccounts       LedgerAccount[]
+  ledgerEntries        LedgerEntry[]
 
   @@map("tenants")
 }
@@ -73,7 +77,6 @@ model User {
 
   appointments         Appointment[] @relation("ProfessionalAppointments")
   transactionsCreated  Transaction[] @relation("CreatedTransactions")
-  transactionsReceived Transaction[] @relation("ProfessionalCommissions")
   auditLogs            AuditLog[]
   leads                Lead[]
 
@@ -113,37 +116,95 @@ model Appointment {
   startTime      DateTime          @map("start_time")
   endTime        DateTime          @map("end_time")
   status         AppointmentStatus @default(PENDING)
-  room           String?
   bufferMinutes  Int               @default(0) @map("buffer_minutes")
   notes          String?
   createdAt      DateTime          @default(now()) @map("created_at")
   updatedAt      DateTime          @updatedAt @map("updated_at")
 
+  resources AppointmentResource[]
+
   @@map("appointments")
 }
 
-model Transaction {
-  id             String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  tenantId       String            @db.Uuid @map("tenant_id")
-  tenant         Tenant            @relation(fields: [tenantId], references: [id], onDelete: Cascade)
-  patientId      String?           @db.Uuid @map("patient_id")
-  patient        Patient?          @relation(fields: [patientId], references: [id], onDelete: SetNull)
-  amount         Decimal           @db.Decimal(12, 2)
-  type           TransactionType
-  status         TransactionStatus @default(PENDING)
-  description    String
-  createdById    String            @db.Uuid @map("created_by_id")
-  createdBy      User              @relation("CreatedTransactions", fields: [createdById], references: [id])
-  
-  // Commission Split attributes
-  commissionAmount Decimal?        @db.Decimal(12, 2) @map("commission_amount")
-  professionalId   String?         @db.Uuid @map("professional_id")
-  professional     User?           @relation("ProfessionalCommissions", fields: [professionalId], references: [id], onDelete: SetNull)
+enum ResourceType {
+  ROOM
+  EQUIPMENT
+  PROFISSIONAL
+}
 
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+model Resource {
+  id        String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  tenantId  String       @db.Uuid @map("tenant_id")
+  tenant    Tenant       @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  name      String
+  type      ResourceType
+  quantity  Int          @default(1)
+  
+  appointments AppointmentResource[]
+  @@map("resources")
+}
+
+model AppointmentResource {
+  appointmentId String      @db.Uuid @map("appointment_id")
+  resourceId    String      @db.Uuid @map("resource_id")
+  tenantId      String      @db.Uuid @map("tenant_id")
+  tenant        Tenant      @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  appointment   Appointment @relation(fields: [appointmentId], references: [id], onDelete: Cascade)
+  resource      Resource    @relation(fields: [resourceId], references: [id], onDelete: Cascade)
+
+  @@id([appointmentId, resourceId])
+  @@map("appointment_resources")
+}
+
+model Transaction {
+  id          String             @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  tenantId    String             @db.Uuid @map("tenant_id")
+  tenant      Tenant             @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  patientId   String?            @db.Uuid @map("patient_id")
+  patient     Patient?           @relation(fields: [patientId], references: [id], onDelete: SetNull)
+  description String
+  status      TransactionStatus  @default(PENDING)
+  createdById String             @db.Uuid @map("created_by_id")
+  createdBy   User               @relation("CreatedTransactions", fields: [createdById], references: [id])
+  createdAt   DateTime           @default(now()) @map("created_at")
+  updatedAt   DateTime           @updatedAt @map("updated_at")
+
+  entries     LedgerEntry[]
 
   @@map("transactions")
+}
+
+enum AccountType {
+  ASSET
+  LIABILITY
+  EQUITY
+  REVENUE
+  EXPENSE
+}
+
+model LedgerAccount {
+  id        String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  tenantId  String      @db.Uuid @map("tenant_id")
+  tenant    Tenant      @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  name      String
+  type      AccountType
+  
+  entries   LedgerEntry[]
+  @@map("ledger_accounts")
+}
+
+model LedgerEntry {
+  id            String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  tenantId      String        @db.Uuid @map("tenant_id")
+  tenant        Tenant        @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  transactionId String        @db.Uuid @map("transaction_id")
+  transaction   Transaction   @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+  accountId     String        @db.Uuid @map("account_id")
+  account       LedgerAccount @relation(fields: [accountId], references: [id])
+  debit         Decimal       @default(0) @db.Decimal(12, 2)
+  credit        Decimal       @default(0) @db.Decimal(12, 2)
+  
+  @@map("ledger_entries")
 }
 
 model AuditLog {
@@ -193,4 +254,3 @@ model Lead {
 
   @@map("leads")
 }
-

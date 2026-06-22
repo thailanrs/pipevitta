@@ -59,6 +59,28 @@ O sistema de cores utiliza tokens semânticos baseados na especificação oficia
 
 ---
 
+## 🌟 Elevação e Sombras (Acolhimento e Profundidade)
+
+Para tornar a interface menos "seca" e mais acolhedora, faremos uso de sombras suaves e cantos arredondados generosos, alinhados ao Material Design 3.
+
+| Token / Classe Tailwind | Box-Shadow | Uso |
+|---|---|---|
+| `shadow-soft` | `0 2px 8px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.06)` | Cards padrão, Dashboards. Cria profundidade sem agressividade. |
+| `shadow-hover` | `0 8px 16px rgba(0, 0, 0, 0.06), 0 2px 4px rgba(0, 0, 0, 0.08)` | Elevação ao passar o mouse (`hover:shadow-hover`). |
+| `shadow-drawer` | `-4px 0 24px rgba(0, 0, 0, 0.08)` | Drawers laterais e Modais grandes. |
+
+---
+
+## ♿ Estados de Interação e Acessibilidade (WCAG 2.1 AA)
+
+Para garantir conformidade com o PRD e uma excelente UX via teclado/leitores de tela:
+
+* **Foco (`focus-visible`):** Todo elemento interativo (botões, links, inputs) deve exibir um anel de foco visível ao navegar via teclado. Usar `outline: 2px solid var(--primary); outline-offset: 2px;` (ou classes Tailwind `focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2`).
+* **Hover:** Elementos clicáveis como cards e itens de lista devem ter transição suave de 150ms (`transition-all duration-150`) combinando leve mudança de cor de fundo (`hover:bg-surface-container-high`) com a elevação `shadow-hover`.
+* **Disabled:** Elementos desabilitados devem usar `opacity-50 cursor-not-allowed`.
+
+---
+
 ## 🔤 Tipografia e Fontes
 
 O sistema utiliza a fonte **Inter** (do Google Fonts) de forma consistente em todo o layout.
@@ -68,11 +90,26 @@ O sistema utiliza a fonte **Inter** (do Google Fonts) de forma consistente em to
 * **Display / Números grandes**: `font-display` (Inter, peso `700`).
 * **Labels / Tags**: `font-label` (Inter, peso `500`).
 
+> [!IMPORTANT]
+> **Restrições de Tipografia:**
+> 1. É terminantemente proibido o uso manual de classes de peso (`font-weight`) diretamente no HTML (ex: `font-normal`, `font-medium`, `font-semibold`, `font-bold`). Os pesos já são mapeados e deduzidos pelas famílias tipográficas semânticas.
+> 2. Evite o uso de valores de tamanho arbitrários como `text-[9px]`. Utilize os tamanhos padrão definidos no Tailwind ou classes utilitárias semânticas.
+
 ### Classes de Tamanho recomendadas:
 * Título da Página: `text-headline-md font-bold` (`text-2xl`)
 * Título de Seção/Card: `text-base font-semibold`
 * Texto de Apoio: `text-xs text-on-surface-variant`
 * Badges/Tags: `text-[10px] font-bold`
+
+### Tipografia Responsiva (Fluida)
+Para evitar "quebras" de layout entre desktops grandes e tablets de sala médica, os títulos principais usarão tipografia fluida via `clamp()` do CSS.
+Adicione ao `tailwind.config.js`:
+```javascript
+fontSize: {
+  'headline-md': ['clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem)', { lineHeight: '1.5', fontWeight: '700' }],
+  'headline-lg': ['clamp(1.5rem, 1.2rem + 1vw, 2rem)', { lineHeight: '1.4', fontWeight: '700' }],
+}
+```
 
 ---
 

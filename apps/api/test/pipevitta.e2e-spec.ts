@@ -8,7 +8,12 @@ import request from 'supertest';
 import { App } from 'supertest/types';
 import { AppModule } from './../src/app.module';
 import { DatabaseService } from '../src/common/database/database.service';
-import { TransactionType, TransactionStatus } from '@pipevitta/database';
+import { TransactionStatus } from '@pipevitta/database';
+
+export enum TransactionType {
+  INFLOW = 'INFLOW',
+  OUTFLOW = 'OUTFLOW',
+}
 import * as crypto from 'crypto';
 
 describe('PipeVitta API End-to-End Tests', () => {

@@ -7,7 +7,12 @@ import {
   IsUUID,
   Min,
 } from 'class-validator';
-import { TransactionType, TransactionStatus } from '@prisma/client';
+import { TransactionStatus } from '@prisma/client';
+
+export enum TransactionType {
+  INFLOW = 'INFLOW',
+  OUTFLOW = 'OUTFLOW',
+}
 
 export class CreateTransactionDto {
   @IsOptional()

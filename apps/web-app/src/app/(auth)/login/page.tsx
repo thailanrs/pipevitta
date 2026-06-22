@@ -46,7 +46,7 @@ function LoginFormContent() {
     <div className="space-y-6">
       {error && (
         <div className="bg-error-container text-on-error-container text-sm px-4 py-3 rounded-lg border border-error/20 flex items-start gap-3 animate-pulse">
-          <span className="material-symbols-outlined shrink-0 text-[20px] text-error">
+          <span className="material-symbols-outlined shrink-0 text-xl text-error">
             error
           </span>
           <span>{error}</span>
@@ -60,7 +60,7 @@ function LoginFormContent() {
             Subdomínio / Identificador da Clínica
           </label>
           <div className="relative">
-            <span className="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-outline text-[20px]">
+            <span className="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-outline text-xl">
               business
             </span>
             <input
@@ -88,7 +88,7 @@ function LoginFormContent() {
             E-mail Corporativo
           </label>
           <div className="relative">
-            <span className="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-outline text-[20px]">
+            <span className="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-outline text-xl">
               mail
             </span>
             <input
@@ -121,7 +121,7 @@ function LoginFormContent() {
             </a>
           </div>
           <div className="relative">
-            <span className="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-outline text-[20px]">
+            <span className="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-outline text-xl">
               lock
             </span>
             <input
@@ -163,7 +163,7 @@ function LoginFormContent() {
           ) : (
             <>
               <span>Entrar</span>
-              <span className="material-symbols-outlined text-[18px]">
+              <span className="material-symbols-outlined text-lg">
                 arrow_forward
               </span>
             </>

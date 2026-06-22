@@ -195,7 +195,7 @@ export default function PatientDetailPage() {
         <Link href="/patients" className="hover:text-primary transition-colors">
           Pacientes
         </Link>
-        <span className="material-symbols-outlined text-[14px]">chevron_right</span>
+        <span className="material-symbols-outlined text-sm">chevron_right</span>
         <span className="text-on-surface-variant font-normal">Prontuário de {patient.name}</span>
       </div>
 
@@ -238,7 +238,7 @@ export default function PatientDetailPage() {
             onClick={() => alert(`Enviando mensagem para ${patient.phone}...`)}
             className="px-5 py-2.5 bg-primary hover:bg-primary-container text-on-primary text-xs font-bold rounded-xl shadow-sm transition-all flex items-center gap-2 cursor-pointer w-full md:w-auto justify-center"
           >
-            <span className="material-symbols-outlined text-[16px]">chat</span>
+            <span className="material-symbols-outlined text-base">chat</span>
             Enviar Mensagem
           </button>
         </div>
@@ -387,13 +387,13 @@ export default function PatientDetailPage() {
             {canAddEvolution ? (
               <div className="bg-surface-container-low border border-outline-variant/20 p-6 rounded-2xl shadow-sm space-y-4">
                 <h3 className="font-display font-bold text-sm text-on-surface uppercase tracking-wider flex items-center gap-2">
-                  <span className="material-symbols-outlined text-primary text-[20px]">add_notes</span>
+                  <span className="material-symbols-outlined text-primary text-xl">add_notes</span>
                   Registrar Nova Evolução Clínica
                 </h3>
                 <form onSubmit={handleAddEvolution} className="space-y-3">
                   {submitError && (
                     <div className="bg-error-container text-on-error-container p-3 rounded-xl text-xs font-semibold flex items-start gap-2 border border-error/20">
-                      <span className="material-symbols-outlined text-[16px]">warning</span>
+                      <span className="material-symbols-outlined text-base">warning</span>
                       <span>{submitError}</span>
                     </div>
                   )}
@@ -416,7 +416,7 @@ export default function PatientDetailPage() {
                     >
                       {submitLoading ? (
                         <>
-                          <span className="material-symbols-outlined text-[16px] animate-spin">sync</span>
+                          <span className="material-symbols-outlined text-base animate-spin">sync</span>
                           <span>Salvando...</span>
                         </>
                       ) : (
@@ -428,7 +428,7 @@ export default function PatientDetailPage() {
               </div>
             ) : (
               <div className="bg-surface-container-low border border-outline-variant/20 p-5 rounded-2xl shadow-sm text-center flex items-center gap-3 text-xs text-on-surface-variant">
-                <span className="material-symbols-outlined text-outline text-[20px]">lock</span>
+                <span className="material-symbols-outlined text-outline text-xl">lock</span>
                 <span>O registro de evoluções clínicas é restrito a administradores e profissionais clínicos autorizados.</span>
               </div>
             )}
@@ -457,14 +457,14 @@ export default function PatientDetailPage() {
                     <div key={index} className="flex gap-4 relative group animate-fade-in">
                       {/* Timeline circle badge */}
                       <div className="w-12 h-12 rounded-full bg-surface-container-high border-2 border-outline-variant flex items-center justify-center text-outline group-hover:border-primary group-hover:text-primary transition-colors shrink-0 z-10 bg-white">
-                        <span className="material-symbols-outlined text-[20px] font-bold">clinical_notes</span>
+                        <span className="material-symbols-outlined text-xl font-bold">clinical_notes</span>
                       </div>
                       
                       <div className="flex-1 bg-surface-container-low border border-outline-variant/20 p-5 rounded-2xl shadow-sm space-y-3">
                         <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-1 border-b border-outline-variant/10 pb-2">
                           <p className="text-xs text-outline font-semibold">{evDate}</p>
                           <div className="flex items-center gap-1 text-xs">
-                            <span className="material-symbols-outlined text-[16px] text-primary">person</span>
+                            <span className="material-symbols-outlined text-base text-primary">person</span>
                             <span className="font-semibold text-on-surface-variant">{ev.professionalName}</span>
                           </div>
                         </div>

@@ -1,4 +1,4 @@
-import { PrismaClient, Plan, UserProfile, AppointmentStatus, TransactionType, TransactionStatus, LeadStatus } from '@prisma/client';
+import { PrismaClient, Plan, UserProfile, AppointmentStatus, TransactionStatus, LeadStatus, AccountType } from '@prisma/client';
 import * as crypto from 'crypto';
 import * as dotenv from 'dotenv';
 import * as path from 'path';
@@ -20,6 +20,10 @@ async function main() {
   console.log('🌱 Starting database seeding...');
 
   // 1. Clean existing data
+  await prisma.ledgerEntry.deleteMany();
+  await prisma.ledgerAccount.deleteMany();
+  await prisma.appointmentResource.deleteMany();
+  await prisma.resource.deleteMany();
   await prisma.transaction.deleteMany();
   await prisma.appointment.deleteMany();
   await prisma.patient.deleteMany();
@@ -136,7 +140,51 @@ async function main() {
 
   console.log('👤 Created patients.');
 
-  // 5. Create Appointments (Sorriso)
+  // 5. Create Resources (Sorriso)
+  const resSala1Sorriso = await prisma.resource.create({
+    data: {
+      tenantId: tenantSorriso.id,
+      name: 'Sala 1 - Cirurgia',
+      type: 'ROOM',
+    },
+  });
+
+  const resSala2Sorriso = await prisma.resource.create({
+    data: {
+      tenantId: tenantSorriso.id,
+      name: 'Sala 2 - Estética',
+      type: 'ROOM',
+    },
+  });
+
+  await prisma.resource.create({
+    data: {
+      tenantId: tenantSorriso.id,
+      name: 'Raio-X',
+      type: 'EQUIPMENT',
+    },
+  });
+
+  // Create Resources (Bella)
+  const resSala1Bella = await prisma.resource.create({
+    data: {
+      tenantId: tenantBella.id,
+      name: 'Sala Estética 1',
+      type: 'ROOM',
+    },
+  });
+
+  await prisma.resource.create({
+    data: {
+      tenantId: tenantBella.id,
+      name: 'Sala Estética 2',
+      type: 'ROOM',
+    },
+  });
+
+  console.log('🏢 Created resources.');
+
+  // 6. Create Appointments (Sorriso)
   const today = new Date();
   const startToday = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 9, 0, 0);
   const endToday = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 10, 0, 0);
@@ -144,7 +192,7 @@ async function main() {
   const startTomorrow = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1, 14, 0, 0);
   const endTomorrow = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1, 15, 30, 0);
 
-  await prisma.appointment.create({
+  const appointment1 = await prisma.appointment.create({
     data: {
       tenantId: tenantSorriso.id,
       patientId: patientMariana.id,
@@ -152,13 +200,20 @@ async function main() {
       startTime: startToday,
       endTime: endToday,
       status: AppointmentStatus.CONFIRMED,
-      room: 'Sala 1',
       bufferMinutes: 15,
       notes: 'Primeira consulta de avaliação estética.',
     },
   });
 
-  await prisma.appointment.create({
+  await prisma.appointmentResource.create({
+    data: {
+      tenantId: tenantSorriso.id,
+      appointmentId: appointment1.id,
+      resourceId: resSala1Sorriso.id,
+    },
+  });
+
+  const appointment2 = await prisma.appointment.create({
     data: {
       tenantId: tenantSorriso.id,
       patientId: patientRoberto.id,
@@ -166,13 +221,20 @@ async function main() {
       startTime: startTomorrow,
       endTime: endTomorrow,
       status: AppointmentStatus.PENDING,
-      room: 'Sala 2',
       notes: 'Tratamento de canal.',
     },
   });
 
+  await prisma.appointmentResource.create({
+    data: {
+      tenantId: tenantSorriso.id,
+      appointmentId: appointment2.id,
+      resourceId: resSala2Sorriso.id,
+    },
+  });
+
   // Create Appointments (Bella)
-  await prisma.appointment.create({
+  const appointment3 = await prisma.appointment.create({
     data: {
       tenantId: tenantBella.id,
       patientId: patientAnaBella.id,
@@ -180,37 +242,148 @@ async function main() {
       startTime: startToday,
       endTime: endToday,
       status: AppointmentStatus.CONFIRMED,
-      room: 'Procedimentos 1',
       notes: 'Sessão de peeling químico.',
+    },
+  });
+
+  await prisma.appointmentResource.create({
+    data: {
+      tenantId: tenantBella.id,
+      appointmentId: appointment3.id,
+      resourceId: resSala1Bella.id,
     },
   });
 
   console.log('📅 Created appointments.');
 
-  // 6. Create Transactions (Sorriso)
-  await prisma.transaction.create({
+  // Create Ledger Accounts (Sorriso)
+  const accountCaixaSorriso = await prisma.ledgerAccount.create({
     data: {
       tenantId: tenantSorriso.id,
-      patientId: patientMariana.id,
-      amount: 150.00,
-      type: TransactionType.INFLOW,
-      status: TransactionStatus.COMPLETED,
-      description: 'Consulta de Avaliação de Estética',
-      createdById: recepcionistSorriso.id,
-      commissionAmount: 45.00, // 30% split commission
-      professionalId: dentistSorriso.id,
+      name: 'Caixa Geral',
+      type: AccountType.ASSET,
     },
   });
 
-  await prisma.transaction.create({
+  const accountReceitaSorriso = await prisma.ledgerAccount.create({
     data: {
       tenantId: tenantSorriso.id,
-      amount: 80.00,
-      type: TransactionType.OUTFLOW,
+      name: 'Receita de Serviços',
+      type: AccountType.REVENUE,
+    },
+  });
+
+  const accountDespesaSorriso = await prisma.ledgerAccount.create({
+    data: {
+      tenantId: tenantSorriso.id,
+      name: 'Despesa de Escritório',
+      type: AccountType.EXPENSE,
+    },
+  });
+
+  const accountDespesaComissaoSorriso = await prisma.ledgerAccount.create({
+    data: {
+      tenantId: tenantSorriso.id,
+      name: 'Despesa de Comissão',
+      type: AccountType.EXPENSE,
+    },
+  });
+
+  const accountComissaoCarlos = await prisma.ledgerAccount.create({
+    data: {
+      tenantId: tenantSorriso.id,
+      name: 'Comissão a Pagar - ' + dentistSorriso.id,
+      type: AccountType.LIABILITY,
+    },
+  });
+
+  // Create Ledger Accounts (Bella)
+  await prisma.ledgerAccount.create({
+    data: {
+      tenantId: tenantBella.id,
+      name: 'Caixa Geral',
+      type: AccountType.ASSET,
+    },
+  });
+
+  await prisma.ledgerAccount.create({
+    data: {
+      tenantId: tenantBella.id,
+      name: 'Receita de Serviços',
+      type: AccountType.REVENUE,
+    },
+  });
+
+  // 6. Create Transactions (Sorriso)
+  const tx1 = await prisma.transaction.create({
+    data: {
+      tenantId: tenantSorriso.id,
+      patientId: patientMariana.id,
+      status: TransactionStatus.COMPLETED,
+      description: 'Consulta de Avaliação de Estética',
+      createdById: recepcionistSorriso.id,
+    },
+  });
+
+  await prisma.ledgerEntry.createMany({
+    data: [
+      {
+        tenantId: tenantSorriso.id,
+        transactionId: tx1.id,
+        accountId: accountCaixaSorriso.id,
+        debit: 150.00,
+        credit: 0.00,
+      },
+      {
+        tenantId: tenantSorriso.id,
+        transactionId: tx1.id,
+        accountId: accountReceitaSorriso.id,
+        debit: 0.00,
+        credit: 150.00,
+      },
+      {
+        tenantId: tenantSorriso.id,
+        transactionId: tx1.id,
+        accountId: accountDespesaComissaoSorriso.id,
+        debit: 45.00,
+        credit: 0.00,
+      },
+      {
+        tenantId: tenantSorriso.id,
+        transactionId: tx1.id,
+        accountId: accountComissaoCarlos.id,
+        debit: 0.00,
+        credit: 45.00,
+      },
+    ],
+  });
+
+  const tx2 = await prisma.transaction.create({
+    data: {
+      tenantId: tenantSorriso.id,
       status: TransactionStatus.COMPLETED,
       description: 'Materiais de limpeza para escritório',
       createdById: adminSorriso.id,
     },
+  });
+
+  await prisma.ledgerEntry.createMany({
+    data: [
+      {
+        tenantId: tenantSorriso.id,
+        transactionId: tx2.id,
+        accountId: accountDespesaSorriso.id,
+        debit: 80.00,
+        credit: 0.00,
+      },
+      {
+        tenantId: tenantSorriso.id,
+        transactionId: tx2.id,
+        accountId: accountCaixaSorriso.id,
+        debit: 0.00,
+        credit: 80.00,
+      },
+    ],
   });
 
   // 7. Create CRM Leads (Sorriso)

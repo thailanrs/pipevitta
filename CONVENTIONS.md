@@ -69,6 +69,36 @@ const patient = await db.client.$transaction(async (tx) => {
 * **Services**: Contêm as regras de negócio puras (ex: regras centavo-a-centavo de split financeiro, validações de recursos de agenda concorrentes).
 * **Tratamento de Erros**: Lance exceções semânticas do NestJS (`NotFoundException`, `ConflictException`, `BadRequestException`). Nunca propague exceções cruas do banco.
 
+### 4. Padrão de Resposta de Erros da API
+Para garantir que o Frontend possa tratar erros de forma previsível e exibir feedbacks visuais adequados (toasts, mensagens inline), toda resposta de erro HTTP deve seguir um formato estrito. Crie e registre um `ExceptionFilter` global no NestJS.
+
+**Formato Padrão (Baseado em Problem Details):**
+```json
+{
+  "statusCode": 404,
+  "error": "Not Found",
+  "message": "Paciente não encontrado no tenant atual.",
+  "code": "PATIENT_NOT_FOUND",
+  "details": null 
+}
+```
+* `code`: Um string SEMPRE em UPPER_SNAKE_CASE. Essencial para o frontend reagir programaticamente (ex: se `code === 'INSUFFICIENT_STOCK'`, abrir modal de ajuste).
+* Nunca exponha stack traces ou detalhes internos do banco/prisma em ambiente de produção.
+
+
+### 5. Contexto Assíncrono (AsyncLocalStorage) e Background Jobs
+A injeção do `tenant_id` via `AsyncLocalStorage` funciona apenas no ciclo HTTP.
+**Regra de Ouro**: Para Background Jobs (RabbitMQ/SQS Consumers, Cron Jobs, Webhooks do WhatsApp), o contexto HTTP não existe.
+
+* Obrigação: Toda mensagem publicada nas filas DEVE conter o `tenant_id` no payload. O Consumer (Worker) deve extrair o `tenant_id` do payload e envolver a lógica de negócio no bloco `$transaction` manualmente antes de tocar no banco:
+```typescript
+// Worker consumindo fila de WhatsApp
+await db.client.$transaction(async (tx) => {
+  await tx.$executeRawUnsafe(`SET LOCAL app.current_tenant = '${payload.tenantId}'`);
+  // Lógica de negócio aqui...
+});
+```
+
 ---
 
 ## 💻 Padrões do Frontend (Next.js — `apps/web-app`)
@@ -96,11 +126,21 @@ const patient = await db.client.$transaction(async (tx) => {
   * Textos: `text-on-background` ou `text-on-primary`
   * Containers de cartões: `bg-surface-container-lowest` (branco puro) ou `bg-surface-container` (cinza suave do MD3)
   * Bordas: `border-outline-variant`
+* **Restrições de Tipografia**:
+  * É proibido o uso manual de classes de peso (`font-bold`, `font-semibold`, `font-medium`, `font-normal`) no HTML. As famílias tipográficas (`font-headline`, `font-body`, `font-display`, `font-label`) devem gerenciar e deduzir os pesos.
+  * É proibido o uso de tamanhos arbitrários inline (como `text-[9px]`). Use sempre as classes de tamanho padrão do Tailwind ou classes semânticas.
 
 ### 4. Iconografia
 * Use exclusivamente a biblioteca **Material Symbols Outlined** (carregada no layout do Next.js).
 * Estrutura HTML: `<span className="material-symbols-outlined">nome_do_icone</span>`.
 * Para ícones em estado ativo/selecionado, adicione a classe `.filled-icon`.
+
+### 5. Estratégia de Testes (Frontend)
+A equipe não cobrirá 100% do frontend com testes unitários. No entanto, fluxos críticos de UX e regras de renderização devem ter testes de integração utilizando **React Testing Library** e **Vitest**.
+* **Obrigatório testar:**
+  * Lógica de submissão de formulários (ex: bloqueio de botão enquanto carrega, exibição de erros de validação do DTO).
+  * Renderização condicional baseada em RBAC (ex: botão "Excluir" não aparece para o perfil Recepcionista).
+  * Componentes de Chat/Inbox para garantir que o scroll automático e estados de loading funcionam.
 
 ---
 

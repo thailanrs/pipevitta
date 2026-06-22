@@ -106,6 +106,10 @@ export async function getAppointments(token: string): Promise<unknown[]> {
   return fetchWithAuth('/agenda', { method: 'GET' }, token) as Promise<unknown[]>;
 }
 
+export async function getResources(token: string): Promise<unknown[]> {
+  return fetchWithAuth('/agenda/resources', { method: 'GET' }, token) as Promise<unknown[]>;
+}
+
 export async function createAppointment(data: Record<string, unknown>, token: string): Promise<unknown> {
   return fetchWithAuth('/agenda', {
     method: 'POST',

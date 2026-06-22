@@ -43,6 +43,16 @@ export class AgendaController {
     return this.agendaService.findAll();
   }
 
+  @Get('resources')
+  @Profiles(
+    UserProfile.ADMIN,
+    UserProfile.RECEPCIONISTA,
+    UserProfile.PROFISSIONAL,
+  )
+  async findResources(): Promise<any[]> {
+    return this.agendaService.findResources();
+  }
+
   @Get(':id')
   @Profiles(
     UserProfile.ADMIN,

@@ -43,11 +43,11 @@ export default async function DashboardPage() {
         </div>
         <div className="flex items-center gap-3">
           <button className="flex items-center gap-2 px-4 py-2.5 bg-surface-container-high hover:bg-surface-container-highest text-on-surface text-sm font-semibold rounded-full shadow-sm transition-all cursor-pointer">
-            <span className="material-symbols-outlined text-[18px]">download</span>
+            <span className="material-symbols-outlined text-lg">download</span>
             <span>Exportar Relatório</span>
           </button>
           <button className="flex items-center gap-2 px-4 py-2.5 bg-primary hover:bg-primary-container text-on-primary text-sm font-semibold rounded-full shadow-md transition-all cursor-pointer">
-            <span className="material-symbols-outlined text-[18px]">add</span>
+            <span className="material-symbols-outlined text-lg">add</span>
             <span>Novo Agendamento</span>
           </button>
         </div>
@@ -60,7 +60,7 @@ export default async function DashboardPage() {
           <div className="flex justify-between items-center">
             <span className="text-xs font-bold text-on-surface-variant uppercase tracking-wider">Agendamentos de Hoje</span>
             <div className="w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center">
-              <span className="material-symbols-outlined text-[20px]">calendar_month</span>
+              <span className="material-symbols-outlined text-xl">calendar_month</span>
             </div>
           </div>
           <div className="flex items-baseline gap-2">
@@ -78,13 +78,13 @@ export default async function DashboardPage() {
           <div className="flex justify-between items-center">
             <span className="text-xs font-bold text-on-surface-variant uppercase tracking-wider">Pacientes Ativos</span>
             <div className="w-8 h-8 rounded-full bg-secondary/10 text-secondary flex items-center justify-center">
-              <span className="material-symbols-outlined text-[20px]">group</span>
+              <span className="material-symbols-outlined text-xl">group</span>
             </div>
           </div>
           <div className="flex items-baseline gap-2">
             <span className="text-3xl font-extrabold text-on-surface">1.248</span>
             <span className="text-xs text-emerald-600 font-semibold flex items-center gap-0.5">
-              <span className="material-symbols-outlined text-[14px]">arrow_upward</span>
+              <span className="material-symbols-outlined text-sm">arrow_upward</span>
               4.2%
             </span>
           </div>
@@ -99,13 +99,13 @@ export default async function DashboardPage() {
           <div className="flex justify-between items-center">
             <span className="text-xs font-bold text-on-surface-variant uppercase tracking-wider">Faturamento Mensal</span>
             <div className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center">
-              <span className="material-symbols-outlined text-[20px]">payments</span>
+              <span className="material-symbols-outlined text-xl">payments</span>
             </div>
           </div>
           <div className="flex items-baseline gap-2">
             <span className="text-2xl xl:text-3xl font-extrabold text-on-surface">R$ 45.200</span>
             <span className="text-xs text-emerald-600 font-semibold flex items-center gap-0.5">
-              <span className="material-symbols-outlined text-[14px]">arrow_upward</span>
+              <span className="material-symbols-outlined text-sm">arrow_upward</span>
               12%
             </span>
           </div>
@@ -120,13 +120,13 @@ export default async function DashboardPage() {
           <div className="flex justify-between items-center">
             <span className="text-xs font-bold text-on-surface-variant uppercase tracking-wider">Conversão do Funil</span>
             <div className="w-8 h-8 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center">
-              <span className="material-symbols-outlined text-[20px]">trending_up</span>
+              <span className="material-symbols-outlined text-xl">trending_up</span>
             </div>
           </div>
           <div className="flex items-baseline gap-2">
             <span className="text-3xl font-extrabold text-on-surface">78%</span>
             <span className="text-xs text-amber-600 font-semibold flex items-center gap-0.5">
-              <span className="material-symbols-outlined text-[14px]">arrow_drop_up</span>
+              <span className="material-symbols-outlined text-sm">arrow_drop_up</span>
               Estável
             </span>
           </div>
@@ -217,28 +217,28 @@ export default async function DashboardPage() {
             
             <div className="grid grid-cols-2 gap-4">
               <button className="flex flex-col items-center justify-center p-4 bg-surface-container-high hover:bg-surface-container-highest text-on-surface rounded-xl transition-all gap-2 text-center group cursor-pointer">
-                <span className="material-symbols-outlined text-[24px] text-primary group-hover:scale-110 transition-transform">
+                <span className="material-symbols-outlined text-2xl text-primary group-hover:scale-110 transition-transform">
                   person_add
                 </span>
                 <span className="text-xs font-semibold">Novo Paciente</span>
               </button>
 
               <button className="flex flex-col items-center justify-center p-4 bg-surface-container-high hover:bg-surface-container-highest text-on-surface rounded-xl transition-all gap-2 text-center group cursor-pointer">
-                <span className="material-symbols-outlined text-[24px] text-primary group-hover:scale-110 transition-transform">
+                <span className="material-symbols-outlined text-2xl text-primary group-hover:scale-110 transition-transform">
                   add_task
                 </span>
                 <span className="text-xs font-semibold">Criar Tarefa</span>
               </button>
 
               <button className="flex flex-col items-center justify-center p-4 bg-surface-container-high hover:bg-surface-container-highest text-on-surface rounded-xl transition-all gap-2 text-center group cursor-pointer">
-                <span className="material-symbols-outlined text-[24px] text-primary group-hover:scale-110 transition-transform">
+                <span className="material-symbols-outlined text-2xl text-primary group-hover:scale-110 transition-transform">
                   mail_outline
                 </span>
                 <span className="text-xs font-semibold">Disparar WhatsApp</span>
               </button>
 
               <button className="flex flex-col items-center justify-center p-4 bg-surface-container-high hover:bg-surface-container-highest text-on-surface rounded-xl transition-all gap-2 text-center group cursor-pointer">
-                <span className="material-symbols-outlined text-[24px] text-primary group-hover:scale-110 transition-transform">
+                <span className="material-symbols-outlined text-2xl text-primary group-hover:scale-110 transition-transform">
                   receipt_long
                 </span>
                 <span className="text-xs font-semibold">Emitir Recibo</span>
@@ -249,7 +249,7 @@ export default async function DashboardPage() {
           {/* Copiloto IA Card */}
           <div className="bg-gradient-to-br from-primary-fixed-dim/40 to-primary-container/20 border border-primary/20 p-6 rounded-2xl shadow-sm space-y-4">
             <div className="flex items-center gap-2">
-              <span className="material-symbols-outlined text-primary text-[24px]">psychology</span>
+              <span className="material-symbols-outlined text-primary text-2xl">psychology</span>
               <h3 className="font-display font-extrabold text-base text-on-primary-container">Copiloto IA</h3>
             </div>
             <p className="text-xs text-on-surface-variant leading-relaxed">
