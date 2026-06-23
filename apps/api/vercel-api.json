@@ -1,17 +1,6 @@
 {
-  "version": 2,
-  "buildCommand": "npm run build --workspace=apps-api",
+  "buildCommand": "npx prisma generate --schema=../../packages/database/schema.prisma && npm run build --workspace=apps-api",
   "installCommand": "npm install",
   "outputDirectory": "apps/api/dist",
-  "functions": {
-    "apps/api/dist/main.js": {
-      "runtime": "nodejs20.x"
-    }
-  },
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "apps/api/dist/main.js"
-    }
-  ]
+  "framework": "nestjs"
 }
