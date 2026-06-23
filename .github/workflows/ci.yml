@@ -172,15 +172,12 @@ jobs:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           DIRECT_URL: ${{ secrets.DIRECT_URL }}
 
-      - name: Build Web App
-        run: npm run build --workspace=web-app
-        env:
-          NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
-
       - name: Deploy Web App to Vercel
         run: |
           npx vercel pull --yes --environment=production --cwd apps/web-app --token=${{ secrets.VERCEL_TOKEN }}
+          npx vercel build --prod --cwd apps/web-app --token=${{ secrets.VERCEL_TOKEN }}
           npx vercel deploy --prebuilt --prod --cwd apps/web-app --token=${{ secrets.VERCEL_TOKEN }}
         env:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID_WEB }}
+          NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
