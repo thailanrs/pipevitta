@@ -75,7 +75,7 @@ jobs:
   migrate:
     name: Run Database Migrations
     runs-on: ubuntu-latest
-    environment: Production – pipevitta-api
+    environment: Production
     needs: [build-and-test, sast-semgrep, secret-scanning]
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
@@ -105,7 +105,7 @@ jobs:
   deploy-api:
     name: Deploy API (NestJS) to Vercel
     runs-on: ubuntu-latest
-    environment: Production – pipevitta-api
+    environment: Production
     needs: [migrate]
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
@@ -144,7 +144,7 @@ jobs:
   deploy-web:
     name: Deploy Web App (Next.js) to Vercel
     runs-on: ubuntu-latest
-    environment: Production – pipevitta-api
+    environment: Production
     needs: [migrate]
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
