@@ -54,6 +54,7 @@ model Tenant {
   transactions         Transaction[]
   auditLogs            AuditLog[]
   leads                Lead[]
+  leadTags             LeadTag[]
   resources            Resource[]
   appointmentResources AppointmentResource[]
   ledgerAccounts       LedgerAccount[]
@@ -97,6 +98,7 @@ model Patient {
   clinicalHistory String?   @map("clinical_history")
   createdAt       DateTime  @default(now()) @map("created_at")
   updatedAt       DateTime  @updatedAt @map("updated_at")
+  deletedAt       DateTime? @map("deleted_at")
 
   appointments Appointment[]
   transactions Transaction[]
@@ -120,6 +122,7 @@ model Appointment {
   notes          String?
   createdAt      DateTime          @default(now()) @map("created_at")
   updatedAt      DateTime          @updatedAt @map("updated_at")
+  deletedAt      DateTime?         @map("deleted_at")
 
   resources AppointmentResource[]
 
@@ -168,6 +171,7 @@ model Transaction {
   createdBy   User               @relation("CreatedTransactions", fields: [createdById], references: [id])
   createdAt   DateTime           @default(now()) @map("created_at")
   updatedAt   DateTime           @updatedAt @map("updated_at")
+  deletedAt   DateTime?          @map("deleted_at")
 
   entries     LedgerEntry[]
 
@@ -251,6 +255,22 @@ model Lead {
   professional   User?      @relation(fields: [professionalId], references: [id], onDelete: SetNull)
   createdAt      DateTime   @default(now()) @map("created_at")
   updatedAt      DateTime   @updatedAt @map("updated_at")
+  deletedAt      DateTime?  @map("deleted_at")
+  tags           LeadTag[]
 
   @@map("leads")
+}
+
+model LeadTag {
+  id        String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  tenantId  String    @db.Uuid @map("tenant_id")
+  tenant    Tenant    @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  leadId    String    @db.Uuid @map("lead_id")
+  lead      Lead      @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  name      String
+  createdAt DateTime  @default(now()) @map("created_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  @@unique([leadId, name])
+  @@map("lead_tags")
 }

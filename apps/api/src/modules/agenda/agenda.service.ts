@@ -84,6 +84,7 @@ export class AgendaService {
 
   async findAll(): Promise<any[]> {
     return this.db.client.appointment.findMany({
+      where: { deletedAt: null },
       include: {
         patient: { select: { name: true } },
         professional: { select: { name: true } },
@@ -103,7 +104,7 @@ export class AgendaService {
       },
     });
 
-    if (!appointment) {
+    if (!appointment || appointment.deletedAt !== null) {
       throw new NotFoundException('Agendamento não encontrado');
     }
 
@@ -193,8 +194,9 @@ export class AgendaService {
 
   async remove(id: string): Promise<any> {
     await this.findOne(id); // Ensure exists under tenant RLS
-    return this.db.client.appointment.delete({
+    return this.db.client.appointment.update({
       where: { id },
+      data: { deletedAt: new Date() },
     });
   }
 
@@ -217,6 +219,7 @@ export class AgendaService {
         status: { not: AppointmentStatus.CANCELLED },
         startTime: { gte: dayStart, lte: dayEnd },
         professionalId,
+        deletedAt: null,
       },
     });
 
@@ -260,6 +263,7 @@ export class AgendaService {
               : undefined,
             status: { not: AppointmentStatus.CANCELLED },
             startTime: { gte: dayStart, lte: dayEnd },
+            deletedAt: null,
             resources: {
               some: {
                 resourceId: { in: targetResourceIds },

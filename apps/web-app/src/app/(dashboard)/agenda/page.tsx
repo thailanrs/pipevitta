@@ -13,6 +13,11 @@ import {
   createPatient
 } from '@/lib/api';
 import { getCookie } from '@/lib/auth';
+import { CSVExportButton } from '@/components/csv-export-button';
+import { AdvancedFilters } from '@/components/advanced-filters';
+import { PeriodSelector } from '@/components/period-selector';
+import { SelectionCell } from '@/components/selection-cell';
+import { BatchActionMenu } from '@/components/batch-action-menu';
 
 interface Patient {
   id: string;
@@ -81,6 +86,65 @@ export default function AgendaPage() {
   const [filterStatus, setFilterStatus] = useState<string>('ALL');
   const [filterStartDate, setFilterStartDate] = useState<string>('');
   const [filterEndDate, setFilterEndDate] = useState<string>('');
+
+  // Helpers for unified AdvancedFilters component
+  const agendaFilters = {
+    status: filterStatus,
+    startDate: filterStartDate,
+    endDate: filterEndDate,
+  };
+
+  const agendaFilterFields = [
+    {
+      key: 'status',
+      label: 'Status',
+      type: 'select' as const,
+      options: [
+        { value: 'CONFIRMED', label: 'Confirmado' },
+        { value: 'PENDING', label: 'Pendente' },
+        { value: 'COMPLETED', label: 'Em Atendimento' },
+        { value: 'CANCELLED', label: 'Cancelado' },
+      ],
+    },
+    {
+      key: 'startDate',
+      label: 'Data Inicial',
+      type: 'date' as const,
+    },
+    {
+      key: 'endDate',
+      label: 'Data Final',
+      type: 'date' as const,
+    },
+  ];
+
+  const agendaValueLabelsMap = {
+    status: {
+      CONFIRMED: 'Confirmado',
+      PENDING: 'Pendente',
+      COMPLETED: 'Em Atendimento',
+      CANCELLED: 'Cancelado',
+    },
+  };
+
+  const handleFilterChange = (key: string, value: string | number | boolean | string[] | null | undefined) => {
+    const val = Array.isArray(value) ? value.join(',') : String(value ?? '');
+    if (key === 'status') setFilterStatus(val);
+    if (key === 'startDate') setFilterStartDate(val);
+    if (key === 'endDate') setFilterEndDate(val);
+  };
+
+  const handleClearField = (key: string) => {
+    if (key === 'status') setFilterStatus('ALL');
+    if (key === 'startDate') setFilterStartDate('');
+    if (key === 'endDate') setFilterEndDate('');
+  };
+
+  const handleClearAllFilters = () => {
+    setFilterStatus('ALL');
+    setFilterStartDate('');
+    setFilterEndDate('');
+  };
 
   // Drag and drop helper state
   const [draggedAppId, setDraggedAppId] = useState<string | null>(null);
@@ -696,31 +760,6 @@ export default function AgendaPage() {
     return `${day} ${month}, ${hour}:${min}`;
   }
 
-  // Export CSV Action
-  const handleExportCSV = () => {
-    const headers = ['Data e Hora', 'Paciente', 'Procedimento', 'Profissional', 'Status', 'Valor'];
-    const rows = listApps.map((app) => {
-      const date = formatListDate(app.startTime);
-      const proc = app.notes?.includes('|') ? app.notes.split('|')[0] : 'Consulta Estética';
-      const val = getAppointmentValue(app.notes);
-      return [
-        `"${date}"`,
-        `"${app.patient.name}"`,
-        `"${proc}"`,
-        `"${app.professional.name}"`,
-        `"${app.status}"`,
-        `"R$ ${val.toFixed(2)}"`
-      ];
-    });
-    const csvContent = '\uFEFF' + [headers.join(','), ...rows.map((r) => r.join(','))].join('\n');
-    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.setAttribute('href', url);
-    link.setAttribute('download', `agenda_vitta_${new Date().toISOString().split('T')[0]}.csv`);
-    link.click();
-  };
-
   // Batch actions in List view
   const handleBatchConfirm = async () => {
     try {
@@ -926,50 +965,25 @@ export default function AgendaPage() {
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 shrink-0 bg-surface px-6 py-4 border-b border-outline-variant/30">
         {/* Navigation buttons */}
         <div className="flex items-center gap-4">
-          <div className="flex items-center bg-surface border border-outline-variant/30 rounded-lg p-1">
-            <button
-              onClick={() => adjustDate(-1)}
-              className="p-1 hover:bg-surface-container rounded text-on-surface-variant hover:text-primary cursor-pointer transition-colors"
-            >
-              <span className="material-symbols-outlined block text-xl">chevron_left</span>
-            </button>
-            <div className="relative px-3 py-1.5 text-sm font-semibold text-on-surface select-none hover:bg-surface-container rounded transition-colors cursor-pointer flex items-center">
-              <span>{getHeaderLabel()}</span>
-              <input
-                type={viewMode === 'DAILY' || viewMode === 'WEEKLY' ? 'date' : 'month'}
-                value={
-                  viewMode === 'DAILY' || viewMode === 'WEEKLY'
-                    ? `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}-${String(currentDate.getDate()).padStart(2, '0')}`
-                    : `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}`
-                }
-                onChange={(e) => {
-                  const val = e.target.value;
-                  if (!val) return;
-                  if (viewMode === 'DAILY' || viewMode === 'WEEKLY') {
-                    const [year, month, day] = val.split('-').map(Number);
-                    setCurrentDate(new Date(year, month - 1, day));
-                  } else {
-                    const [year, month] = val.split('-').map(Number);
-                    setCurrentDate(new Date(year, month - 1, 1));
-                  }
-                }}
-                onClick={(e) => {
-                  try {
-                    e.currentTarget.showPicker();
-                  } catch (err) {
-                    console.error("showPicker not supported", err);
-                  }
-                }}
-                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-              />
-            </div>
-            <button
-              onClick={() => adjustDate(1)}
-              className="p-1 hover:bg-surface-container rounded text-on-surface-variant hover:text-primary cursor-pointer transition-colors"
-            >
-              <span className="material-symbols-outlined block text-xl">chevron_right</span>
-            </button>
-          </div>
+          <PeriodSelector
+            label={getHeaderLabel()}
+            type={viewMode === 'DAILY' || viewMode === 'WEEKLY' ? 'date' : 'month'}
+            value={
+              viewMode === 'DAILY' || viewMode === 'WEEKLY'
+                ? `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}-${String(currentDate.getDate()).padStart(2, '0')}`
+                : `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}`
+            }
+            onChange={(val) => {
+              if (viewMode === 'DAILY' || viewMode === 'WEEKLY') {
+                const [year, month, day] = val.split('-').map(Number);
+                setCurrentDate(new Date(year, month - 1, day));
+              } else {
+                const [year, month] = val.split('-').map(Number);
+                setCurrentDate(new Date(year, month - 1, 1));
+              }
+            }}
+            onAdjust={adjustDate}
+          />
           {viewMode === 'DAILY' && (
             <button
               onClick={() => setCurrentDate(new Date())}
@@ -1631,112 +1645,36 @@ export default function AgendaPage() {
                       <span className="material-symbols-outlined text-sm">tune</span>
                       Filtros Avançados
                     </button>
-                    <button
-                      onClick={handleExportCSV}
-                      className="flex items-center gap-2 px-3 py-1.5 border border-outline rounded-lg text-sm font-medium text-on-surface-variant hover:bg-surface-container-low transition-colors cursor-pointer"
-                    >
-                      <span className="material-symbols-outlined text-sm">download</span>
-                      Exportar CSV
-                    </button>
+                    <CSVExportButton
+                      headers={['Data e Hora', 'Paciente', 'Procedimento', 'Profissional', 'Status', 'Valor']}
+                      rows={listApps.map((app) => {
+                        const date = formatListDate(app.startTime);
+                        const proc = app.notes?.includes('|') ? app.notes.split('|')[0] : 'Consulta Estética';
+                        const val = getAppointmentValue(app.notes);
+                        return [
+                          `"${date}"`,
+                          `"${app.patient.name}"`,
+                          `"${proc}"`,
+                          `"${app.professional.name}"`,
+                          `"${app.status}"`,
+                          `"R$ ${val.toFixed(2)}"`
+                        ];
+                      })}
+                      filename={`agenda_vitta_${new Date().toISOString().split('T')[0]}.csv`}
+                    />
                   </div>
                 </div>
 
-                {/* Active Filter Chips */}
-                {(filterStatus !== 'ALL' || filterStartDate || filterEndDate) && (
-                  <div className="flex flex-wrap items-center gap-2 mt-2 pt-2 border-t border-outline-variant/30 select-none">
-                    <span className="text-xs font-semibold text-on-surface-variant mr-1">Filtros ativos:</span>
-                    {filterStatus !== 'ALL' && (
-                      <div className="flex items-center gap-1.5 px-3 py-1 bg-primary/10 text-primary border border-primary/20 rounded-full text-xs font-medium">
-                        <span>
-                          Status: {
-                            filterStatus === 'CONFIRMED' ? 'Confirmado' :
-                            filterStatus === 'PENDING' ? 'Pendente' :
-                            filterStatus === 'COMPLETED' ? 'Em Atendimento' : 'Cancelado'
-                          }
-                        </span>
-                        <button
-                          onClick={() => setFilterStatus('ALL')}
-                          className="hover:bg-primary/20 rounded-full p-0.5 transition-colors cursor-pointer"
-                        >
-                          <span className="material-symbols-outlined text-sm block">close</span>
-                        </button>
-                      </div>
-                    )}
-                    {filterStartDate && (
-                      <div className="flex items-center gap-1.5 px-3 py-1 bg-primary/10 text-primary border border-primary/20 rounded-full text-xs font-medium">
-                        <span>De: {new Date(filterStartDate + 'T00:00:00').toLocaleDateString('pt-BR')}</span>
-                        <button
-                          onClick={() => setFilterStartDate('')}
-                          className="hover:bg-primary/20 rounded-full p-0.5 transition-colors cursor-pointer"
-                        >
-                          <span className="material-symbols-outlined text-sm block">close</span>
-                        </button>
-                      </div>
-                    )}
-                    {filterEndDate && (
-                      <div className="flex items-center gap-1.5 px-3 py-1 bg-primary/10 text-primary border border-primary/20 rounded-full text-xs font-medium">
-                        <span>Até: {new Date(filterEndDate + 'T00:00:00').toLocaleDateString('pt-BR')}</span>
-                        <button
-                          onClick={() => setFilterEndDate('')}
-                          className="hover:bg-primary/20 rounded-full p-0.5 transition-colors cursor-pointer"
-                        >
-                          <span className="material-symbols-outlined text-sm block">close</span>
-                        </button>
-                      </div>
-                    )}
-                    <button
-                      onClick={() => {
-                        setFilterStatus('ALL');
-                        setFilterStartDate('');
-                        setFilterEndDate('');
-                      }}
-                      className="ml-auto text-xs font-semibold text-primary hover:underline hover:text-primary-dark transition-colors cursor-pointer flex items-center gap-1"
-                    >
-                      <span className="material-symbols-outlined text-sm">filter_alt_off</span>
-                      Limpar todos os filtros
-                    </button>
-                  </div>
-                )}
-
                 {/* Advanced filter panels */}
-                {showAdvancedFilters && (
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 p-3 bg-surface rounded-xl border border-outline-variant/30 animate-fade-in text-xs font-bold text-on-surface-variant">
-                    <div className="space-y-1">
-                      <label>Filtrar por Status</label>
-                      <select
-                        value={filterStatus}
-                        onChange={(e) => setFilterStatus(e.target.value)}
-                        className="w-full p-2 bg-surface-container-lowest border border-outline-variant rounded-lg font-medium text-xs text-on-surface"
-                      >
-                        <option value="ALL">Todos os Status</option>
-                        <option value="CONFIRMED">Confirmado</option>
-                        <option value="PENDING">Pendente</option>
-                        <option value="COMPLETED">Em Atendimento</option>
-                        <option value="CANCELLED">Cancelado</option>
-                      </select>
-                    </div>
-                    <div className="space-y-1">
-                      <label>Data Inicial</label>
-                      <input
-                        type="date"
-                        value={filterStartDate}
-                        onChange={(e) => setFilterStartDate(e.target.value)}
-                        onClick={(e) => e.currentTarget.showPicker()}
-                        className="w-full p-2 bg-surface-container-lowest border border-outline-variant rounded-lg font-medium text-xs text-on-surface cursor-pointer"
-                      />
-                    </div>
-                    <div className="space-y-1">
-                      <label>Data Final</label>
-                      <input
-                        type="date"
-                        value={filterEndDate}
-                        onChange={(e) => setFilterEndDate(e.target.value)}
-                        onClick={(e) => e.currentTarget.showPicker()}
-                        className="w-full p-2 bg-surface-container-lowest border border-outline-variant rounded-lg font-medium text-xs text-on-surface cursor-pointer"
-                      />
-                    </div>
-                  </div>
-                )}
+                <AdvancedFilters
+                  isOpen={showAdvancedFilters}
+                  filters={agendaFilters}
+                  fields={agendaFilterFields}
+                  onChange={handleFilterChange}
+                  onClearField={handleClearField}
+                  onClearAll={handleClearAllFilters}
+                  valueLabelsMap={agendaValueLabelsMap}
+                />
               </div>
 
               {/* Table rendering */}
@@ -1778,17 +1716,17 @@ export default function AgendaPage() {
                           className={`hover:bg-surface-container-low/20 transition-colors group ${selectedAppIds.includes(app.id) ? 'bg-primary/5 border-l-4 border-l-primary' : ''}`}
                         >
                           <td className="py-3 px-4 w-12 text-center select-none">
-                            <input
-                              type="checkbox"
+                            <SelectionCell
+                              id={app.id}
+                              name={app.patient.name}
                               checked={selectedAppIds.includes(app.id)}
-                              onChange={(e) => {
-                                if (e.target.checked) {
+                              onChange={(isChecked) => {
+                                if (isChecked) {
                                   setSelectedAppIds((prev) => [...prev, app.id]);
                                 } else {
                                   setSelectedAppIds((prev) => prev.filter((id) => id !== app.id));
                                 }
                               }}
-                              className="rounded border-outline-variant text-primary focus:ring-primary/20 w-4 h-4 cursor-pointer"
                             />
                           </td>
                           <td
@@ -1847,47 +1785,30 @@ export default function AgendaPage() {
               </div>
 
               {/* Floating Batch Action overlay bar */}
-              {selectedAppIds.length > 0 && (
-                <div className="fixed bottom-8 left-1/2 bg-inverse-surface text-inverse-on-surface px-8 py-4 rounded-2xl shadow-2xl flex items-center gap-8 animate-slide-up z-50 select-none text-sm font-semibold">
-                  <div className="flex items-center gap-3">
-                    <span className="flex items-center justify-center w-7 h-7 rounded-full bg-primary text-on-primary text-xs font-bold">
-                      {selectedAppIds.length}
-                    </span>
-                    <span>item(ns) selecionado(s)</span>
-                  </div>
-                  <div className="w-px h-6 bg-outline-variant/30"></div>
-                  <div className="flex items-center gap-3">
-                    <button
-                      onClick={handleBatchConfirm}
-                      className="px-4 py-2 bg-primary text-on-primary hover:bg-primary/90 transition-all rounded-xl flex items-center gap-2 cursor-pointer shadow-sm active:scale-[0.98]"
-                    >
-                      <span className="material-symbols-outlined text-lg">check_circle</span>
-                      Confirmar
-                    </button>
-                    <button
-                      onClick={handleBatchReschedule}
-                      className="px-4 py-2 border border-outline-variant/50 hover:bg-white/10 text-inverse-on-surface transition-all rounded-xl flex items-center gap-2 cursor-pointer active:scale-[0.98]"
-                    >
-                      <span className="material-symbols-outlined text-lg">schedule</span>
-                      Reagendar
-                    </button>
-                    <button
-                      onClick={handleBatchCancel}
-                      className="px-4 py-2 bg-error text-on-error hover:bg-error/90 transition-all rounded-xl flex items-center gap-2 cursor-pointer shadow-sm active:scale-[0.98]"
-                    >
-                      <span className="material-symbols-outlined text-lg">cancel</span>
-                      Cancelar
-                    </button>
-                  </div>
-                  <div className="w-px h-6 bg-outline-variant/30"></div>
-                  <button
-                    onClick={() => setSelectedAppIds([])}
-                    className="p-1 text-on-surface-variant hover:bg-white/10 hover:text-white rounded-lg transition-all cursor-pointer"
-                  >
-                    <span className="material-symbols-outlined text-xl block">close</span>
-                  </button>
-                </div>
-              )}
+              <BatchActionMenu
+                selectedCount={selectedAppIds.length}
+                onClear={() => setSelectedAppIds([])}
+                actions={[
+                  {
+                    label: 'Confirmar',
+                    icon: 'check_circle',
+                    variant: 'primary',
+                    onClick: handleBatchConfirm,
+                  },
+                  {
+                    label: 'Reagendar',
+                    icon: 'schedule',
+                    variant: 'secondary',
+                    onClick: handleBatchReschedule,
+                  },
+                  {
+                    label: 'Cancelar',
+                    icon: 'cancel',
+                    variant: 'danger',
+                    onClick: handleBatchCancel,
+                  },
+                ]}
+              />
             </div>
           )}
         </div>

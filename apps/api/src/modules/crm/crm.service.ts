@@ -32,17 +32,34 @@ export class CrmService {
         warningText: dto.warningText,
         notes: dto.notes,
         professionalId: dto.professionalId,
+        tags: dto.tags
+          ? {
+              create: dto.tags.map((name) => ({
+                name,
+                tenantId,
+              })),
+            }
+          : undefined,
       },
       include: {
         professional: { select: { name: true } },
+        tags: {
+          where: { deletedAt: null },
+          select: { name: true },
+        },
       },
     });
   }
 
   async findAll(): Promise<any[]> {
     return this.db.client.lead.findMany({
+      where: { deletedAt: null },
       include: {
         professional: { select: { name: true } },
+        tags: {
+          where: { deletedAt: null },
+          select: { name: true },
+        },
       },
       orderBy: { createdAt: 'desc' },
     });
@@ -53,10 +70,14 @@ export class CrmService {
       where: { id },
       include: {
         professional: { select: { name: true } },
+        tags: {
+          where: { deletedAt: null },
+          select: { name: true },
+        },
       },
     });
 
-    if (!lead) {
+    if (!lead || lead.deletedAt !== null) {
       throw new NotFoundException('Lead não encontrado');
     }
 
@@ -64,7 +85,58 @@ export class CrmService {
   }
 
   async update(id: string, dto: UpdateLeadDto): Promise<any> {
-    await this.findOne(id); // Verify existence under active tenant (RLS)
+    const lead = await this.findOne(id); // Verify existence under active tenant (RLS)
+    const tenantId = lead.tenantId;
+
+    if (dto.tags !== undefined) {
+      // 1. Get all current tags (active and soft deleted)
+      const existingTags = await this.db.client.leadTag.findMany({
+        where: { leadId: id },
+      });
+
+      const newTags = dto.tags || [];
+
+      // Tags to soft-delete (were active but not in new list)
+      const tagsToSoftDelete = existingTags
+        .filter((t) => t.deletedAt === null && !newTags.includes(t.name))
+        .map((t) => t.name);
+
+      // Tags to restore (were soft-deleted but are in new list)
+      const tagsToRestore = existingTags
+        .filter((t) => t.deletedAt !== null && newTags.includes(t.name))
+        .map((t) => t.name);
+
+      // Tags to create (do not exist at all in any state)
+      const existingNames = existingTags.map((t) => t.name);
+      const tagsToCreate = newTags.filter(
+        (name) => !existingNames.includes(name),
+      );
+
+      // Perform updates
+      if (tagsToSoftDelete.length > 0) {
+        await this.db.client.leadTag.updateMany({
+          where: { leadId: id, name: { in: tagsToSoftDelete } },
+          data: { deletedAt: new Date() },
+        });
+      }
+
+      if (tagsToRestore.length > 0) {
+        await this.db.client.leadTag.updateMany({
+          where: { leadId: id, name: { in: tagsToRestore } },
+          data: { deletedAt: null },
+        });
+      }
+
+      if (tagsToCreate.length > 0) {
+        await this.db.client.leadTag.createMany({
+          data: tagsToCreate.map((name) => ({
+            leadId: id,
+            tenantId,
+            name,
+          })),
+        });
+      }
+    }
 
     return this.db.client.lead.update({
       where: { id },
@@ -83,14 +155,19 @@ export class CrmService {
       },
       include: {
         professional: { select: { name: true } },
+        tags: {
+          where: { deletedAt: null },
+          select: { name: true },
+        },
       },
     });
   }
 
   async remove(id: string): Promise<any> {
     await this.findOne(id); // Verify existence under active tenant
-    return this.db.client.lead.delete({
+    return this.db.client.lead.update({
       where: { id },
+      data: { deletedAt: new Date() },
     });
   }
 }

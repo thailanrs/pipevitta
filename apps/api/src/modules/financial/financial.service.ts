@@ -128,7 +128,7 @@ export class FinancialService {
 
     if (dto.patientId) {
       const patient = await this.db.client.patient.findUnique({
-        where: { id: dto.patientId },
+        where: { id: dto.patientId, deletedAt: null },
       });
       if (!patient) {
         throw new NotFoundException('Paciente não encontrado');
@@ -270,6 +270,7 @@ export class FinancialService {
 
   async findAll(): Promise<any[]> {
     const txs = await this.db.client.transaction.findMany({
+      where: { deletedAt: null },
       include: {
         patient: { select: { name: true } },
         entries: {
@@ -296,7 +297,7 @@ export class FinancialService {
       },
     });
 
-    if (!tx) {
+    if (!tx || tx.deletedAt !== null) {
       throw new NotFoundException('Lançamento financeiro não encontrado');
     }
 
@@ -455,8 +456,9 @@ export class FinancialService {
 
   async remove(id: string): Promise<any> {
     await this.findOne(id);
-    return this.db.client.transaction.delete({
+    return this.db.client.transaction.update({
       where: { id },
+      data: { deletedAt: new Date() },
     });
   }
 
@@ -465,6 +467,7 @@ export class FinancialService {
       where: {
         transaction: {
           status: 'COMPLETED',
+          deletedAt: null,
         },
         account: {
           type: 'ASSET',
@@ -498,6 +501,7 @@ export class FinancialService {
           where: {
             transaction: {
               status: 'COMPLETED',
+              deletedAt: null,
             },
           },
         },

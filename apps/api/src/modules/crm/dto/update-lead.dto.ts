@@ -1,4 +1,5 @@
 import {
+  IsArray,
   IsEmail,
   IsEnum,
   IsInt,
@@ -57,4 +58,9 @@ export class UpdateLeadDto {
   @IsOptional()
   @IsUUID('4', { message: 'ID do profissional inválido' })
   professionalId?: string;
+
+  @IsOptional()
+  @IsArray()
+  @IsString({ each: true })
+  tags?: string[];
 }

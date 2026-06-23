@@ -27,7 +27,7 @@ export class PepService {
 
     // Check if patient with same CPF already exists under the active tenant
     const existing = await this.db.client.patient.findFirst({
-      where: { cpf: dto.cpf },
+      where: { cpf: dto.cpf, deletedAt: null },
     });
 
     if (existing) {
@@ -52,6 +52,7 @@ export class PepService {
 
   async findAll(): Promise<any[]> {
     return this.db.client.patient.findMany({
+      where: { deletedAt: null },
       orderBy: { name: 'asc' },
     });
   }
@@ -83,7 +84,7 @@ export class PepService {
       },
     });
 
-    if (!patient) {
+    if (!patient || patient.deletedAt !== null) {
       throw new NotFoundException('Paciente não encontrado');
     }
 
@@ -158,7 +159,7 @@ export class PepService {
 
     if (dto.cpf) {
       const conflict = await this.db.client.patient.findFirst({
-        where: { cpf: dto.cpf, id: { not: id } },
+        where: { cpf: dto.cpf, id: { not: id }, deletedAt: null },
       });
       if (conflict) {
         throw new ConflictException(
@@ -183,8 +184,9 @@ export class PepService {
 
   async remove(id: string): Promise<any> {
     await this.findOne(id); // Verify existence under active tenant
-    return this.db.client.patient.delete({
+    return this.db.client.patient.update({
       where: { id },
+      data: { deletedAt: new Date() },
     });
   }
 
