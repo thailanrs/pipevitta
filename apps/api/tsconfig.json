@@ -13,7 +13,6 @@
     "target": "ES2023",
     "sourceMap": true,
     "outDir": "./dist",
-    "baseUrl": "./",
     "paths": {
       "rxjs": ["../../node_modules/rxjs"],
       "rxjs/*": ["../../node_modules/rxjs/*"]

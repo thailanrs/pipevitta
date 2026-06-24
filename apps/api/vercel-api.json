@@ -2,8 +2,5 @@
   "buildCommand": "npx prisma generate --schema=packages/database/schema.prisma && npm run build --workspace=apps-api",
   "installCommand": "npm install",
   "outputDirectory": "apps/api/dist",
-  "framework": "nestjs",
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/apps/api/dist/main.js" }
-  ]
+  "framework": "nestjs"
 }
