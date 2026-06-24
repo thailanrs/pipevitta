@@ -8,7 +8,7 @@ const __dirname = path.dirname(__filename);
 const nextConfig = {
   transpilePackages: ["@pipevitta/database", "@pipevitta/design-system"],
   turbopack: {
-    root: path.join(__dirname, '..', '..'),
+    root: path.resolve(__dirname, '..', '..'),
   },
 };
 
