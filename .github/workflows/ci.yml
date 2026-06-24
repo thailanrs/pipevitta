@@ -25,7 +25,16 @@ jobs:
           cache-dependency-path: 'package-lock.json'
 
       - name: Install dependencies
-        run: npm ci
+        # npm ci requer lockfile 100% consistente com package.json.
+        # O Vercel Agent pode gerar lockfiles sem todos os pacotes já existentes
+        # no main, causando falha. Em PRs usamos npm install para tolerar esse
+        # drift; em push ao main mantemos npm ci para integridade total.
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            npm install
+          else
+            npm ci
+          fi
 
       - name: Database Client Generate
         run: npm run db:generate
