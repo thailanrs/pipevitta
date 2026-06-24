@@ -7,7 +7,9 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 
-async function bootstrap(): Promise<void> {
+let cachedServer: any;
+
+async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   // Set global API routing prefix
@@ -25,8 +27,29 @@ async function bootstrap(): Promise<void> {
     }),
   );
 
-  const port = process.env.PORT ?? 3000;
-  await app.listen(port);
-  console.log(`🚀 API Server is running on http://localhost:${port}/api`);
+  const isVercel = process.env.VERCEL === '1' || !!process.env.NOW_REGION;
+
+  if (isVercel) {
+    await app.init();
+    return app.getHttpAdapter().getInstance();
+  } else {
+    const port = process.env.PORT ?? 3000;
+    await app.listen(port);
+    console.log(`🚀 API Server is running on http://localhost:${port}/api`);
+  }
 }
-void bootstrap();
+
+// Start server if not running on Vercel serverless
+const isVercel = process.env.VERCEL === '1' || !!process.env.NOW_REGION;
+if (!isVercel) {
+  void bootstrap();
+}
+
+// Export serverless handler for Vercel
+export default async (req: any, res: any) => {
+  if (!cachedServer) {
+    cachedServer = await bootstrap();
+  }
+  return cachedServer(req, res);
+};
+
