@@ -6,7 +6,7 @@ const __dirname = path.dirname(__filename);
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  transpilePackages: ["@pipevitta/database", "@pipevitta/design-system"],  
+  transpilePackages: ["@pipevitta/database", "@pipevitta/design-system"],
   turbopack: {
     root: path.join(__dirname, '..', '..'),
   },
