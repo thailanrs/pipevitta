@@ -45,11 +45,12 @@ if (!isVercel) {
   void bootstrap();
 }
 
-// Export serverless handler for Vercel
-export default async (req: any, res: any) => {
+// Define serverless handler for Vercel
+const handler = async (req: any, res: any) => {
   if (!cachedServer) {
     cachedServer = await bootstrap();
   }
   return cachedServer(req, res);
 };
 
+export = handler;
